@@ -126,9 +126,9 @@
 
 [观看 Prompt 004 演示视频](assets/verified-prompts/prompt-004-top-chapter-progress-rail.mp4) · [查看完整说明](references/prompt-004-top-chapter-progress-rail.md)
 
-### Prompt 005 · Page Waterfall Wall 斜向卡片滚动
+### Prompt 005 · 斜向卡片滚动
 
-[![Prompt 005 - 官网原始 Page Waterfall Wall 斜向卡片滚动](assets/verified-prompts/prompt-005-diagonal-card-waterfall.gif)](assets/verified-prompts/prompt-005-diagonal-card-waterfall.mp4)
+[![Prompt 005 - 斜向卡片滚动](assets/verified-prompts/prompt-005-diagonal-card-waterfall.gif)](assets/verified-prompts/prompt-005-diagonal-card-waterfall.mp4)
 
 **快速使用**
 
