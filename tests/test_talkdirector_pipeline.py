@@ -95,16 +95,16 @@ class RecipeValidationTest(unittest.TestCase):
         waterfall_recipe = self.recipes["prompt-005-diagonal-card-waterfall"]
         waterfall_prompt = waterfall_recipe["public_prompt"]
         self.assertTrue(waterfall_recipe["asset_strategy"]["required"])
-        self.assertIn("不得生成、重绘或虚构产品 UI", waterfall_prompt)
-        self.assertIn("整块平面应用三维透视", waterfall_prompt)
-        self.assertIn("首帧不得额外缩放、淡入或弹性启动", waterfall_prompt)
-        self.assertIn("不要添加大标题、字幕、系列角标", waterfall_prompt)
+        self.assertIn("page-waterfall-wall.mp4", waterfall_prompt)
+        self.assertIn("直接导入并使用原视频", waterfall_prompt)
+        self.assertIn("不重新生成、重绘或用 Motion Graphic 复刻", waterfall_prompt)
+        self.assertIn("H.264、1080p、30fps", waterfall_prompt)
         self.assertEqual(
             [step["id"] for step in waterfall_recipe["fallback_chain"]],
             [
-                "verified_multi_asset_diagonal_wall",
-                "verified_repeating_small_set",
-                "keep_clean_and_request_real_assets",
+                "reuse_verified_source_video",
+                "recreate_from_verified_real_screenshots",
+                "keep_clean_and_request_source",
             ],
         )
         self.assertIn("顶部优先但不固定", progress_recipe["layout_safe_zones"]["placement_rule"])
