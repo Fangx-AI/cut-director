@@ -1,0 +1,181 @@
+{
+  "recipe_schema_version": "0.2",
+  "recipe_id": "prompt-005-diagonal-card-waterfall",
+  "name": "斜向卡片瀑布墙",
+  "status": "verified",
+  "public_prompt": "在 [时间段，默认 8 秒] 制作一段 16:9 全屏“斜向卡片瀑布墙”动效。\n\n使用 [6-12 张真实网页、产品界面或作品截图] 作为卡片内容。优先使用用户提供、项目中已有或从目标官方网站取得的真实画面；不得生成、重绘或虚构产品 UI。逐张检查来源、清晰度、纵横比和关键文字区域，文字密集的截图优先完整显示，不为填满卡片而裁掉核心信息。\n\n将卡片排成至少 3 列，每列包含一组可重复的卡片。先把全部列组织成一块超出画布边界的统一平面，再对整块平面应用三维透视、轻微纵深倾斜和约 -6° 至 -10° 的画面旋转。卡片本身保持统一圆角、间距和阴影，不要让每张卡片各自旋转、漂浮或弹跳。\n\n所有列沿这个倾斜平面的局部纵轴匀速向上滚动，屏幕中因此呈现稳定的斜向运动。不同列只使用起始相位偏移来打散排列，默认保持同一速度，避免互相追赶。复制完整卡片组覆盖循环前后，让首尾在同一位置和比例下无缝衔接；首帧不得额外缩放、淡入或弹性启动，结尾不得减速。\n\n画面只保留卡片墙、必要的深色背景和克制暗角。不要添加大标题、字幕、系列角标、品牌角标、说明文字、粒子、故障、扫描线、持续辉光或无关装饰。需要标题或字幕时，由时间线中的其他独立图层负责，不要写进这个可复用特效。\n\n开放以下可编辑属性：每张卡片图片、背景色、空卡片颜色、强调色、平面旋转角、纵深倾角、列间距、完整循环次数、暗角开关和透明背景开关。默认 8 秒完成 1 次整数循环；改变时长后仍按完整循环计算，不使用会造成首尾跳变的入场动画。\n\n先展示首帧、中段和最后可见帧，并把首尾帧并排比较；确认没有黑边、空洞、卡片断层、纵横比变形、关键内容被裁切或循环跳变后，再让我播放实时预览。",
+  "triggers": {
+    "intent": "把多张真实网页、产品或作品截图组织为一面统一倾斜、持续匀速并可无缝循环的全屏卡片墙",
+    "signals_any": [
+      "做一个斜着滚动的卡片墙",
+      "让网站截图像瀑布一样持续滚动",
+      "三列卡片斜向上移动",
+      "制作无缝循环的截图墙",
+      "只保留滚动卡片特效，不要标题包装"
+    ],
+    "reject_when": [
+      "只有一张图片且用户不允许重复或补充真实素材",
+      "目标是逐张讲解并要求每张截图长时间完整可读",
+      "用户要求生成或虚构真实产品界面作为证据",
+      "素材来源、使用权限或真实性无法确认",
+      "目标画面必须持续保留人物、字幕或关键产品操作且全屏卡片墙会遮挡它们"
+    ]
+  },
+  "required_inputs": [
+    {
+      "id": "confirmed_target_range",
+      "required_for": "planning",
+      "description": "目标时间段、准确时长、帧率与最终画幅；默认验证起点为 8 秒、30fps、16:9",
+      "on_missing": "读取项目时间线后请求确认一个准确范围，不猜测最终时长"
+    },
+    {
+      "id": "verified_card_media",
+      "required_for": "first_approval",
+      "description": "至少 3 张、优先 6-12 张真实网页、产品界面或作品截图及其来源",
+      "on_missing": "先检查项目素材库和目标官方网站；仍不足时请求真实截图，不生成假 UI"
+    },
+    {
+      "id": "crop_and_readability_map",
+      "required_for": "first_approval",
+      "description": "每张截图的纵横比、关键文字或控件区域，以及适合 contain 或 cover 的判断",
+      "on_missing": "逐张检查代表画面后再决定卡片裁切，不统一强制 cover"
+    },
+    {
+      "id": "visual_tuning",
+      "required_for": "first_approval",
+      "description": "背景色、强调色、平面旋转、纵深倾角、列间距、循环次数与暗角强度",
+      "on_missing": "使用已验证的中性深色起点制作一个代表镜头并展示关键帧"
+    }
+  ],
+  "asset_strategy": {
+    "required": true,
+    "sources_in_order": [
+      "user_provided_real_screenshots",
+      "existing_project_web_product_or_portfolio_images",
+      "verified_official_website_or_documentation_captures",
+      "user_approved_neutral_textless_placeholders"
+    ],
+    "per_asset_inspection": [
+      "verify_source_and_authenticity",
+      "verify_resolution_and_aspect_ratio",
+      "identify_critical_text_controls_and_safe_crop",
+      "choose_contain_or_cover_per_card",
+      "confirm_no_private_or_sensitive_information_is_visible"
+    ],
+    "forbidden": [
+      "generated_fake_product_ui_presented_as_real",
+      "redrawn_or_invented_brand_screens",
+      "stretching_screenshots_to_fill_cards",
+      "cropping_critical_text_or_controls_for_symmetry",
+      "mixing_unverified_assets_into_a_verified_wall"
+    ],
+    "on_unverified": "只使用已验证的真实截图；素材不足时降低重复内容密度或保持画面干净并请求素材，不生成假 UI"
+  },
+  "layout_safe_zones": {
+    "protect": [
+      "critical_text_and_controls_inside_each_screenshot",
+      "source_aspect_ratio",
+      "platform_edge_controls",
+      "existing_captions_titles_or_logos_when_the_effect_is_not_full_screen",
+      "private_or_sensitive_information"
+    ],
+    "placement_rule": "全屏接管时卡片墙必须在旋转和透视后仍超出四条画布边缘；作为背景层使用时，单独保护上层人物、字幕和产品信息。卡片内容不为填满而拉伸或裁掉关键区域。",
+    "conflict_fallbacks": [
+      "逐张从 cover 改为 contain",
+      "降低平面旋转和纵深倾角",
+      "扩大卡片墙超出画布的范围",
+      "减少列数但保持连续覆盖",
+      "关键内容仍会受损时保持原画面并请求更合适素材"
+    ]
+  },
+  "timing_animation": {
+    "requires_confirmed_time_range": true,
+    "trigger_alignment": "使用目标范围的真实帧数计算整数循环；所有列共享同一个线性时间基准，只通过起始相位打散位置。",
+    "entry": "第一帧已经处于稳定匀速滚动状态；特效内部不使用缩放、淡入、弹性或速度爬升，外部转场由时间线独立处理。",
+    "hold": "整段沿倾斜平面的局部纵轴线性匀速滚动，复制完整卡片组覆盖循环前后；默认 8 秒完成 1 次完整循环。",
+    "exit": "在整数循环边界结束，不减速、不缩放、不淡出；最后可见帧与首帧只相差正常的一帧位移。",
+    "forbidden": [
+      "per_card_random_rotation_or_floating",
+      "spring_bounce_or_elastic_start",
+      "fade_or_scale_inside_the_loop",
+      "column_speed_racing_or_direction_reversal",
+      "visible_gap_at_loop_boundary",
+      "black_edges_after_plane_rotation",
+      "non_integer_loop_jump",
+      "headline_caption_badge_particles_glitch_scanline_or_persistent_glow"
+    ]
+  },
+  "blocking_policies": {
+    "missing_time_range": "ask_exact_target_range_and_frame_rate",
+    "missing_assets": "inspect_project_and_official_sources_then_request_real_screenshots",
+    "unverified_assets": "exclude_unverified_media_and_never_generate_fake_ui",
+    "unsafe_crop": "switch_per_card_to_contain_or_request_better_source",
+    "safe_zone_conflict": "use_full_screen_takeover_or_keep_clean; never_cover_protected_content"
+  },
+  "execution_gates": [
+    "time",
+    "assets",
+    "safe_zones",
+    "first_approval"
+  ],
+  "fallback_chain": [
+    {
+      "id": "verified_multi_asset_diagonal_wall",
+      "when": "存在 6-12 张经过检查的真实截图，时间范围和画幅已确认",
+      "action": "制作至少三列、整墙统一透视和旋转、线性整数循环的完整斜向卡片墙",
+      "terminal": false
+    },
+    {
+      "id": "verified_repeating_small_set",
+      "when": "只有 3-5 张经过验证的真实截图但允许有节制地重复",
+      "action": "复用同一组真实截图，通过列相位和顺序变化降低机械重复，仍保持统一速度和无缝循环",
+      "terminal": false
+    },
+    {
+      "id": "keep_clean_and_request_real_assets",
+      "when": "真实素材少于 3 张、来源无法验证、关键内容无法安全裁切，或卡片墙会持续遮挡更重要的信息",
+      "action": "不制作卡片墙，保持原画面并请求真实截图或更合适的全屏时间段",
+      "terminal": true
+    }
+  ],
+  "verification": {
+    "required_stages": [
+      "asset",
+      "beginning",
+      "middle",
+      "ending"
+    ],
+    "checks": [
+      {
+        "id": "verified_real_card_media",
+        "stage": "asset",
+        "rule": "每张可见卡片来自经过验证的真实素材或用户明确接受的无文字占位；纵横比、关键区域和裁切方式已检查。",
+        "evidence_required": "asset_sources_dimensions_and_crop_map"
+      },
+      {
+        "id": "stable_first_frame",
+        "stage": "beginning",
+        "rule": "首帧已经稳定覆盖画布，没有额外缩放、淡入、黑边、空洞或卡片断层。",
+        "evidence_required": "first_frame_full_canvas_capture"
+      },
+      {
+        "id": "linear_unified_wall_motion",
+        "stage": "middle",
+        "rule": "中段卡片墙持续线性滚动，整墙统一倾斜，单张卡片没有独立乱转、漂浮或弹跳；真实内容没有变形或关键裁切。",
+        "evidence_required": "middle_frame_and_realtime_playback"
+      },
+      {
+        "id": "seamless_loop_boundary",
+        "stage": "ending",
+        "rule": "最后可见帧与首帧并排比较时，仅存在正常的一帧线性位移，没有比例、旋转、亮度或位置跳变。",
+        "evidence_required": "first_last_side_by_side_and_loop_playback"
+      }
+    ]
+  },
+  "compatibility": {
+    "public_prompt_source": "references/prompt-005-diagonal-card-waterfall.md",
+    "readme_must_contain_public_prompt": false,
+    "readme_prompt_excerpt": "在 [时间段，默认 8 秒] 制作一段 16:9 全屏“斜向卡片瀑布墙”动效。",
+    "legacy_reference": "references/prompt-005-diagonal-card-waterfall.md"
+  }
+}

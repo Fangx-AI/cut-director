@@ -42,6 +42,7 @@ class RecipeValidationTest(unittest.TestCase):
                 "prompt-002-split-screen-explainer",
                 "prompt-003-brand-mode-comparison",
                 "prompt-004-top-chapter-progress-rail",
+                "prompt-005-diagonal-card-waterfall",
             },
         )
         self.assertTrue(all(recipe["status"] == "verified" for recipe in self.recipes.values()))
@@ -62,6 +63,10 @@ class RecipeValidationTest(unittest.TestCase):
         self.assertEqual(
             self.recipes["prompt-004-top-chapter-progress-rail"]["execution_gates"],
             ["time", "copy", "safe_zones", "first_approval"],
+        )
+        self.assertEqual(
+            self.recipes["prompt-005-diagonal-card-waterfall"]["execution_gates"],
+            ["time", "assets", "safe_zones", "first_approval"],
         )
         progress_prompt = self.recipes["prompt-004-top-chapter-progress-rail"]["public_prompt"]
         self.assertIn("不要套用固定题材、固定章节数量、固定画幅、固定位置或固定视觉风格", progress_prompt)
@@ -84,6 +89,22 @@ class RecipeValidationTest(unittest.TestCase):
                 "adaptive_current_section_progress",
                 "adaptive_progress_only",
                 "keep_clean_and_request_input",
+            ],
+        )
+
+        waterfall_recipe = self.recipes["prompt-005-diagonal-card-waterfall"]
+        waterfall_prompt = waterfall_recipe["public_prompt"]
+        self.assertTrue(waterfall_recipe["asset_strategy"]["required"])
+        self.assertIn("不得生成、重绘或虚构产品 UI", waterfall_prompt)
+        self.assertIn("整块平面应用三维透视", waterfall_prompt)
+        self.assertIn("首帧不得额外缩放、淡入或弹性启动", waterfall_prompt)
+        self.assertIn("不要添加大标题、字幕、系列角标", waterfall_prompt)
+        self.assertEqual(
+            [step["id"] for step in waterfall_recipe["fallback_chain"]],
+            [
+                "verified_multi_asset_diagonal_wall",
+                "verified_repeating_small_set",
+                "keep_clean_and_request_real_assets",
             ],
         )
         self.assertIn("顶部优先但不固定", progress_recipe["layout_safe_zones"]["placement_rule"])

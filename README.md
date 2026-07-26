@@ -10,7 +10,7 @@
 
 你只需要描述想看到的结果。CutDirector 会先做一个可编辑的代表镜头，满意后再扩展到其他位置。
 
-[![Verified Prompts](https://img.shields.io/badge/已验证_Prompt-004-E6503C?style=flat-square&labelColor=0B0C0D)](#已验证效果)
+[![Verified Prompts](https://img.shields.io/badge/已验证_Prompt-005-E6503C?style=flat-square&labelColor=0B0C0D)](#已验证效果)
 [![Official Effects](https://img.shields.io/badge/官方效果参考-123-B7F34A?style=flat-square&labelColor=0B0C0D)](VISUAL-GALLERY.md)
 [![Made for ChatCut](https://img.shields.io/badge/为_ChatCut_打造-F2EBDD?style=flat-square&labelColor=0B0C0D)](https://chatcut.io/)
 [![Code License](https://img.shields.io/badge/代码-AGPL--3.0--or--later-8A63D2?style=flat-square&labelColor=0B0C0D)](LICENSE)
@@ -126,12 +126,40 @@
 
 [观看 Prompt 004 演示视频](assets/verified-prompts/prompt-004-top-chapter-progress-rail.mp4) · [查看完整说明](references/prompt-004-top-chapter-progress-rail.md)
 
+### Prompt 005 · 斜向卡片瀑布墙
+
+**快速使用**
+
+```text
+把这些真实网站截图做成一面斜向上匀速滚动的三列卡片墙。整面墙统一倾斜并无缝循环，不要添加标题、字幕、角标或其他包装。
+```
+
+适合网站合集、产品案例、作品集和界面功能的高密度视觉展示。它把多张真实截图先组织成一块超出画布的连续平面，再统一施加透视和旋转；卡片只负责承载素材，不各自漂浮、弹跳或乱转。
+
+<details>
+<summary><strong>查看核心精确 Prompt</strong></summary>
+
+```text
+在 [时间段，默认 8 秒] 制作一段 16:9 全屏“斜向卡片瀑布墙”动效。
+
+使用 [6-12 张真实网页、产品界面或作品截图] 作为卡片内容，不得生成、重绘或虚构产品 UI。将卡片排成至少 3 列，先组织成一块超出画布边界的统一平面，再对整块平面应用三维透视、轻微纵深倾斜和约 -6° 至 -10° 的画面旋转。
+
+所有列沿倾斜平面的局部纵轴匀速向上滚动，只使用起始相位偏移打散排列。复制完整卡片组覆盖循环前后，首帧不得额外缩放、淡入或弹性启动，结尾不得减速。
+
+画面只保留卡片墙、必要的深色背景和克制暗角。不要添加大标题、字幕、系列角标、品牌角标、说明文字、粒子、故障、扫描线、持续辉光或无关装饰。先展示首帧、中段和最后可见帧，并把首尾帧并排比较。
+```
+
+</details>
+
+[查看 Prompt 005 的完整说明](references/prompt-005-diagonal-card-waterfall.md)
+
 | Prompt | 观看任务 | 状态 |
 | --- | --- | --- |
 | **001** | 手势触发一个或多个官方品牌 Logo 弹出 | **已验证上线** |
 | **002** | 左侧要点逐条浮现，右侧长文本缓慢滚动 | **已验证上线** |
 | **003** | 品牌图标贯穿两种模式，能力递进后收束为结果对比 | **已验证上线** |
 | **004** | 根据结构、画幅与安全区选择章节导航、当前章节、纯进度或保持干净 | **已验证上线** |
+| **005** | 真实截图组成统一倾斜、匀速滚动并无缝循环的全屏卡片墙 | **已验证上线** |
 
 后续案例只在真实时间线中完成并通过验证后，才会加入这个系列。
 
