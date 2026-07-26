@@ -42,6 +42,7 @@ class RecipeValidationTest(unittest.TestCase):
                 "prompt-002-split-screen-explainer",
                 "prompt-003-brand-mode-comparison",
                 "prompt-004-top-chapter-progress-rail",
+                "prompt-005-diagonal-card-waterfall",
             },
         )
         self.assertTrue(all(recipe["status"] == "verified" for recipe in self.recipes.values()))
@@ -62,6 +63,10 @@ class RecipeValidationTest(unittest.TestCase):
         self.assertEqual(
             self.recipes["prompt-004-top-chapter-progress-rail"]["execution_gates"],
             ["time", "copy", "safe_zones", "first_approval"],
+        )
+        self.assertEqual(
+            self.recipes["prompt-005-diagonal-card-waterfall"]["execution_gates"],
+            ["time", "assets", "safe_zones", "first_approval"],
         )
         progress_prompt = self.recipes["prompt-004-top-chapter-progress-rail"]["public_prompt"]
         self.assertIn("不要套用固定题材、固定章节数量、固定画幅、固定位置或固定视觉风格", progress_prompt)
@@ -84,6 +89,22 @@ class RecipeValidationTest(unittest.TestCase):
                 "adaptive_current_section_progress",
                 "adaptive_progress_only",
                 "keep_clean_and_request_input",
+            ],
+        )
+
+        waterfall_recipe = self.recipes["prompt-005-diagonal-card-waterfall"]
+        waterfall_prompt = waterfall_recipe["public_prompt"]
+        self.assertTrue(waterfall_recipe["asset_strategy"]["required"])
+        self.assertIn("page-waterfall-wall.mp4", waterfall_prompt)
+        self.assertIn("直接导入并使用原视频", waterfall_prompt)
+        self.assertIn("不重新生成、重绘或用 Motion Graphic 复刻", waterfall_prompt)
+        self.assertIn("H.264、1080p、30fps", waterfall_prompt)
+        self.assertEqual(
+            [step["id"] for step in waterfall_recipe["fallback_chain"]],
+            [
+                "reuse_verified_source_video",
+                "recreate_from_verified_real_screenshots",
+                "keep_clean_and_request_source",
             ],
         )
         self.assertIn("顶部优先但不固定", progress_recipe["layout_safe_zones"]["placement_rule"])

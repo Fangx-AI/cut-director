@@ -10,7 +10,7 @@
 
 你只需要描述想看到的结果。CutDirector 会先做一个可编辑的代表镜头，满意后再扩展到其他位置。
 
-[![Verified Prompts](https://img.shields.io/badge/已验证_Prompt-004-E6503C?style=flat-square&labelColor=0B0C0D)](#已验证效果)
+[![Verified Prompts](https://img.shields.io/badge/已验证_Prompt-005-E6503C?style=flat-square&labelColor=0B0C0D)](#已验证效果)
 [![Official Effects](https://img.shields.io/badge/官方效果参考-123-B7F34A?style=flat-square&labelColor=0B0C0D)](VISUAL-GALLERY.md)
 [![Made for ChatCut](https://img.shields.io/badge/为_ChatCut_打造-F2EBDD?style=flat-square&labelColor=0B0C0D)](https://chatcut.io/)
 [![Code License](https://img.shields.io/badge/代码-AGPL--3.0--or--later-8A63D2?style=flat-square&labelColor=0B0C0D)](LICENSE)
@@ -126,12 +126,44 @@
 
 [观看 Prompt 004 演示视频](assets/verified-prompts/prompt-004-top-chapter-progress-rail.mp4) · [查看完整说明](references/prompt-004-top-chapter-progress-rail.md)
 
+### Prompt 005 · Page Waterfall Wall 斜向卡片滚动
+
+[![Prompt 005 - 官网原始 Page Waterfall Wall 斜向卡片滚动](assets/verified-prompts/prompt-005-diagonal-card-waterfall.gif)](assets/verified-prompts/prompt-005-diagonal-card-waterfall.mp4)
+
+**快速使用**
+
+```text
+若已有网站提供的 `page-waterfall-wall.mp4`，直接使用原视频，不重新生成、重绘或用 Motion Graphic 复刻。
+```
+
+适合网站合集、产品案例、作品集和界面功能的高密度视觉展示。CutDirector 会先检查网站、官方演示和 ChatCut 素材库；找到真实源视频就原样使用，只有源视频确实不存在且用户明确同意时，才用真实截图或录屏复刻。
+
+<details>
+<summary><strong>查看核心精确 Prompt</strong></summary>
+
+```text
+在 [目标时间段] 使用 page-waterfall-wall 斜向卡片滚动镜头。
+
+先检查目标网站、官方演示和当前 ChatCut 素材库。若已经存在网站提供或官方来源的 `page-waterfall-wall.mp4`，直接导入并使用原视频，不重新生成、重绘或用 Motion Graphic 复刻。
+
+保留原素材的 1920×1080、30fps、约 5 秒时长、播放速度和完整画面，不添加大标题、字幕、角标、品牌包装、粒子、故障或其他覆盖层。只有在目标画幅不一致时才做最小必要适配，禁止拉伸和无意义裁切。
+
+只有确认不存在可用的真实源视频，并且得到用户明确同意后，才可以用真实网站截图或真实录屏复刻；不得生成、重绘或虚构产品 UI。无法取得可靠素材时保持画面干净并请求源文件。
+
+先展示首帧、中段和尾帧，确认来源、画面完整、无覆盖、无裁切、无黑边后，以 H.264、1080p、30fps 导出。
+```
+
+</details>
+
+[观看 Prompt 005 演示视频](assets/verified-prompts/prompt-005-diagonal-card-waterfall.mp4) · [查看完整说明](references/prompt-005-diagonal-card-waterfall.md)
+
 | Prompt | 观看任务 | 状态 |
 | --- | --- | --- |
 | **001** | 手势触发一个或多个官方品牌 Logo 弹出 | **已验证上线** |
 | **002** | 左侧要点逐条浮现，右侧长文本缓慢滚动 | **已验证上线** |
 | **003** | 品牌图标贯穿两种模式，能力递进后收束为结果对比 | **已验证上线** |
 | **004** | 根据结构、画幅与安全区选择章节导航、当前章节、纯进度或保持干净 | **已验证上线** |
+| **005** | 优先直接复用网站提供的 page-waterfall-wall 源视频；缺失且确认后才复刻 | **已验证上线** |
 
 后续案例只在真实时间线中完成并通过验证后，才会加入这个系列。
 
