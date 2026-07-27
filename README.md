@@ -10,7 +10,7 @@
 
 你只需要描述想看到的结果。CutDirector 会先做一个可编辑的代表镜头，满意后再扩展到其他位置。
 
-[![Verified Prompts](https://img.shields.io/badge/已验证_Prompt-006-E6503C?style=flat-square&labelColor=0B0C0D)](#已验证效果)
+[![Verified Prompts](https://img.shields.io/badge/已验证_Prompt-010-E6503C?style=flat-square&labelColor=0B0C0D)](#已验证效果)
 [![Official Effects](https://img.shields.io/badge/官方效果参考-123-B7F34A?style=flat-square&labelColor=0B0C0D)](VISUAL-GALLERY.md)
 [![Made for ChatCut](https://img.shields.io/badge/为_ChatCut_打造-F2EBDD?style=flat-square&labelColor=0B0C0D)](https://chatcut.io/)
 [![Code License](https://img.shields.io/badge/代码-AGPL--3.0--or--later-8A63D2?style=flat-square&labelColor=0B0C0D)](LICENSE)
@@ -208,6 +208,66 @@
 
 [观看 Prompt 006 演示视频](assets/verified-prompts/prompt-006-editable-three-card-flip.mp4) · [查看完整说明](references/prompt-006-editable-three-card-flip.md)
 
+### Prompt 007 · 高清页面输入标注与焦点锁定
+
+[![Prompt 007 - 真实高清页面输入标注与焦点锁定](assets/verified-prompts/prompt-007-hd-page-focus-lock.gif)](assets/verified-prompts/prompt-007-hd-page-focus-lock.mp4)
+
+**快速使用**
+
+```text
+在 [目标时间段] 制作 1920×1080、30fps、2.5 秒的“高清页面输入标注与焦点锁定”镜头。底层只使用用户提供或项目中已验证、分辨率不低于输出的 [真实页面截图/录屏]，按 1:1 或 contain 完整显示；禁止放大低清图、AI 重绘、虚构产品 UI、拉伸或无意义裁切。
+
+上方添加透明 Motion Graphic 讲解层，把 [编辑标注]、[字段标签]、[输入文字]、[焦点标签]、颜色、遮罩强度、焦点框 X/Y/宽/高/圆角与标注面板位置全部开放为可编辑属性。可选标签留空后隐藏并回流；新增标签必须明确属于后期讲解，不能冒充网站原生 UI。
+
+第 0–14 帧标注面板入场，第 8–34 帧逐字输入，第 14–30 帧压暗非重点区，第 20–38 帧锁定焦点框，第 28–42 帧显示焦点标签，第 42–74 帧稳定保持。焦点框准确贴合 [目标区域]，不遮挡正文，也不用过度模糊或大幅推拉代替聚焦。
+
+先在 100% 尺度检查页面清晰度，再核对首帧、输入中段、遮罩、焦点框和最终保持帧，确认标注与原生 UI 边界明确后再导出。
+```
+
+适合演示搜索、筛选、定位功能和页面重点。真实页面负责事实证据，Motion Graphic 只负责可编辑的后期讲解；没有清晰真实素材时，Prompt 会请求原图或录屏，不会画一个“看起来像真的”网站。
+
+[观看 Prompt 007 演示视频](assets/verified-prompts/prompt-007-hd-page-focus-lock.mp4) · [查看完整说明](references/prompt-007-hd-page-focus-lock.md)
+
+### Prompt 009 · 真实图片卡组飞入与主卡落位
+
+[![Prompt 009 - 真实图片卡组飞入、展开并抬升主卡](assets/verified-prompts/prompt-009-real-image-deck-hero.gif)](assets/verified-prompts/prompt-009-real-image-deck-hero.mp4)
+
+**快速使用**
+
+```text
+在 [目标时间段] 制作 1920×1080、30fps、3 秒的“真实图片卡组飞入与主卡落位”镜头。提供 3–5 张用户或项目中来源可验证的真实图片，以及每张卡各自的 [标签]、[标题] 和 [主卡序号]。cardCount 必须等于真实图片数量，heroIndex 必须有效；禁止重复图片凑数、生成或重绘产品 UI、空白图片区、骨架线和占位词。
+
+每张图片、标签、标题以及场景标签、背景色、卡片色、文字色、强调色和字体均独立可编辑。图片统一 contain 完整显示；可选标签为空时隐藏并回流。3、4、5 张卡分别使用约 430×318、355×276、292×242 的卡面。
+
+每张卡从第 index×3 帧开始用 12 帧飞入，第 16–48 帧收束为稳定扇形，背景第 0–42 帧由深到浅，主卡第 30–52 帧抬升到约 1.12 倍，第 52–89 帧稳定保持。不要添加随机旋转、粒子、辉光、无关大标题或连续弹跳。
+
+先逐张核对图片来源和标题，再检查首卡飞入、卡组收束、主卡抬升和最终保持帧；确认 contain 无裁切、主卡序号正确后再导出。
+```
+
+适合作品集、案例合集、网站功能和产品截图的高密度展示。复用的是卡组运动与主次层级，演示中的图片和文案不是固定内容。
+
+[观看 Prompt 009 演示视频](assets/verified-prompts/prompt-009-real-image-deck-hero.mp4) · [查看完整说明](references/prompt-009-real-image-deck-hero.md)
+
+### Prompt 010 · 输入—反馈—结果三拍因果链
+
+[![Prompt 010 - 输入、反馈、结果三拍因果讲解](assets/verified-prompts/prompt-010-input-feedback-result.gif)](assets/verified-prompts/prompt-010-input-feedback-result.mp4)
+
+**快速使用**
+
+```text
+在 [目标时间段] 制作 1920×1080、30fps、3.5 秒的“输入 → 反馈 → 结果”三拍因果镜头。填写 [输入文字]、[反馈短句]、[结果标题]，并可选填写场景标签、步骤标签、眉题、结果说明、元信息和 [真实结果图片]；文字、颜色、字体与图片全部独立可编辑。
+
+所有文字保留为 Motion Graphic 属性，不得烘焙进图片或视频。可选字段留空后隐藏并回流；无结果图时使用单栏结果卡，只有图片来源可验证时才切换图文双栏并用 contain 完整显示。禁止生成或重绘产品 UI、假数据、空白图片区、骨架线和占位词。
+
+第 5–28 帧逐字输入，第 28–48 帧输入卡压缩为反馈胶囊，第 35–58 帧显示反馈，第 52–74 帧结果卡进入，第 74–88 帧落稳，因果进度线第 0–96 帧连续推进，最终保持到第 104 帧。三拍必须清楚读成“动作发生—系统反馈—结果出现”；结尾不闪黑、不硬切、不把结果突然收回。
+
+默认把它明确当作后期抽象讲解，不冒充真实产品原生 UI。若要证明真实产品操作，必须先使用用户提供或项目中已验证的录屏/截图作为底层证据，本 Prompt 只承担编辑标注。检查输入、反馈、结果和最终保持帧后再导出。
+```
+
+适合把“做了什么—系统如何响应—最终得到什么”压缩成一个清晰镜头。它既能独立做抽象解释，也能叠在真实产品证据上，但不会把演示 Motion Graphic 伪装成产品实录。
+
+[观看 Prompt 010 演示视频](assets/verified-prompts/prompt-010-input-feedback-result.mp4) · [查看完整说明](references/prompt-010-input-feedback-result.md)
+
 | Prompt | 观看任务 | 状态 |
 | --- | --- | --- |
 | **001** | 手势触发一个或多个官方品牌 Logo 弹出 | **已验证上线** |
@@ -216,6 +276,9 @@
 | **004** | 根据结构、画幅与安全区选择章节导航、当前章节、纯进度或保持干净 | **已验证上线** |
 | **005** | 原样复用网站提供的 page-waterfall-wall 源视频；属于素材复用型，卡片内容不可替换 | **已验证上线** |
 | **006** | 保留原版浅灰三卡构图与依次翻面节奏，六个卡面内容均可独立编辑 | **已验证上线** |
+| **007** | 用真实高清页面承载事实，叠加可编辑输入标注、暗场和焦点锁定 | **已验证上线** |
+| **009** | 3–5 张真实图片错峰飞入并收束为卡组，用户指定主卡抬升落位 | **已验证上线** |
+| **010** | 输入、反馈、结果三拍形成可编辑因果链，可选使用已验证结果图片 | **已验证上线** |
 
 后续案例只在真实时间线中完成并通过验证后，才会加入这个系列。
 

@@ -1,0 +1,167 @@
+{
+  "recipe_schema_version": "0.2",
+  "recipe_id": "prompt-010-input-feedback-result",
+  "name": "输入—反馈—结果三拍因果链",
+  "status": "verified",
+  "public_prompt": "在 [目标时间段] 制作一段“输入 → 反馈 → 结果”三拍因果讲解镜头。独立演示默认使用 1920×1080、30fps、3.5 秒。使用以下可编辑内容：[场景标签]、[第 1 步标签]、[输入眉题]、[输入文字]、[第 2 步标签]、[反馈短句]、[第 3 步标签]、[结果眉题]、[结果标题]、[结果说明]、[结果元信息]，以及可选的 [真实结果图片]。同时开放背景色、卡片色、主文字色、辅助文字色、主强调色、次强调色和字体。\n\n所有文案必须保留为 Motion Graphic 可编辑文字属性，不得烘焙进 PNG、截图或视频。未填写的可选字段直接隐藏并自动回流；没有结果图片时使用完整的单栏结果卡，有来源可验证的真实结果图片时才切换为图文双栏，图片使用 contain 完整显示，禁止生成、重绘或虚构产品 UI，也禁止保留空白图片区、骨架线、占位词或假数据。\n\n动画节奏固定为：第 5–28 帧逐字输入 [输入文字]；第 28–48 帧把输入卡压缩并过渡为反馈胶囊；第 35–58 帧显示 [反馈短句]；第 52–74 帧让结果卡进入；第 74–88 帧完成结果卡落稳；底部因果进度线从第 0–96 帧连续推进，最后保持到第 104 帧。三个阶段必须能清楚读成“动作发生—系统反馈—结果出现”，不添加无关粒子、故障、连续 whoosh、突然闪黑或末尾硬切。\n\n本镜头默认是编辑层的抽象因果说明，不得把输入框、反馈和结果卡冒充某个网站的原生界面。如果任务是在证明真实产品操作，先使用用户提供或项目中已验证的真实录屏/截图作为底层证据，再把本 Prompt 的标签作为明确的后期讲解层；无法取得真实素材时，只能保留抽象讲解，不声称它是产品实录。\n\n先展示输入开始、输入完成、反馈胶囊、结果卡进入、结果落稳和最终保持帧；核对全部文字可编辑、可选字段正确回流、真实结果图来源可靠、三拍因果清楚且结尾稳定后再导出。",
+  "triggers": {
+    "intent": "用可编辑的输入、反馈和结果三拍结构解释一个清晰因果关系。",
+    "signals_any": [
+      "输入后出现反馈和结果",
+      "动作反馈结果三拍",
+      "因果链动效",
+      "搜索或指令得到结果"
+    ],
+    "reject_when": [
+      "用户要求把抽象 Motion Graphic 冒充真实产品操作",
+      "没有输入、反馈或结果中的任一核心内容",
+      "任务只需要展示结果而不需要因果过程",
+      "真实产品演示所需证据素材无法取得且用户要求声称为实录"
+    ]
+  },
+  "required_inputs": [
+    {
+      "id": "confirmed_time_range",
+      "required_for": "first_approval",
+      "description": "目标时间段、画幅和帧率；独立演示默认 1920×1080、30fps、3.5 秒。",
+      "on_missing": "独立演示使用已验证节奏；插入现有视频时先确认精确范围。"
+    },
+    {
+      "id": "causal_copy",
+      "required_for": "planning",
+      "description": "输入文字、反馈短句和结果标题；其他步骤标签、眉题、说明和元信息可选。",
+      "on_missing": "只请求缺失的核心三拍文案，不用假数据或占位词补齐。"
+    },
+    {
+      "id": "usage_mode",
+      "required_for": "first_approval",
+      "description": "确认是抽象因果讲解，还是以真实截图/录屏为证据的产品操作标注。",
+      "on_missing": "默认只按抽象后期讲解处理，明确标注不是产品原生 UI。"
+    },
+    {
+      "id": "optional_verified_result_image",
+      "required_for": "planning",
+      "description": "可选的用户提供或项目已验证真实结果图片；缺失时使用单栏结果卡。",
+      "on_missing": "隐藏图片区域并自动回流，不显示空白图片区。"
+    }
+  ],
+  "asset_strategy": {
+    "required": false,
+    "sources_in_order": [
+      "user_verbatim_input_feedback_and_result_copy",
+      "user_provided_verified_result_image",
+      "verified_existing_project_screenshot_or_recording",
+      "motion_graphic_text_only_abstract_mode"
+    ],
+    "per_asset_inspection": [
+      "verify_optional_result_image_provenance_and_resolution",
+      "confirm_contain_fit_preserves_result_content",
+      "confirm_real_operation_mode_has_verified_base_evidence",
+      "confirm_no_private_or_sensitive_information_is_visible"
+    ],
+    "forbidden": [
+      "generated_redrawn_or_invented_product_ui_presented_as_real",
+      "fake_metrics_or_unverified_result_claims",
+      "skeleton_lines_empty_image_boxes_or_placeholder_copy",
+      "baked_copy_that_cannot_be_edited",
+      "abstract_motion_graphic_presented_as_native_product_ui"
+    ],
+    "on_unverified": "移除结果图片并回流为单栏抽象讲解；若用户要求证明真实产品操作，则请求可验证录屏或截图。"
+  },
+  "layout_safe_zones": {
+    "protect": [
+      "input_text_and_cursor",
+      "feedback_pill_and_label",
+      "result_title_body_meta_and_optional_image",
+      "causal_progress_rail",
+      "captions_speaker_logo_and_platform_controls_when_inserted"
+    ],
+    "placement_rule": "输入、反馈与结果按同一视觉轴建立因果连续性；无结果图时单栏回流，有验证图片时双栏 contain 显示，所有阶段均避让字幕、人物和真实产品关键信息。",
+    "conflict_fallbacks": [
+      "隐藏可选眉题、步骤标签或元信息并自动回流",
+      "把结果卡切换为无图片单栏布局",
+      "移动到可完整承载三拍的全屏时间段",
+      "仍无法保证因果清晰和可读性时保持干净并请求新时间段或更短文案"
+    ]
+  },
+  "timing_animation": {
+    "requires_confirmed_time_range": true,
+    "trigger_alignment": "输入完成后才压缩为反馈胶囊，反馈被读到后结果卡才进入；三个阶段共享连续因果进度线。",
+    "entry": "输入卡先建立，第 5–28 帧逐字输入核心文字。",
+    "hold": "第 28–48 帧输入卡形变为反馈胶囊，第 35–58 帧显示反馈；结果卡第 52–74 帧进入，第 74–88 帧落稳；进度线第 0–96 帧连续推进。",
+    "exit": "第 88–104 帧保持完整结果，不闪黑、不硬切、不把结果突然收回。",
+    "forbidden": [
+      "abstract_ui_masquerading_as_real_product_ui",
+      "fake_metrics_or_placeholder_result",
+      "baked_non_editable_copy",
+      "unrelated_particles_glitch_or_repeated_whoosh",
+      "abrupt_black_frame_hard_cut_or_result_retraction"
+    ]
+  },
+  "blocking_policies": {
+    "missing_time_range": "standalone_preview_may_use_verified_105_frame_timing; otherwise_request_exact_range",
+    "missing_copy": "request_the_missing_input_feedback_or_result_core_copy_and_hide_optional_fields",
+    "unverified_result_image": "remove_the_image_and_use_single_column_abstract_mode",
+    "real_operation_without_evidence": "request_verified_recording_or_screenshot_and_never_claim_the_abstract_mg_is_real",
+    "safe_zone_conflict": "hide_optional_fields_or_move_to_a_full_screen_beat; never_cover_protected_content"
+  },
+  "execution_gates": [
+    "time",
+    "copy",
+    "safe_zones",
+    "first_approval"
+  ],
+  "fallback_chain": [
+    {
+      "id": "editable_input_feedback_result_with_verified_image",
+      "when": "三拍文案完整，且可选结果图片或真实操作底层素材来源可验证。",
+      "action": "执行完整三拍因果镜头；有图时双栏 contain，无图时单栏回流。",
+      "terminal": false
+    },
+    {
+      "id": "editable_text_only_causal_explainer",
+      "when": "三拍文案完整但没有可验证结果图片，且允许明确的抽象讲解模式。",
+      "action": "隐藏图片区并使用单栏结果卡，明确保持后期解释身份，不冒充产品实录。",
+      "terminal": false
+    },
+    {
+      "id": "keep_clean_and_request_causal_input",
+      "when": "核心文案缺失、用户要求真实实录但没有证据素材，或目标时间无法承载三拍。",
+      "action": "不插入占位 UI 或假结果，保持画面干净并请求核心文案、真实素材或新时间段。",
+      "terminal": true
+    }
+  ],
+  "verification": {
+    "required_stages": [
+      "beginning",
+      "middle",
+      "ending"
+    ],
+    "checks": [
+      {
+        "id": "editable_input_beat",
+        "stage": "beginning",
+        "rule": "输入卡和逐字文字清晰，核心输入保留为可编辑属性，不存在占位词或假原生 UI。",
+        "evidence_required": "input_start_complete_frames_and_motion_graphic_property_inspection"
+      },
+      {
+        "id": "clear_feedback_transition",
+        "stage": "middle",
+        "rule": "输入卡第 28–48 帧自然压缩为反馈胶囊，反馈短句在第 35–58 帧可读，因果线连续不回跳。",
+        "evidence_required": "morph_feedback_frames_and_realtime_playback"
+      },
+      {
+        "id": "verified_result_and_stable_ending",
+        "stage": "ending",
+        "rule": "结果卡第 74–88 帧落稳并保持到第 104 帧；可选图来源可靠或已回流为单栏，无闪黑、硬切或突兀退场。",
+        "evidence_required": "result_settle_final_frame_property_inspection_and_export_probe"
+      }
+    ]
+  },
+  "compatibility": {
+    "public_prompt_source": "references/prompt-010-input-feedback-result.md",
+    "readme_must_contain_public_prompt": false,
+    "readme_prompt_excerpt": "在 [目标时间段] 制作 1920×1080、30fps、3.5 秒的“输入 → 反馈 → 结果”三拍因果镜头。",
+    "legacy_reference": "references/prompt-010-input-feedback-result.md"
+  }
+}

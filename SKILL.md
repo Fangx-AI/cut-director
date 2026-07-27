@@ -55,6 +55,9 @@ Load only the matching recipe and its public reference:
 | An adaptive progress overlay selects full section tabs, current-section mode, progress-only, or keep-clean from the actual structure, aspect ratio, and safe zones | `recipes/prompt-004-top-chapter-progress-rail.json` | `references/prompt-004-top-chapter-progress-rail.md` |
 | Reuse a verified website-provided `page-waterfall-wall.mp4` unchanged; recreate from real screenshots only when no source exists and the user explicitly approves | `recipes/prompt-005-diagonal-card-waterfall.json` | `references/prompt-005-diagonal-card-waterfall.md` |
 | Three original-style light-background cards flip from independently editable front faces to independently editable back faces, with the face swap only at the 90-degree edge | `recipes/prompt-006-editable-three-card-flip.json` | `references/prompt-006-editable-three-card-flip.md` |
+| A verified high-resolution real page receives editable typing annotation, a dimming mask, and an accurately positioned focus lock | `recipes/prompt-007-hd-page-focus-lock.json` | `references/prompt-007-hd-page-focus-lock.md` |
+| Three to five verified real images fly in as a deck, settle into a fan, and elevate a user-selected hero card | `recipes/prompt-009-real-image-deck-hero.json` | `references/prompt-009-real-image-deck-hero.md` |
+| Editable input, feedback, and result beats explain one causal chain; optional real result media is verified and abstract UI never masquerades as a product interface | `recipes/prompt-010-input-feedback-result.json` | `references/prompt-010-input-feedback-result.md` |
 
 Treat recipe triggers as routing evidence, not keyword-only commands. A visual resemblance is insufficient when the viewing task differs.
 
