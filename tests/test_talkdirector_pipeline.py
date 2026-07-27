@@ -43,6 +43,7 @@ class RecipeValidationTest(unittest.TestCase):
                 "prompt-003-brand-mode-comparison",
                 "prompt-004-top-chapter-progress-rail",
                 "prompt-005-diagonal-card-waterfall",
+                "prompt-006-editable-three-card-flip",
             },
         )
         self.assertTrue(all(recipe["status"] == "verified" for recipe in self.recipes.values()))
@@ -67,6 +68,10 @@ class RecipeValidationTest(unittest.TestCase):
         self.assertEqual(
             self.recipes["prompt-005-diagonal-card-waterfall"]["execution_gates"],
             ["time", "assets", "safe_zones", "first_approval"],
+        )
+        self.assertEqual(
+            self.recipes["prompt-006-editable-three-card-flip"]["execution_gates"],
+            ["time", "copy", "safe_zones", "first_approval"],
         )
         progress_prompt = self.recipes["prompt-004-top-chapter-progress-rail"]["public_prompt"]
         self.assertIn("不要套用固定题材、固定章节数量、固定画幅、固定位置或固定视觉风格", progress_prompt)
@@ -107,6 +112,31 @@ class RecipeValidationTest(unittest.TestCase):
                 "keep_clean_and_request_source",
             ],
         )
+        card_flip_recipe = self.recipes["prompt-006-editable-three-card-flip"]
+        card_flip_prompt = card_flip_recipe["public_prompt"]
+        self.assertFalse(card_flip_recipe["asset_strategy"]["required"])
+        self.assertIn("三张卡片的正面和背面必须分别独立可编辑", card_flip_prompt)
+        self.assertIn("不得烘焙进 PNG、截图或视频", card_flip_prompt)
+        self.assertIn("只有卡片接近 90°、画面最窄的边缘态时才能切换正反面", card_flip_prompt)
+        self.assertIn("禁止镜像字、反字", card_flip_prompt)
+        self.assertIn("未填写的可选字段直接隐藏并自动回流", card_flip_prompt)
+        self.assertIn("mirrored_or_reversed_back_text", card_flip_recipe["timing_animation"]["forbidden"])
+        self.assertIn(
+            "baked_copy_or_images_that_cannot_be_edited_independently",
+            card_flip_recipe["timing_animation"]["forbidden"],
+        )
+        self.assertEqual(
+            [step["id"] for step in card_flip_recipe["fallback_chain"]],
+            [
+                "original_style_editable_three_card_flip",
+                "simplified_copy_three_card_flip",
+                "keep_clean_and_request_card_content",
+            ],
+        )
+        card_flip_checks = {item["id"]: item for item in card_flip_recipe["verification"]["checks"]}
+        self.assertIn("正面稳定态", card_flip_checks["stable_editable_front_faces"]["rule"])
+        self.assertIn("约 90° 最窄边缘态", card_flip_checks["edge_swap_and_readable_back_faces"]["rule"])
+        self.assertIn("最终三张背面全部落稳", card_flip_checks["stable_editable_back_faces_and_clean_ending"]["rule"])
         self.assertIn("顶部优先但不固定", progress_recipe["layout_safe_zones"]["placement_rule"])
 
     def test_missing_recipe_field_fails(self):
