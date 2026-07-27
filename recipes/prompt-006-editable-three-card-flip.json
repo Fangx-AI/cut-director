@@ -1,0 +1,172 @@
+{
+  "recipe_schema_version": "0.2",
+  "recipe_id": "prompt-006-editable-three-card-flip",
+  "name": "浅灰三卡翻面（正反面可编辑）",
+  "status": "verified",
+  "public_prompt": "在 [目标时间段] 制作一段原版浅灰三卡依次翻面镜头。保留三张横向并排的白色卡片、浅灰背景、左上角小标题，以及原版的卡片尺寸、间距、层级、透视和从左到右错峰节奏；固定三张卡片，不自动增减，也不要重新设计成深色、玻璃拟态或其他视觉风格。\n\n三张卡片的正面和背面必须分别独立可编辑。请使用以下内容：\n- 卡片 1 正面：[正面内容]；卡片 1 背面：[背面内容]\n- 卡片 2 正面：[正面内容]；卡片 2 背面：[背面内容]\n- 卡片 3 正面：[正面内容]；卡片 3 背面：[背面内容]\n\n每个卡面可填写标题、副标题、分类、说明、指标和用户提供或项目中已验证的图片。未填写的可选字段直接隐藏并自动回流，禁止留下骨架线、灰色占位块、空白图片区或伪造内容；每个卡面至少保留一项真实、可读的内容。所有文案都保留为 Motion Graphic 可编辑文字图层，不得烘焙进 PNG、截图或视频。图片只使用用户提供或项目中已验证的真实素材，不生成、重绘或虚构产品 UI。\n\n翻转使用 Y 轴原地翻面：先稳定展示三张正面，再让卡片 1、2、3 依次翻转。只有卡片接近 90°、画面最窄的边缘态时才能切换正反面；背面落稳后必须正向可读，禁止镜像字、反字或在翻转中途闪回另一面。独立演示默认使用 1920×1080、30fps、3 秒：正面保持到第 20 帧，三张卡分别从第 20、32、44 帧开始翻转，每张用 16 帧完成，全部背面在第 60 帧落稳并保持到结尾。目标时长不足时优先延长片段、精简卡面文案或依次完成翻转，不得靠过度加速牺牲可读性。\n\n不添加辉光、粒子、玻璃拟态、随机旋转、夸张弹跳、大标题或无关装饰。先展示正面稳定态、至少一个 90° 边缘态、每张背面落稳后的状态和最终保持帧，并提供实时播放预览让我确认；导出前再次检查六个卡面的文字与图片都能独立修改。",
+  "triggers": {
+    "intent": "用固定三张原版浅灰卡片依次翻面，并让六个卡面内容都能由用户独立替换。",
+    "signals_any": [
+      "三张卡片依次翻面",
+      "正面和背面都可以修改",
+      "保留原版浅灰卡片样式",
+      "三个功能卡翻到三个结果指标",
+      "做一个可复用的卡片翻面 Prompt"
+    ],
+    "reject_when": [
+      "用户需要的不是三张卡片",
+      "用户要求自由瀑布流、斜向滚动或大量卡片墙",
+      "目标片段短到无法同时保留正面、翻面和背面可读时间",
+      "用户要求使用来源不明的产品截图或伪造真实产品 UI"
+    ]
+  },
+  "required_inputs": [
+    {
+      "id": "confirmed_time_range",
+      "required_for": "first_approval",
+      "description": "目标时间段、画幅与帧率；独立演示默认 1920×1080、30fps、3 秒。",
+      "on_missing": "独立演示采用已验证的 3 秒节奏；插入现有视频时先读取并确认准确范围。"
+    },
+    {
+      "id": "editable_card_faces",
+      "required_for": "planning",
+      "description": "三张卡各自的正面与背面内容，共六个可独立编辑卡面；每个卡面至少一项真实可读内容。",
+      "on_missing": "只请求缺失的卡面内容；不得用骨架线、占位词、空白图片区或模型编造内容执行。"
+    },
+    {
+      "id": "confirmed_flip_order",
+      "required_for": "first_approval",
+      "description": "默认沿用原版从左到右的 1→2→3 错峰顺序；如需改变必须由用户明确指定。",
+      "on_missing": "展示从左到右的原版代表镜头并请求确认，不自行改成随机或同时翻转。"
+    },
+    {
+      "id": "protected_regions",
+      "required_for": "first_approval",
+      "description": "左上角标题、六个卡面正文，以及插入现有视频时需要避让的字幕、人物、Logo 和产品 UI。",
+      "on_missing": "先检查正面、边缘态、背面和结尾代表帧，再决定全屏使用或调整目标时间段。"
+    }
+  ],
+  "asset_strategy": {
+    "required": false,
+    "sources_in_order": [
+      "user_verbatim_front_and_back_copy",
+      "existing_project_text_and_verified_media",
+      "user_provided_verified_images",
+      "text_only_cards_when_images_are_optional"
+    ],
+    "per_asset_inspection": [
+      "verify_all_six_card_faces_against_user_inputs",
+      "verify_optional_image_provenance_and_crop",
+      "confirm_copy_remains_live_editable_motion_graphic_text",
+      "confirm_empty_optional_fields_hide_and_reflow",
+      "confirm_no_private_or_sensitive_information_is_visible"
+    ],
+    "forbidden": [
+      "baked_copy_inside_png_screenshot_or_video",
+      "generated_or_invented_product_ui_presented_as_real",
+      "skeleton_lines_placeholder_labels_or_empty_image_boxes",
+      "unverified_brand_or_product_images",
+      "automatically_adding_or_removing_cards",
+      "replacing_the_approved_original_style_with_a_new_theme"
+    ],
+    "on_unverified": "移除未验证图片并保留可编辑文字卡面；若某个卡面连真实文字也没有，则保持画面干净并请求该卡面内容。"
+  },
+  "layout_safe_zones": {
+    "protect": [
+      "upper_left_title",
+      "all_six_editable_card_faces",
+      "card_edges_during_ninety_degree_state",
+      "captions_speaker_logo_and_product_ui_when_inserted_into_footage",
+      "platform_safe_area_and_controls"
+    ],
+    "placement_rule": "独立 16:9 演示使用 #EDEDEB 浅灰背景、三张 414×230 白色卡片水平居中并排和左上角小标题，沿用已验证的原版比例、间距和层级。插入已有视频时优先把它作为完整全屏信息镜头，不把三卡硬塞进会遮挡主体的安全区。",
+    "conflict_fallbacks": [
+      "隐藏未填写的可选字段并让剩余内容自动回流",
+      "精简卡面文案但保留用户原意和六个独立卡面",
+      "把目标片段移动到可完整承载三卡的全屏位置",
+      "仍无法保证可读性时保持原画面并请求调整时间段或卡面内容"
+    ]
+  },
+  "timing_animation": {
+    "requires_confirmed_time_range": true,
+    "trigger_alignment": "先完整读到三张正面，再按确认顺序错峰翻转；正反面只在约 90° 的最窄边缘态切换，背面落稳后保持到片段结束。",
+    "entry": "独立 3 秒演示从三张正面稳定态开始，不添加额外飞入；正面保持到第 20 帧。",
+    "hold": "30fps 下三张卡分别从第 20、32、44 帧开始 Y 轴原地翻转，每张用 16 帧完成；全部背面在第 60 帧落稳并保持到第 89 帧。",
+    "exit": "最终背面稳定保持到最后可见帧；作为独立镜头时不突然缩放、闪黑或硬切回正面，外部衔接由上层时间线处理。",
+    "forbidden": [
+      "mirrored_or_reversed_back_text",
+      "front_back_swap_before_or_after_the_ninety_degree_edge",
+      "baked_copy_or_images_that_cannot_be_edited_independently",
+      "accelerated_flip_that_makes_faces_unreadable",
+      "simultaneous_or_random_flip_without_user_direction",
+      "extra_glow_particles_glassmorphism_bounce_or_random_rotation",
+      "abrupt_black_frame_scale_out_or_return_to_front_at_the_end"
+    ]
+  },
+  "blocking_policies": {
+    "missing_time_range": "use_the_verified_three_second_demo_only_for_standalone_preview; otherwise_ask_for_exact_range",
+    "missing_copy": "request_only_the_missing_card_face_and_never_insert_placeholders",
+    "unverified_images": "remove_the_image_and_use_verified_live_text_or_request_a_real_asset",
+    "copy_too_dense": "hide_optional_fields_then_shorten_with_user_approval; never_shrink_below_readability",
+    "safe_zone_conflict": "move_to_a_full_screen_information_beat_or_request_a_new_range; never_cover_protected_content"
+  },
+  "execution_gates": [
+    "time",
+    "copy",
+    "safe_zones",
+    "first_approval"
+  ],
+  "fallback_chain": [
+    {
+      "id": "original_style_editable_three_card_flip",
+      "when": "三张卡的六个卡面内容齐全，目标时间足够，原版浅灰构图与从左到右翻面都可读。",
+      "action": "执行已验证的原版三卡尺寸、间距、层级和错峰节奏，六个卡面保持独立可编辑。",
+      "terminal": false
+    },
+    {
+      "id": "simplified_copy_three_card_flip",
+      "when": "结构仍适合三卡翻面，但某些卡面文案过密或可选图片无法验证。",
+      "action": "隐藏可选字段和未验证图片，只保留每个卡面最重要的真实标题、标签或指标；不改变三卡结构和原版视觉。",
+      "terminal": false
+    },
+    {
+      "id": "keep_clean_and_request_card_content",
+      "when": "六个卡面内容不完整、目标时间不足、可读性无法保证，或用户实际需要的不是三卡结构。",
+      "action": "不插入占位卡片或擅自改版，保持原画面干净并请求缺失卡面、可用时长或新的结构方向。",
+      "terminal": true
+    }
+  ],
+  "verification": {
+    "required_stages": [
+      "beginning",
+      "middle",
+      "ending"
+    ],
+    "checks": [
+      {
+        "id": "stable_editable_front_faces",
+        "stage": "beginning",
+        "rule": "正面稳定态完整显示三张卡；每张正面内容真实、可读且可独立编辑，没有骨架线、占位块或空白图片区。",
+        "evidence_required": "front_stable_frame_and_motion_graphic_property_inspection"
+      },
+      {
+        "id": "edge_swap_and_readable_back_faces",
+        "stage": "middle",
+        "rule": "逐张检查翻转前、约 90° 最窄边缘态和背面落稳帧；正反面只在边缘态切换，背面文字正向可读，无镜像、反字或闪回。",
+        "evidence_required": "before_edge_after_frames_for_all_three_cards_and_realtime_playback"
+      },
+      {
+        "id": "stable_editable_back_faces_and_clean_ending",
+        "stage": "ending",
+        "rule": "最终三张背面全部落稳并保持到结尾；每张背面可独立编辑，最后可见帧无闪黑、突缩、回正面或突兀退场。",
+        "evidence_required": "back_stable_frame_final_visible_frame_and_export_probe"
+      }
+    ]
+  },
+  "compatibility": {
+    "public_prompt_source": "references/prompt-006-editable-three-card-flip.md",
+    "readme_must_contain_public_prompt": false,
+    "readme_prompt_excerpt": "制作原版浅灰三卡依次翻面：三张卡的正面和背面都独立可编辑，只在约 90° 边缘态切换卡面，背面文字不得镜像。",
+    "legacy_reference": "references/prompt-006-editable-three-card-flip.md"
+  }
+}

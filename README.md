@@ -10,7 +10,7 @@
 
 你只需要描述想看到的结果。CutDirector 会先做一个可编辑的代表镜头，满意后再扩展到其他位置。
 
-[![Verified Prompts](https://img.shields.io/badge/已验证_Prompt-005-E6503C?style=flat-square&labelColor=0B0C0D)](#已验证效果)
+[![Verified Prompts](https://img.shields.io/badge/已验证_Prompt-006-E6503C?style=flat-square&labelColor=0B0C0D)](#已验证效果)
 [![Official Effects](https://img.shields.io/badge/官方效果参考-123-B7F34A?style=flat-square&labelColor=0B0C0D)](VISUAL-GALLERY.md)
 [![Made for ChatCut](https://img.shields.io/badge/为_ChatCut_打造-F2EBDD?style=flat-square&labelColor=0B0C0D)](https://chatcut.io/)
 [![Code License](https://img.shields.io/badge/代码-AGPL--3.0--or--later-8A63D2?style=flat-square&labelColor=0B0C0D)](LICENSE)
@@ -157,6 +157,40 @@
 
 [观看 Prompt 005 演示视频](assets/verified-prompts/prompt-005-diagonal-card-waterfall.mp4) · [查看完整说明](references/prompt-005-diagonal-card-waterfall.md)
 
+### Prompt 006 · 浅灰三卡翻面（正反面可编辑）
+
+[![Prompt 006 - 原版浅灰三卡依次翻面，六个卡面均可编辑](assets/verified-prompts/prompt-006-editable-three-card-flip.gif)](assets/verified-prompts/prompt-006-editable-three-card-flip.mp4)
+
+**快速使用**
+
+```text
+制作原版浅灰三卡依次翻面：三张卡的正面和背面都独立可编辑，只在约 90° 边缘态切换卡面，背面文字不得镜像。
+```
+
+适合把三个功能、方案或案例依次揭示为三个结果。它保留已经验收的浅灰背景、三卡尺寸、间距和从左到右错峰节奏；演示里的文字和数字只是示例，用户可以分别替换六个卡面的文字、图片与强调色，未填写字段会隐藏并自动回流。
+
+<details>
+<summary><strong>查看核心精确 Prompt</strong></summary>
+
+```text
+在 [目标时间段] 制作一段原版浅灰三卡依次翻面镜头。保留三张横向并排的白色卡片、浅灰背景、左上角小标题，以及原版的卡片尺寸、间距、层级、透视和从左到右错峰节奏；固定三张卡片，不自动增减，也不要重新设计成深色、玻璃拟态或其他视觉风格。
+
+三张卡片的正面和背面必须分别独立可编辑。请使用以下内容：
+- 卡片 1 正面：[正面内容]；卡片 1 背面：[背面内容]
+- 卡片 2 正面：[正面内容]；卡片 2 背面：[背面内容]
+- 卡片 3 正面：[正面内容]；卡片 3 背面：[背面内容]
+
+每个卡面可填写标题、副标题、分类、说明、指标和用户提供或项目中已验证的图片。未填写的可选字段直接隐藏并自动回流，禁止留下骨架线、灰色占位块、空白图片区或伪造内容；每个卡面至少保留一项真实、可读的内容。所有文案都保留为 Motion Graphic 可编辑文字图层，不得烘焙进 PNG、截图或视频。图片只使用用户提供或项目中已验证的真实素材，不生成、重绘或虚构产品 UI。
+
+翻转使用 Y 轴原地翻面：先稳定展示三张正面，再让卡片 1、2、3 依次翻转。只有卡片接近 90°、画面最窄的边缘态时才能切换正反面；背面落稳后必须正向可读，禁止镜像字、反字或在翻转中途闪回另一面。独立演示默认使用 1920×1080、30fps、3 秒：正面保持到第 20 帧，三张卡分别从第 20、32、44 帧开始翻转，每张用 16 帧完成，全部背面在第 60 帧落稳并保持到结尾。目标时长不足时优先延长片段、精简卡面文案或依次完成翻转，不得靠过度加速牺牲可读性。
+
+不添加辉光、粒子、玻璃拟态、随机旋转、夸张弹跳、大标题或无关装饰。先展示正面稳定态、至少一个 90° 边缘态、每张背面落稳后的状态和最终保持帧，并提供实时播放预览让我确认；导出前再次检查六个卡面的文字与图片都能独立修改。
+```
+
+</details>
+
+[观看 Prompt 006 演示视频](assets/verified-prompts/prompt-006-editable-three-card-flip.mp4) · [查看完整说明](references/prompt-006-editable-three-card-flip.md)
+
 | Prompt | 观看任务 | 状态 |
 | --- | --- | --- |
 | **001** | 手势触发一个或多个官方品牌 Logo 弹出 | **已验证上线** |
@@ -164,6 +198,7 @@
 | **003** | 品牌图标贯穿两种模式，能力递进后收束为结果对比 | **已验证上线** |
 | **004** | 根据结构、画幅与安全区选择章节导航、当前章节、纯进度或保持干净 | **已验证上线** |
 | **005** | 优先直接复用网站提供的 page-waterfall-wall 源视频；缺失且确认后才复刻 | **已验证上线** |
+| **006** | 保留原版浅灰三卡构图与依次翻面节奏，六个卡面内容均可独立编辑 | **已验证上线** |
 
 后续案例只在真实时间线中完成并通过验证后，才会加入这个系列。
 
