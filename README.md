@@ -10,7 +10,7 @@
 
 你只需要描述想看到的结果。CutDirector 会先做一个可编辑的代表镜头，满意后再扩展到其他位置。
 
-[![Verified Prompts](https://img.shields.io/badge/已验证_Prompt-010-E6503C?style=flat-square&labelColor=0B0C0D)](#已验证效果)
+[![Verified Prompts](https://img.shields.io/badge/已验证_Prompt-009-E6503C?style=flat-square&labelColor=0B0C0D)](#已验证效果)
 [![Official Effects](https://img.shields.io/badge/官方效果参考-123-B7F34A?style=flat-square&labelColor=0B0C0D)](VISUAL-GALLERY.md)
 [![Made for ChatCut](https://img.shields.io/badge/为_ChatCut_打造-F2EBDD?style=flat-square&labelColor=0B0C0D)](https://chatcut.io/)
 [![Code License](https://img.shields.io/badge/代码-AGPL--3.0--or--later-8A63D2?style=flat-square&labelColor=0B0C0D)](LICENSE)
@@ -228,9 +228,9 @@
 
 [观看 Prompt 007 演示视频](assets/verified-prompts/prompt-007-hd-page-focus-lock.mp4) · [查看完整说明](references/prompt-007-hd-page-focus-lock.md)
 
-### Prompt 009 · 真实图片卡组飞入与主卡落位
+### Prompt 008 · 真实图片卡组飞入与主卡落位
 
-[![Prompt 009 - 真实图片卡组飞入、展开并抬升主卡](assets/verified-prompts/prompt-009-real-image-deck-hero.gif)](assets/verified-prompts/prompt-009-real-image-deck-hero.mp4)
+[![Prompt 008 - 真实图片卡组飞入、展开并抬升主卡](assets/verified-prompts/prompt-008-real-image-deck-hero.gif)](assets/verified-prompts/prompt-008-real-image-deck-hero.mp4)
 
 **快速使用**
 
@@ -246,11 +246,11 @@
 
 适合作品集、案例合集、网站功能和产品截图的高密度展示。复用的是卡组运动与主次层级，演示中的图片和文案不是固定内容。
 
-[观看 Prompt 009 演示视频](assets/verified-prompts/prompt-009-real-image-deck-hero.mp4) · [查看完整说明](references/prompt-009-real-image-deck-hero.md)
+[观看 Prompt 008 演示视频](assets/verified-prompts/prompt-008-real-image-deck-hero.mp4) · [查看完整说明](references/prompt-008-real-image-deck-hero.md)
 
-### Prompt 010 · 输入—反馈—结果三拍因果链
+### Prompt 009 · 输入—反馈—结果三拍因果链
 
-[![Prompt 010 - 输入、反馈、结果三拍因果讲解](assets/verified-prompts/prompt-010-input-feedback-result.gif)](assets/verified-prompts/prompt-010-input-feedback-result.mp4)
+[![Prompt 009 - 输入、反馈、结果三拍因果讲解](assets/verified-prompts/prompt-009-input-feedback-result.gif)](assets/verified-prompts/prompt-009-input-feedback-result.mp4)
 
 **快速使用**
 
@@ -266,7 +266,7 @@
 
 适合把“做了什么—系统如何响应—最终得到什么”压缩成一个清晰镜头。它既能独立做抽象解释，也能叠在真实产品证据上，但不会把演示 Motion Graphic 伪装成产品实录。
 
-[观看 Prompt 010 演示视频](assets/verified-prompts/prompt-010-input-feedback-result.mp4) · [查看完整说明](references/prompt-010-input-feedback-result.md)
+[观看 Prompt 009 演示视频](assets/verified-prompts/prompt-009-input-feedback-result.mp4) · [查看完整说明](references/prompt-009-input-feedback-result.md)
 
 | Prompt | 观看任务 | 状态 |
 | --- | --- | --- |
@@ -277,8 +277,8 @@
 | **005** | 原样复用网站提供的 page-waterfall-wall 源视频；属于素材复用型，卡片内容不可替换 | **已验证上线** |
 | **006** | 保留原版浅灰三卡构图与依次翻面节奏，六个卡面内容均可独立编辑 | **已验证上线** |
 | **007** | 用真实高清页面承载事实，叠加可编辑输入标注、暗场和焦点锁定 | **已验证上线** |
-| **009** | 3–5 张真实图片错峰飞入并收束为卡组，用户指定主卡抬升落位 | **已验证上线** |
-| **010** | 输入、反馈、结果三拍形成可编辑因果链，可选使用已验证结果图片 | **已验证上线** |
+| **008** | 3–5 张真实图片错峰飞入并收束为卡组，用户指定主卡抬升落位 | **已验证上线** |
+| **009** | 输入、反馈、结果三拍形成可编辑因果链，可选使用已验证结果图片 | **已验证上线** |
 
 后续案例只在真实时间线中完成并通过验证后，才会加入这个系列。
 

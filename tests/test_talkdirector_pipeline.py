@@ -46,8 +46,8 @@ class RecipeValidationTest(unittest.TestCase):
                 "prompt-005-diagonal-card-waterfall",
                 "prompt-006-editable-three-card-flip",
                 "prompt-007-hd-page-focus-lock",
-                "prompt-009-real-image-deck-hero",
-                "prompt-010-input-feedback-result",
+                "prompt-008-real-image-deck-hero",
+                "prompt-009-input-feedback-result",
             },
         )
         self.assertTrue(all(recipe["status"] == "verified" for recipe in self.recipes.values()))
@@ -82,11 +82,11 @@ class RecipeValidationTest(unittest.TestCase):
             ["time", "assets", "copy", "safe_zones", "first_approval"],
         )
         self.assertEqual(
-            self.recipes["prompt-009-real-image-deck-hero"]["execution_gates"],
+            self.recipes["prompt-008-real-image-deck-hero"]["execution_gates"],
             ["time", "assets", "copy", "safe_zones", "first_approval"],
         )
         self.assertEqual(
-            self.recipes["prompt-010-input-feedback-result"]["execution_gates"],
+            self.recipes["prompt-009-input-feedback-result"]["execution_gates"],
             ["time", "copy", "safe_zones", "first_approval"],
         )
         progress_prompt = self.recipes["prompt-004-top-chapter-progress-rail"]["public_prompt"]
@@ -164,7 +164,7 @@ class RecipeValidationTest(unittest.TestCase):
         self.assertIn("第 42 帧后只做轻微呼吸强调并保持到第 74 帧", focus_prompt)
         self.assertIn("editorial_labels_presented_as_native_product_ui", focus_recipe["asset_strategy"]["forbidden"])
 
-        deck_recipe = self.recipes["prompt-009-real-image-deck-hero"]
+        deck_recipe = self.recipes["prompt-008-real-image-deck-hero"]
         deck_prompt = deck_recipe["public_prompt"]
         self.assertTrue(deck_recipe["asset_strategy"]["required"])
         self.assertIn("cardCount 必须与真实图片数量一致", deck_prompt)
@@ -173,7 +173,7 @@ class RecipeValidationTest(unittest.TestCase):
         self.assertIn("图片统一使用 contain 完整显示", deck_prompt)
         self.assertIn("第 52 帧后稳定保持到第 89 帧", deck_prompt)
 
-        causal_recipe = self.recipes["prompt-010-input-feedback-result"]
+        causal_recipe = self.recipes["prompt-009-input-feedback-result"]
         causal_prompt = causal_recipe["public_prompt"]
         self.assertFalse(causal_recipe["asset_strategy"]["required"])
         self.assertIn("所有文案必须保留为 Motion Graphic 可编辑文字属性", causal_prompt)
@@ -217,7 +217,7 @@ class RecipeValidationTest(unittest.TestCase):
         ):
             self.assertIn(phrase, prompt_006)
 
-        prompt_007 = quick_prompt("007", "009")
+        prompt_007 = quick_prompt("007", "008")
         self.assertGreater(len(prompt_007), 400)
         for phrase in (
             "分辨率不低于输出",
@@ -228,8 +228,8 @@ class RecipeValidationTest(unittest.TestCase):
         ):
             self.assertIn(phrase, prompt_007)
 
-        prompt_009 = quick_prompt("009", "010")
-        self.assertGreater(len(prompt_009), 450)
+        prompt_008 = quick_prompt("008", "009")
+        self.assertGreater(len(prompt_008), 450)
         for phrase in (
             "cardCount 必须等于真实图片数量",
             "heroIndex 必须有效",
@@ -237,10 +237,10 @@ class RecipeValidationTest(unittest.TestCase):
             "图片统一 contain 完整显示",
             "第 52–89 帧稳定保持",
         ):
-            self.assertIn(phrase, prompt_009)
+            self.assertIn(phrase, prompt_008)
 
-        prompt_010 = quick_prompt("010", None)
-        self.assertGreater(len(prompt_010), 500)
+        prompt_009 = quick_prompt("009", None)
+        self.assertGreater(len(prompt_009), 500)
         for phrase in (
             "所有文字保留为 Motion Graphic 属性",
             "无结果图时使用单栏结果卡",
@@ -248,7 +248,7 @@ class RecipeValidationTest(unittest.TestCase):
             "最终保持到第 104 帧",
             "不冒充真实产品原生 UI",
         ):
-            self.assertIn(phrase, prompt_010)
+            self.assertIn(phrase, prompt_009)
 
     def test_missing_recipe_field_fails(self):
         path = ROOT / "recipes" / "prompt-001-gesture-logo-pop.json"

@@ -1,10 +1,10 @@
-# Prompt 010: 输入—反馈—结果三拍因果链
+# Prompt 009: 输入—反馈—结果三拍因果链
 
 这个 Prompt 用“输入 → 即时反馈 → 结果”三拍结构解释一个动作怎样得到结果。所有文案与样式可编辑，结果图可选；演示文案只是示例，不属于模板的固定内容。
 
 > **类型：可编辑 Motion Graphic 因果讲解。** 它默认是后期抽象解释，不应伪装成某个真实产品的原生界面；如要演示真实产品操作，应以来源可验证的录屏或截图为底层证据。
 
-[观看已验证演示视频](../assets/verified-prompts/prompt-010-input-feedback-result.mp4)
+[观看已验证演示视频](../assets/verified-prompts/prompt-009-input-feedback-result.mp4)
 
 ## 用户直接使用的通用 Prompt
 
