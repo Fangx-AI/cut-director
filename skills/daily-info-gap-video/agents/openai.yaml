@@ -1,0 +1,5 @@
+interface:
+  display_name: "每日信息差视频"
+  short_description: "从热点筛选到4K成片交付的中文每日信息差视频工作流"
+  brand_color: "#FF5A36"
+  default_prompt: "Use $daily-info-gap-video to produce a 90-second Chinese information-gap video with covers and posting copy."

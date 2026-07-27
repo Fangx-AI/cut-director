@@ -282,6 +282,31 @@
 
 后续案例只在真实时间线中完成并通过验证后，才会加入这个系列。
 
+## 配套成片工作流
+
+CutDirector 现在把能力分成两层：
+
+| 层级 | 负责什么 | 典型交付 |
+| --- | --- | --- |
+| **局部 Prompt** | 解决一个镜头、一个信息结构或一种局部剪辑效果 | Logo 弹出、双栏讲解、章节进度条 |
+| **成品级 Skill** | 编排多个步骤和局部 Prompt，负责从选题到发布包的完整结果 | 成片、封面、投稿信息、来源清单 |
+
+仓库同时提供第一个成品级 [`daily-info-gap-video`](skills/daily-info-gap-video/SKILL.md) Skill，用于把当天热点直接做成可发布的中文信息差视频。它负责热点核验与去重、先看素材再写稿、视频优先、成片节奏、配音、字幕、顶部进度条、双比例封面、4K 导出和投稿信息；“AI每日大事”是其中一个预设。
+
+成品级 Skill 可以按需调用仓库里的局部 Prompt，但完成一个局部 Prompt 不代表成片已经完成。
+
+单独安装：
+
+```text
+$skill-installer install https://github.com/Fangx-AI/cut-director/tree/main/skills/daily-info-gap-video
+```
+
+安装后可以直接说：
+
+```text
+使用 $daily-info-gap-video 制作今天的 AI 每日大事，控制在 90 秒，直接交付成片、两张封面和投稿信息。
+```
+
 ## 30 秒开始
 
 ### 1. 安装 Skill
