@@ -1,0 +1,173 @@
+{
+  "recipe_schema_version": "0.2",
+  "recipe_id": "prompt-009-real-image-deck-hero",
+  "name": "真实图片卡组飞入与主卡落位",
+  "status": "verified",
+  "public_prompt": "在 [目标时间段] 制作一段“真实图片卡组飞入与主卡落位”镜头。独立演示默认使用 1920×1080、30fps、3 秒。使用用户提供或当前项目中来源可验证的 3–5 张真实图片：[图片 1]、[图片 2]、[图片 3]、[可选图片 4]、[可选图片 5]；同时填写每张卡片各自的 [标签] 与 [标题]，并指定 [主卡序号]。cardCount 必须与真实图片数量一致，heroIndex 必须指向其中一张有效卡片；禁止重复图片凑数、生成或重绘产品 UI、显示空白图片区、骨架线或占位词。\n\n把每张图片、标签和标题保留为独立可编辑属性，并额外开放场景标签、深色背景、浅色背景、卡片底色、主文字色、辅助文字色、强调色和字体。图片统一使用 contain 完整显示，不裁掉界面边缘或关键信息；可选标签留空时隐藏并自动回流。3 张卡使用约 430×318 的卡面，4 张约 355×276，5 张约 292×242，始终保持清晰可读。\n\n动画节奏固定为：每张卡从第 index×3 帧开始，用 12 帧依次从画面外飞入；第 16–48 帧让卡组从倾斜叠放状态收束成稳定扇形；背景第 0–42 帧由深色过渡到浅色；指定主卡第 30–52 帧抬升并放大到约 1.12 倍，其他卡退为陪衬；第 52 帧后稳定保持到第 89 帧。场景标签只在开头第 0–10 帧克制出现，不添加随机旋转、粒子、辉光、无关大标题或连续弹跳。\n\n先展示首张卡飞入、全部卡片出现、卡组收束、主卡抬升和最终保持帧；逐张核对图片来源、完整显示、标题对应关系、主卡序号和最终可读性后再导出。",
+  "triggers": {
+    "intent": "用三至五张真实图片形成卡组飞入、扇形收束并抬升一张主卡。",
+    "signals_any": [
+      "图片卡组飞入",
+      "多张截图展开后突出一张",
+      "真实素材卡片扇形",
+      "作品集主卡落位"
+    ],
+    "reject_when": [
+      "少于三张或多于五张可验证真实图片",
+      "用户要求复制图片、使用占位图或生成产品 UI 凑数",
+      "任务不需要明确主卡",
+      "图片必须全屏逐张讲解而非卡组展示"
+    ]
+  },
+  "required_inputs": [
+    {
+      "id": "confirmed_time_range",
+      "required_for": "first_approval",
+      "description": "目标时间段、画幅和帧率；独立演示默认 1920×1080、30fps、3 秒。",
+      "on_missing": "独立演示使用已验证节奏；插入现有视频时先确认精确范围。"
+    },
+    {
+      "id": "verified_card_images",
+      "required_for": "planning",
+      "description": "3–5 张用户提供或项目中已验证的真实图片，数量与 cardCount 一致。",
+      "on_missing": "减少 cardCount 或请求缺失图片，不重复、生成或重绘图片。"
+    },
+    {
+      "id": "editable_card_copy",
+      "required_for": "planning",
+      "description": "每张卡各自的标题与可选标签，全部保持可编辑。",
+      "on_missing": "请求缺失标题；可选标签留空后隐藏。"
+    },
+    {
+      "id": "hero_index",
+      "required_for": "first_approval",
+      "description": "1 到 cardCount 之间的主卡序号。",
+      "on_missing": "展示卡组静态代表帧并请求指定，不自行决定主卡。"
+    }
+  ],
+  "asset_strategy": {
+    "required": true,
+    "sources_in_order": [
+      "user_provided_real_images",
+      "verified_existing_project_images",
+      "verified_official_product_or_portfolio_images"
+    ],
+    "per_asset_inspection": [
+      "verify_each_image_provenance_and_resolution",
+      "confirm_image_count_matches_card_count",
+      "confirm_no_duplicate_image_is_used_to_fill_count",
+      "confirm_contain_fit_preserves_critical_content",
+      "confirm_no_private_or_sensitive_information_is_visible"
+    ],
+    "forbidden": [
+      "generated_redrawn_or_invented_product_ui",
+      "duplicate_images_used_to_fill_card_count",
+      "skeleton_lines_empty_image_boxes_or_placeholder_copy",
+      "cover_crop_that_removes_critical_interface_content",
+      "unverified_product_or_brand_images"
+    ],
+    "on_unverified": "移除未验证图片并同步减少 cardCount；少于三张时保持画面干净并请求真实素材。"
+  },
+  "layout_safe_zones": {
+    "protect": [
+      "all_card_images_titles_and_labels",
+      "hero_card_edges_and_emphasis",
+      "scene_label",
+      "captions_speaker_logo_and_platform_controls_when_inserted"
+    ],
+    "placement_rule": "3、4、5 张卡分别采用约 430×318、355×276、292×242 的卡面；图片 contain 完整显示，扇形收束后主卡不遮挡相邻卡片的识别信息。",
+    "conflict_fallbacks": [
+      "隐藏可选标签并保留图片与标题",
+      "减小卡片但保持图片可读和 contain",
+      "把镜头移动到可全屏承载卡组的时间段",
+      "仍无法保护内容时减少 cardCount 或请求新时间段"
+    ]
+  },
+  "timing_animation": {
+    "requires_confirmed_time_range": true,
+    "trigger_alignment": "先按序出现真实图片，再形成完整卡组，最后只抬升用户指定主卡。",
+    "entry": "每张卡从 index×3 帧开始，用 12 帧依次飞入；场景标签第 0–10 帧克制出现。",
+    "hold": "卡组第 16–48 帧收束，背景第 0–42 帧由深到浅，主卡第 30–52 帧抬升到约 1.12 倍，第 52–89 帧保持。",
+    "exit": "最终卡组与主卡保持到第 89 帧，不散开、不闪黑、不突然缩回。",
+    "forbidden": [
+      "random_rotation_or_uncontrolled_card_motion",
+      "duplicate_or_placeholder_images",
+      "cover_crop_of_critical_image_content",
+      "glow_particles_or_repeated_bounce",
+      "abrupt_black_frame_or_scatter_exit"
+    ]
+  },
+  "blocking_policies": {
+    "missing_time_range": "standalone_preview_may_use_verified_90_frame_timing; otherwise_request_exact_range",
+    "missing_assets": "reduce_card_count_only_if_at_least_three_verified_images_remain; otherwise_request_assets",
+    "missing_copy": "request_required_titles_and_hide_empty_optional_labels",
+    "safe_zone_conflict": "move_to_a_full_screen_beat_or_reduce_card_count; never_cover_critical_image_content"
+  },
+  "execution_gates": [
+    "time",
+    "assets",
+    "copy",
+    "safe_zones",
+    "first_approval"
+  ],
+  "fallback_chain": [
+    {
+      "id": "verified_real_image_deck_with_hero",
+      "when": "3–5 张真实图片、标题、cardCount 与 heroIndex 全部有效。",
+      "action": "执行完整飞入、扇形收束、背景过渡与主卡抬升镜头。",
+      "terminal": false
+    },
+    {
+      "id": "reduced_verified_image_deck",
+      "when": "部分图片无法验证，但仍剩至少三张真实图片。",
+      "action": "删除未验证卡片并同步降低 cardCount，重新确认 heroIndex 后执行，不复制图片凑数。",
+      "terminal": false
+    },
+    {
+      "id": "keep_clean_and_request_real_images",
+      "when": "可验证图片少于三张、主卡未指定或内容无法安全完整显示。",
+      "action": "不显示占位卡或生成图，保持画面干净并请求真实图片、主卡序号或新时间段。",
+      "terminal": true
+    }
+  ],
+  "verification": {
+    "required_stages": [
+      "asset",
+      "beginning",
+      "middle",
+      "ending"
+    ],
+    "checks": [
+      {
+        "id": "verified_unique_real_images",
+        "stage": "asset",
+        "rule": "cardCount 与来源可验证的唯一真实图片数量一致，heroIndex 指向有效卡片。",
+        "evidence_required": "asset_provenance_count_and_hero_mapping"
+      },
+      {
+        "id": "ordered_card_entry",
+        "stage": "beginning",
+        "rule": "卡片按 index×3 帧错峰飞入，图片、标签和标题对应正确且保持可编辑。",
+        "evidence_required": "early_entry_frames_and_motion_graphic_property_inspection"
+      },
+      {
+        "id": "readable_deck_and_hero_settle",
+        "stage": "middle",
+        "rule": "卡组形成稳定扇形，所有图片 contain 完整显示，指定主卡抬升且没有遮住关键内容。",
+        "evidence_required": "deck_settle_hero_frames_and_realtime_playback"
+      },
+      {
+        "id": "stable_final_deck_hold",
+        "stage": "ending",
+        "rule": "主卡与卡组稳定保持到第 89 帧，无闪黑、散开、突缩或占位内容。",
+        "evidence_required": "final_visible_frame_and_export_probe"
+      }
+    ]
+  },
+  "compatibility": {
+    "public_prompt_source": "references/prompt-009-real-image-deck-hero.md",
+    "readme_must_contain_public_prompt": false,
+    "readme_prompt_excerpt": "在 [目标时间段] 制作 1920×1080、30fps、3 秒的“真实图片卡组飞入与主卡落位”镜头。",
+    "legacy_reference": "references/prompt-009-real-image-deck-hero.md"
+  }
+}

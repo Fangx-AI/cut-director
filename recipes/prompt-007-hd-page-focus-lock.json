@@ -1,0 +1,172 @@
+{
+  "recipe_schema_version": "0.2",
+  "recipe_id": "prompt-007-hd-page-focus-lock",
+  "name": "高清页面输入标注与焦点锁定",
+  "status": "verified",
+  "public_prompt": "在 [目标时间段] 制作一段“高清页面输入标注与焦点锁定”镜头。独立演示默认使用 1920×1080、30fps、2.5 秒。底层只使用用户提供或当前项目中来源可验证的真实网站截图/录屏：[真实页面素材]；素材应至少达到目标输出分辨率，按 1:1 或等比 contain 放置，禁止放大低清截图、AI 重绘、虚构产品 UI、拉伸或无意义裁切。\n\n在真实页面上方添加透明 Motion Graphic 讲解层，以下内容与样式都要独立可编辑：[编辑标注]、[字段标签]、[输入文字]、[焦点标签]、强调色、文字色、面板色、遮罩色与遮罩强度；焦点框的 X、Y、宽、高和圆角，以及标注面板的 X、Y、宽度也要暴露为可编辑属性。未填写的可选标签直接隐藏并自动回流，不留下空框、骨架线或占位词。所有新增标签必须被识别为“后期讲解标注”，不得冒充网站原生按钮、搜索框或系统反馈。\n\n时间轴固定为：标注面板第 0–14 帧克制入场；第 8–34 帧逐字输入 [输入文字]；第 14–30 帧让页面非重点区域逐渐压暗；第 20–38 帧绘制并锁定目标焦点框；第 28–42 帧显示 [焦点标签]；第 42 帧后只做轻微呼吸强调并保持到第 74 帧。焦点框必须准确贴合 [目标区域]，不得遮挡目标正文，也不要用大幅推拉或过度模糊制造“聚焦”。\n\n先检查原始页面在 100% 尺度下是否清晰，再展示首帧、输入中段、遮罩建立、焦点框落位和最终保持帧；确认页面文字未变糊、标注与原生 UI 边界明确、焦点坐标准确后再导出。",
+  "triggers": {
+    "intent": "在真实高清页面上演示一次可编辑输入，并用暗场与焦点框锁定目标区域。",
+    "signals_any": [
+      "页面输入后锁定重点",
+      "真实网站截图加聚焦框",
+      "高清页面标注",
+      "输入文字并突出目标卡片"
+    ],
+    "reject_when": [
+      "没有清晰且来源可验证的真实页面素材",
+      "用户要求模型生成或重绘产品 UI 并冒充真实页面",
+      "目标区域无法从素材中准确定位",
+      "用户只需要普通缩放而不需要输入与聚焦因果"
+    ]
+  },
+  "required_inputs": [
+    {
+      "id": "confirmed_time_range",
+      "required_for": "first_approval",
+      "description": "目标时间段、画幅与帧率；独立演示默认 1920×1080、30fps、2.5 秒。",
+      "on_missing": "独立演示可使用已验证节奏；插入现有视频时先确认精确范围。"
+    },
+    {
+      "id": "verified_page_asset",
+      "required_for": "planning",
+      "description": "用户提供或项目中已验证、分辨率不低于目标输出的真实页面截图或录屏。",
+      "on_missing": "请求原始截图或录屏，不生成、重绘或用低清预览替代。"
+    },
+    {
+      "id": "editable_annotation_copy",
+      "required_for": "planning",
+      "description": "编辑标注、字段标签、输入文字和焦点标签；可选标签允许留空。",
+      "on_missing": "只请求缺失的必填输入文字，不插入占位词。"
+    },
+    {
+      "id": "focus_geometry",
+      "required_for": "first_approval",
+      "description": "目标区域以及焦点框 X、Y、宽、高和圆角。",
+      "on_missing": "从真实页面代表帧测量并提交焦点框预览，不凭空猜测。"
+    }
+  ],
+  "asset_strategy": {
+    "required": true,
+    "sources_in_order": [
+      "user_provided_original_page_screenshot_or_recording",
+      "verified_existing_project_page_asset",
+      "verified_official_product_demo_frame"
+    ],
+    "per_asset_inspection": [
+      "verify_provenance_and_original_resolution",
+      "inspect_at_one_hundred_percent_scale",
+      "confirm_target_region_is_visible_and_unobstructed",
+      "confirm_no_private_or_sensitive_information_is_visible"
+    ],
+    "forbidden": [
+      "upscaled_low_resolution_page_preview",
+      "generated_redrawn_or_invented_product_ui",
+      "stretching_or_unnecessary_crop",
+      "editorial_labels_presented_as_native_product_ui",
+      "skeleton_lines_empty_boxes_or_placeholder_copy"
+    ],
+    "on_unverified": "保持原画面干净并请求清晰、可验证的原始页面素材，不执行页面复刻。"
+  },
+  "layout_safe_zones": {
+    "protect": [
+      "real_page_target_region",
+      "page_navigation_and_readable_copy",
+      "editorial_annotation_panel",
+      "captions_speaker_logo_and_platform_controls_when_inserted"
+    ],
+    "placement_rule": "页面层按 1:1 或 contain 完整显示；标注面板放在不遮挡目标与正文的位置，焦点框坐标严格贴合真实目标，遮罩只压暗非重点区域。",
+    "conflict_fallbacks": [
+      "移动或缩小标注面板并保持文字可读",
+      "降低遮罩强度或隐藏可选标签",
+      "把镜头移到可完整承载真实页面的全屏时间段",
+      "仍无法保护真实页面时保持干净并请求新的时间段或素材"
+    ]
+  },
+  "timing_animation": {
+    "requires_confirmed_time_range": true,
+    "trigger_alignment": "输入动作先发生，随后建立暗场与焦点框，焦点标签最后落位；所有动作服务于同一真实目标区域。",
+    "entry": "标注面板第 0–14 帧入场，输入文字第 8–34 帧逐字出现。",
+    "hold": "暗场第 14–30 帧建立，焦点框第 20–38 帧锁定，焦点标签第 28–42 帧出现，第 42–74 帧稳定保持。",
+    "exit": "最终状态保持到最后可见帧；不闪黑、不突缩、不在结尾撤销焦点。",
+    "forbidden": [
+      "blur_as_a_substitute_for_real_focus",
+      "large_camera_push_or_unmotivated_zoom",
+      "editorial_overlay_masquerading_as_native_ui",
+      "low_resolution_upscale",
+      "abrupt_black_frame_or_scale_out"
+    ]
+  },
+  "blocking_policies": {
+    "missing_time_range": "standalone_preview_may_use_verified_75_frame_timing; otherwise_request_exact_range",
+    "missing_asset": "request_a_verified_original_resolution_page_asset",
+    "missing_copy": "request_only_required_input_text_and_hide_empty_optional_labels",
+    "safe_zone_conflict": "move_overlay_or_use_a_full_screen_beat; never_cover_the_real_target"
+  },
+  "execution_gates": [
+    "time",
+    "assets",
+    "copy",
+    "safe_zones",
+    "first_approval"
+  ],
+  "fallback_chain": [
+    {
+      "id": "verified_hd_page_focus_lock",
+      "when": "真实页面清晰、来源可验证，输入文案与焦点坐标齐全。",
+      "action": "执行 75 帧高清页面、输入标注、暗场和焦点锁定完整镜头。",
+      "terminal": false
+    },
+    {
+      "id": "verified_page_with_simplified_annotation",
+      "when": "页面可靠但安全区不足或可选标注过密。",
+      "action": "隐藏可选标签、移动标注面板或降低遮罩强度，保留真实页面、输入与焦点锁定。",
+      "terminal": false
+    },
+    {
+      "id": "keep_clean_and_request_hd_page",
+      "when": "页面来源、清晰度或目标坐标无法验证。",
+      "action": "不生成或重绘界面，保持画面干净并请求原始截图、录屏或准确目标区域。",
+      "terminal": true
+    }
+  ],
+  "verification": {
+    "required_stages": [
+      "asset",
+      "beginning",
+      "middle",
+      "ending"
+    ],
+    "checks": [
+      {
+        "id": "verified_hd_page_asset",
+        "stage": "asset",
+        "rule": "页面来源可追溯，原始分辨率不低于输出，100% 尺度下文字与界面边缘清晰。",
+        "evidence_required": "asset_metadata_and_one_hundred_percent_frame"
+      },
+      {
+        "id": "clean_page_and_editable_input",
+        "stage": "beginning",
+        "rule": "首帧页面完整，标注面板与逐字输入清晰；文字属性可编辑且不会冒充原生 UI。",
+        "evidence_required": "opening_frames_and_motion_graphic_property_inspection"
+      },
+      {
+        "id": "accurate_mask_and_focus_geometry",
+        "stage": "middle",
+        "rule": "遮罩只压暗非重点区域，焦点框准确贴合真实目标且不遮挡正文。",
+        "evidence_required": "mask_focus_frames_and_geometry_values"
+      },
+      {
+        "id": "stable_clear_final_hold",
+        "stage": "ending",
+        "rule": "最终焦点状态保持到第 74 帧，页面未变糊，无闪黑、突缩或突兀退场。",
+        "evidence_required": "final_visible_frame_realtime_playback_and_export_probe"
+      }
+    ]
+  },
+  "compatibility": {
+    "public_prompt_source": "references/prompt-007-hd-page-focus-lock.md",
+    "readme_must_contain_public_prompt": false,
+    "readme_prompt_excerpt": "在 [目标时间段] 制作 1920×1080、30fps、2.5 秒的“高清页面输入标注与焦点锁定”镜头。",
+    "legacy_reference": "references/prompt-007-hd-page-focus-lock.md"
+  }
+}
