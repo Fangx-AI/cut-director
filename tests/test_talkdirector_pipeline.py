@@ -1,5 +1,6 @@
 import copy
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -138,6 +139,41 @@ class RecipeValidationTest(unittest.TestCase):
         self.assertIn("约 90° 最窄边缘态", card_flip_checks["edge_swap_and_readable_back_faces"]["rule"])
         self.assertIn("最终三张背面全部落稳", card_flip_checks["stable_editable_back_faces_and_clean_ending"]["rule"])
         self.assertIn("顶部优先但不固定", progress_recipe["layout_safe_zones"]["placement_rule"])
+
+    def test_prompt_005_and_006_quick_use_are_independently_executable(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+
+        def quick_prompt(number: str, next_number: str | None) -> str:
+            section = readme.split(f"### Prompt {number}", 1)[1]
+            if next_number is not None:
+                section = section.split(f"### Prompt {next_number}", 1)[0]
+            match = re.search(r"\*\*快速使用\*\*\s*```text\s*\n(.*?)\n```", section, flags=re.DOTALL)
+            self.assertIsNotNone(match, f"Prompt {number} quick-use block is missing")
+            return match.group(1).strip()
+
+        prompt_005 = quick_prompt("005", "006")
+        self.assertGreater(len(prompt_005), 300)
+        for phrase in (
+            "page-waterfall-wall.mp4",
+            "1920×1080、30fps、约 5 秒",
+            "不重新生成、重绘或用 Motion Graphic 复刻",
+            "不得生成、重绘或虚构产品 UI",
+            "首帧、中段和尾帧",
+            "H.264、1080p、30fps",
+        ):
+            self.assertIn(phrase, prompt_005)
+
+        prompt_006 = quick_prompt("006", None)
+        self.assertGreater(len(prompt_006), 400)
+        for phrase in (
+            "三张 414×230 白色卡片",
+            "六个卡面必须独立可编辑",
+            "第 20、32、44 帧",
+            "16 帧的 Y 轴原地翻转",
+            "接近 90° 的最窄边缘态",
+            "禁止镜像、反字和闪回",
+        ):
+            self.assertIn(phrase, prompt_006)
 
     def test_missing_recipe_field_fails(self):
         path = ROOT / "recipes" / "prompt-001-gesture-logo-pop.json"

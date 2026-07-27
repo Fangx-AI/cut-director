@@ -166,7 +166,7 @@
   "compatibility": {
     "public_prompt_source": "references/prompt-006-editable-three-card-flip.md",
     "readme_must_contain_public_prompt": false,
-    "readme_prompt_excerpt": "制作原版浅灰三卡依次翻面：三张卡的正面和背面都独立可编辑，只在约 90° 边缘态切换卡面，背面文字不得镜像。",
+    "readme_prompt_excerpt": "在 [目标时间段] 制作一段原版浅灰三卡依次翻面镜头。",
     "legacy_reference": "references/prompt-006-editable-three-card-flip.md"
   }
 }
