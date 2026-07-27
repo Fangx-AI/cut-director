@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "series": "daily-magic-website",
+  "masterVersion": "daily-magic-website-v1",
+  "masterReference": {
+    "status": "provisional",
+    "referenceType": "chatcut-timeline",
+    "referenceId": "",
+    "approvedAt": "",
+    "notes": "首支校准样片通过用户审片后锁定"
+  },
+  "episodeId": "000",
+  "website": {
+    "name": "示例网站",
+    "url": "https://example.com",
+    "audience": "需要解决明确工作问题的中文用户",
+    "oneSentenceValue": "用一句可验证的话说明网站价值",
+    "accentColor": "#2F6BFF"
+  },
+  "format": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "durationFrames": 720,
+    "voiceProvider": "doubao",
+    "voiceId": "dayi",
+    "voiceSpeedRatioMax": 1.18
+  },
+  "visualSystem": {
+    "fontFamily": "Smiley Sans",
+    "paletteMode": "source-native-single-accent",
+    "motionSet": [
+      "hard-cut",
+      "masked-push",
+      "focus-lock",
+      "slow-crop"
+    ],
+    "generatedProductUiAllowed": false
+  },
+  "flowVariant": "input-action-result",
+  "claims": [
+    {
+      "id": "C01",
+      "text": "示例网站提供一项已验证的核心能力",
+      "sourceUrl": "https://example.com",
+      "evidenceType": "official-page",
+      "capturedAt": "2026-01-01",
+      "evidenceCaptured": true
+    }
+  ],
+  "materials": [
+    {
+      "id": "M01",
+      "type": "browser-screenshot",
+      "sourceUrl": "https://example.com",
+      "localPath": "example-home.png",
+      "provenanceVerified": true,
+      "rightsStatus": "user-authorized-capture"
+    },
+    {
+      "id": "M02",
+      "type": "browser-recording",
+      "sourceUrl": "https://example.com",
+      "localPath": "example-flow.mp4",
+      "provenanceVerified": true,
+      "rightsStatus": "user-authorized-capture"
+    }
+  ],
+  "shots": [
+    {
+      "id": "S01",
+      "job": "hook",
+      "startFrame": 0,
+      "endFrame": 90,
+      "sourceRef": "M01",
+      "voiceover": "还在用低效的方法解决这个问题？",
+      "onScreenText": "别再低效处理",
+      "claimIds": []
+    },
+    {
+      "id": "S02",
+      "job": "identity-proof",
+      "startFrame": 90,
+      "endFrame": 210,
+      "sourceRef": "M01",
+      "voiceover": "这个网站把核心能力直接放进真实工作流程。",
+      "onScreenText": "真实能力，一眼看懂",
+      "claimIds": [
+        "C01"
+      ]
+    },
+    {
+      "id": "S03",
+      "job": "core-operation",
+      "startFrame": 210,
+      "endFrame": 360,
+      "sourceRef": "M02",
+      "voiceover": "放入真实输入，完成一次连续操作，不用来回切工具。",
+      "onScreenText": "输入 → 操作",
+      "claimIds": []
+    },
+    {
+      "id": "S04",
+      "job": "concrete-result",
+      "startFrame": 360,
+      "endFrame": 510,
+      "sourceRef": "M02",
+      "voiceover": "操作结束后，真实结果会直接出现在同一个流程里。",
+      "onScreenText": "操作 → 结果",
+      "claimIds": []
+    },
+    {
+      "id": "S05",
+      "job": "audience-value",
+      "startFrame": 510,
+      "endFrame": 630,
+      "sourceRef": "M01",
+      "voiceover": "适合需要提升效率，又不想学习复杂软件的人。",
+      "onScreenText": "更快 · 更直观 · 可落地",
+      "claimIds": []
+    },
+    {
+      "id": "S06",
+      "job": "clean-close",
+      "startFrame": 630,
+      "endFrame": 720,
+      "sourceRef": "M01",
+      "voiceover": "先收藏它，网址就在屏幕上。",
+      "onScreenText": "example.com",
+      "claimIds": []
+    }
+  ],
+  "qa": {
+    "sixShotsVerified": false,
+    "realUiOnly": false,
+    "claimsVerified": false,
+    "operationResultMatch": false,
+    "typographySafe": false,
+    "singleAccent": false,
+    "motionSetCompliant": false,
+    "noClippingOrEmptyUi": false,
+    "finalUrlHoldVerified": false,
+    "dayiSegmentsVerified": false,
+    "shotBoundariesVerified": false
+  },
+  "delivery": {
+    "projectId": "",
+    "timelineId": "",
+    "timelineName": "",
+    "verifiedFrames": [],
+    "status": "plan"
+  }
+}

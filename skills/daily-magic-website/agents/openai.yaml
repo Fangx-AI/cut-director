@@ -1,0 +1,4 @@
+interface:
+  display_name: "每日神器网站"
+  short_description: "基于真实网站素材和固定镜头语法稳定量产高质量横版推荐成片"
+  default_prompt: "使用 $daily-magic-website 为这个网站制作一条可量产、可验证的横版成片。"
