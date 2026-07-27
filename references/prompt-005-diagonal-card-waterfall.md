@@ -2,6 +2,8 @@
 
 这个 Prompt 对应网站或工具已经提供的 `page-waterfall-wall.mp4`。它的首要原则是复用真实源视频，而不是看到相似画面后重新生成一套卡片、文字和动画。
 
+> **类型：真实源视频复用型。** 卡片文字、图片和运动已经烘焙在源视频中，不能通过这个 Prompt 替换。需要编辑卡片内容时，不要使用 Prompt 005，应选择可编辑 Motion Graphic Prompt。
+
 [观看已验证演示视频](../assets/verified-prompts/prompt-005-diagonal-card-waterfall.mp4)
 
 ## 用户直接使用的通用 Prompt

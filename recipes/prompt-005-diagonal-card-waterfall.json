@@ -167,7 +167,7 @@
   "compatibility": {
     "public_prompt_source": "references/prompt-005-diagonal-card-waterfall.md",
     "readme_must_contain_public_prompt": false,
-    "readme_prompt_excerpt": "若已有网站提供的 `page-waterfall-wall.mp4`，直接使用原视频，不重新生成、重绘或用 Motion Graphic 复刻。",
+    "readme_prompt_excerpt": "在 [目标时间段] 使用 page-waterfall-wall 斜向卡片滚动镜头。",
     "legacy_reference": "references/prompt-005-diagonal-card-waterfall.md"
   }
 }
