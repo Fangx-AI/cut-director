@@ -1,6 +1,6 @@
 {
   "recipe_schema_version": "0.2",
-  "recipe_id": "prompt-010-input-feedback-result",
+  "recipe_id": "prompt-009-input-feedback-result",
   "name": "输入—反馈—结果三拍因果链",
   "status": "verified",
   "public_prompt": "在 [目标时间段] 制作一段“输入 → 反馈 → 结果”三拍因果讲解镜头。独立演示默认使用 1920×1080、30fps、3.5 秒。使用以下可编辑内容：[场景标签]、[第 1 步标签]、[输入眉题]、[输入文字]、[第 2 步标签]、[反馈短句]、[第 3 步标签]、[结果眉题]、[结果标题]、[结果说明]、[结果元信息]，以及可选的 [真实结果图片]。同时开放背景色、卡片色、主文字色、辅助文字色、主强调色、次强调色和字体。\n\n所有文案必须保留为 Motion Graphic 可编辑文字属性，不得烘焙进 PNG、截图或视频。未填写的可选字段直接隐藏并自动回流；没有结果图片时使用完整的单栏结果卡，有来源可验证的真实结果图片时才切换为图文双栏，图片使用 contain 完整显示，禁止生成、重绘或虚构产品 UI，也禁止保留空白图片区、骨架线、占位词或假数据。\n\n动画节奏固定为：第 5–28 帧逐字输入 [输入文字]；第 28–48 帧把输入卡压缩并过渡为反馈胶囊；第 35–58 帧显示 [反馈短句]；第 52–74 帧让结果卡进入；第 74–88 帧完成结果卡落稳；底部因果进度线从第 0–96 帧连续推进，最后保持到第 104 帧。三个阶段必须能清楚读成“动作发生—系统反馈—结果出现”，不添加无关粒子、故障、连续 whoosh、突然闪黑或末尾硬切。\n\n本镜头默认是编辑层的抽象因果说明，不得把输入框、反馈和结果卡冒充某个网站的原生界面。如果任务是在证明真实产品操作，先使用用户提供或项目中已验证的真实录屏/截图作为底层证据，再把本 Prompt 的标签作为明确的后期讲解层；无法取得真实素材时，只能保留抽象讲解，不声称它是产品实录。\n\n先展示输入开始、输入完成、反馈胶囊、结果卡进入、结果落稳和最终保持帧；核对全部文字可编辑、可选字段正确回流、真实结果图来源可靠、三拍因果清楚且结尾稳定后再导出。",
@@ -159,9 +159,9 @@
     ]
   },
   "compatibility": {
-    "public_prompt_source": "references/prompt-010-input-feedback-result.md",
+    "public_prompt_source": "references/prompt-009-input-feedback-result.md",
     "readme_must_contain_public_prompt": false,
     "readme_prompt_excerpt": "在 [目标时间段] 制作 1920×1080、30fps、3.5 秒的“输入 → 反馈 → 结果”三拍因果镜头。",
-    "legacy_reference": "references/prompt-010-input-feedback-result.md"
+    "legacy_reference": "references/prompt-009-input-feedback-result.md"
   }
 }

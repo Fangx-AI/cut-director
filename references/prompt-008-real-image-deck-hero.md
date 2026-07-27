@@ -1,10 +1,10 @@
-# Prompt 009: 真实图片卡组飞入与主卡落位
+# Prompt 008: 真实图片卡组飞入与主卡落位
 
 这个 Prompt 把 3–5 张用户提供的真实图片组织成卡组飞入、展开和主卡抬升的完整镜头。图片、卡片标题、标签、主卡序号与视觉样式都可替换。
 
 > **类型：真实图片驱动的可编辑 Motion Graphic。** 声明几张卡就必须提供几张真实图片，不复制同一张图填数，也不生成或重绘产品 UI。
 
-[观看已验证演示视频](../assets/verified-prompts/prompt-009-real-image-deck-hero.mp4)
+[观看已验证演示视频](../assets/verified-prompts/prompt-008-real-image-deck-hero.mp4)
 
 ## 用户直接使用的通用 Prompt
 
