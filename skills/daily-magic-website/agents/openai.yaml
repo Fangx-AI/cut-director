@@ -1,0 +1,4 @@
+interface:
+  display_name: "每日神器网站"
+  short_description: "按行业参考片语法，用真实网站素材稳定制作高质量竖版推荐视频"
+  default_prompt: "使用 $daily-magic-website 基于真实网站证据制作一条参考片校准、可复用、可验证的竖版成片。"

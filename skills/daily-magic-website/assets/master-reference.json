@@ -1,0 +1,179 @@
+{
+  "id": "EHOrMdeO-master-v1",
+  "sourceFile": "EHOrMdeO.mp4 (user-provided; not distributed)",
+  "sha256": "EBBAC4B21E6DB3427602CAB71AE866B1FC18E2EA8C7A8A30025320A56A0E7AD0",
+  "video": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "durationSeconds": 36.366667,
+    "frames": 1091,
+    "codec": "h264"
+  },
+  "audio": {
+    "codec": "aac",
+    "sampleRate": 44100,
+    "channels": 2,
+    "integratedLufs": -12.5,
+    "loudnessRangeLu": 1.1,
+    "silenceOver120msBeforeEnding": 0,
+    "endingSilenceMs": 150
+  },
+  "phaseBoundaries": [
+    {
+      "id": "P01",
+      "startFrame": 0,
+      "endFrame": 66,
+      "job": "series-hook"
+    },
+    {
+      "id": "P02",
+      "startFrame": 66,
+      "endFrame": 120,
+      "job": "identity-anchor"
+    },
+    {
+      "id": "P03",
+      "startFrame": 120,
+      "endFrame": 209,
+      "job": "value-proof"
+    },
+    {
+      "id": "P04",
+      "startFrame": 209,
+      "endFrame": 372,
+      "job": "navigation-proof"
+    },
+    {
+      "id": "P05",
+      "startFrame": 372,
+      "endFrame": 515,
+      "job": "demo-a"
+    },
+    {
+      "id": "P06",
+      "startFrame": 515,
+      "endFrame": 617,
+      "job": "demo-b"
+    },
+    {
+      "id": "P07",
+      "startFrame": 617,
+      "endFrame": 662,
+      "job": "demo-c"
+    },
+    {
+      "id": "P08",
+      "startFrame": 662,
+      "endFrame": 705,
+      "job": "demo-d"
+    },
+    {
+      "id": "P09",
+      "startFrame": 705,
+      "endFrame": 746,
+      "job": "demo-e"
+    },
+    {
+      "id": "P10",
+      "startFrame": 746,
+      "endFrame": 841,
+      "job": "credibility-proof"
+    },
+    {
+      "id": "P11",
+      "startFrame": 841,
+      "endFrame": 894,
+      "job": "friction-proof"
+    },
+    {
+      "id": "P12",
+      "startFrame": 894,
+      "endFrame": 951,
+      "job": "access-setup"
+    },
+    {
+      "id": "P13",
+      "startFrame": 951,
+      "endFrame": 986,
+      "job": "access-navigation"
+    },
+    {
+      "id": "P14",
+      "startFrame": 986,
+      "endFrame": 1057,
+      "job": "access-action"
+    },
+    {
+      "id": "P15",
+      "startFrame": 1057,
+      "endFrame": 1091,
+      "job": "return-close"
+    }
+  ],
+  "measuredTransitions": [
+    {
+      "id": "staggered-line-drop",
+      "durationFrames": [
+        4,
+        6
+      ]
+    },
+    {
+      "id": "badge-diagonal-peel",
+      "durationFrames": [
+        8,
+        9
+      ]
+    },
+    {
+      "id": "hook-logo-collapse",
+      "durationFrames": [
+        7,
+        7
+      ]
+    },
+    {
+      "id": "diagonal-page-curl",
+      "durationFrames": [
+        9,
+        9
+      ]
+    },
+    {
+      "id": "stacked-bubble-pop",
+      "durationFrames": [
+        4,
+        5
+      ]
+    },
+    {
+      "id": "radial-zoom-bridge",
+      "durationFrames": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "overzoom-settle",
+      "durationFrames": [
+        10,
+        14
+      ]
+    },
+    {
+      "id": "evidence-circle-draw",
+      "durationFrames": [
+        6,
+        10
+      ]
+    },
+    {
+      "id": "return-state-settle",
+      "durationFrames": [
+        8,
+        14
+      ]
+    }
+  ]
+}
