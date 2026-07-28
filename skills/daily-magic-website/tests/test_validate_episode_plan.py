@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+import copy
 import importlib.util
 import json
 import unittest
@@ -8,69 +11,72 @@ SKILL_DIR = Path(__file__).resolve().parents[1]
 VALIDATOR_PATH = SKILL_DIR / "scripts" / "validate_episode_plan.py"
 TEMPLATE_PATH = SKILL_DIR / "assets" / "episode-plan.template.json"
 
-SPEC = importlib.util.spec_from_file_location("episode_validator", VALIDATOR_PATH)
+SPEC = importlib.util.spec_from_file_location("daily_magic_validator", VALIDATOR_PATH)
+assert SPEC and SPEC.loader
 VALIDATOR = importlib.util.module_from_spec(SPEC)
-assert SPEC.loader is not None
 SPEC.loader.exec_module(VALIDATOR)
 
 
-def load_template():
+def load_plan() -> dict:
     return json.loads(TEMPLATE_PATH.read_text(encoding="utf-8"))
 
 
-class EpisodePlanValidationTests(unittest.TestCase):
-    def test_template_passes_plan_stage(self):
-        self.assertEqual(VALIDATOR.validate(load_template(), "plan"), [])
+class ValidatorTests(unittest.TestCase):
+    def test_template_passes_plan_stage(self) -> None:
+        self.assertEqual([], VALIDATOR.validate(load_plan(), "plan"))
 
-    def test_rejects_random_timing_change(self):
-        plan = load_template()
-        plan["shots"][2]["startFrame"] = 218
+    def test_rejects_landscape_format(self) -> None:
+        plan = load_plan()
+        plan["format"]["width"] = 1920
+        plan["format"]["height"] = 1080
         errors = VALIDATOR.validate(plan, "plan")
-        self.assertTrue(any("S03 must span frames" in error for error in errors))
+        self.assertTrue(any("format.width" in error for error in errors))
+        self.assertTrue(any("format.height" in error for error in errors))
 
-    def test_rejects_generated_product_ui(self):
-        plan = load_template()
-        plan["visualSystem"]["generatedProductUiAllowed"] = True
+    def test_rejects_unapproved_motion_recipe(self) -> None:
+        plan = load_plan()
+        plan["beats"][3]["motionRecipes"].append("random-3d-spin")
         errors = VALIDATOR.validate(plan, "plan")
-        self.assertIn(
-            "visualSystem.generatedProductUiAllowed must be false",
-            errors,
-        )
+        self.assertTrue(any("disallowed motion recipes" in error for error in errors))
 
-    def test_rejects_unverified_claim(self):
-        plan = load_template()
-        plan["claims"][0]["evidenceCaptured"] = False
+    def test_rejects_synthetic_product_ui(self) -> None:
+        plan = load_plan()
+        plan["materials"][2]["synthetic"] = True
         errors = VALIDATOR.validate(plan, "plan")
-        self.assertTrue(
-            any("evidenceCaptured must be true" in error for error in errors)
-        )
+        self.assertTrue(any("synthetic must be false" in error for error in errors))
 
-    def test_final_stage_requires_completed_qa(self):
-        errors = VALIDATOR.validate(load_template(), "final")
-        self.assertTrue(any(error.startswith("qa.") for error in errors))
-        self.assertTrue(any(error.startswith("delivery.") for error in errors))
+    def test_rejects_noncontiguous_beats(self) -> None:
+        plan = load_plan()
+        plan["beats"][4]["startFrame"] += 1
+        errors = VALIDATOR.validate(plan, "plan")
+        self.assertTrue(any("B05.startFrame" in error for error in errors))
 
-    def test_completed_template_passes_final_stage(self):
-        plan = load_template()
-        plan["masterReference"].update(
-            {
-                "status": "approved",
-                "referenceId": "timeline-master-v1",
-                "approvedAt": "2026-07-27",
-            }
-        )
-        for key in VALIDATOR.FINAL_QA_KEYS:
+    def test_rejects_demo_transition(self) -> None:
+        plan = load_plan()
+        plan["beats"][4]["demoClips"][2]["join"] = "cross-dissolve"
+        errors = VALIDATOR.validate(plan, "plan")
+        self.assertTrue(any(".join must be hard-cut" in error for error in errors))
+
+    def test_final_requires_qa_and_delivery(self) -> None:
+        errors = VALIDATOR.validate(load_plan(), "final")
+        self.assertTrue(any("qa.referenceProfileVerified" in error for error in errors))
+        self.assertTrue(any("delivery.projectId" in error for error in errors))
+        self.assertTrue(any("verifiedFrames" in error for error in errors))
+
+    def test_complete_final_plan_passes(self) -> None:
+        plan = copy.deepcopy(load_plan())
+        for key in plan["qa"]:
             plan["qa"][key] = True
         plan["delivery"].update(
             {
-                "projectId": "project-123",
-                "timelineId": "timeline-123",
-                "timelineName": "每日神器网站 000｜示例网站｜Master V1",
-                "verifiedFrames": [45, 150, 285, 435, 570, 675, 719],
+                "projectId": "project-1",
+                "timelineId": "timeline-1",
+                "timelineName": "每日神器网站｜000｜示例网站｜EHOrMdeO-v1",
+                "verifiedFrames": list(range(14)),
                 "status": "review",
             }
         )
-        self.assertEqual(VALIDATOR.validate(plan, "final"), [])
+        self.assertEqual([], VALIDATOR.validate(plan, "final"))
 
 
 if __name__ == "__main__":

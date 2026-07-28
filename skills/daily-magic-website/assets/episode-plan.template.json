@@ -1,147 +1,423 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "series": "daily-magic-website",
-  "masterVersion": "daily-magic-website-v1",
-  "masterReference": {
-    "status": "provisional",
-    "referenceType": "chatcut-timeline",
-    "referenceId": "",
-    "approvedAt": "",
-    "notes": "首支校准样片通过用户审片后锁定"
+  "reference": {
+    "id": "EHOrMdeO-master-v1",
+    "sha256": "EBBAC4B21E6DB3427602CAB71AE866B1FC18E2EA8C7A8A30025320A56A0E7AD0",
+    "matchMode": "grammar-not-content"
   },
   "episodeId": "000",
   "website": {
     "name": "示例网站",
     "url": "https://example.com",
-    "audience": "需要解决明确工作问题的中文用户",
-    "oneSentenceValue": "用一句可验证的话说明网站价值",
-    "accentColor": "#2F6BFF"
+    "audience": "需要快速理解并使用该网站的中文用户",
+    "oneSentenceValue": "用一句可验证的话说明网站的核心价值",
+    "sourceAccentColor": "#1769E0"
   },
   "format": {
-    "width": 1920,
-    "height": 1080,
+    "profile": "portrait-reference-v1",
+    "width": 1080,
+    "height": 1920,
     "fps": 30,
-    "durationFrames": 720,
+    "durationFrames": 1091
+  },
+  "audio": {
     "voiceProvider": "doubao",
     "voiceId": "dayi",
-    "voiceSpeedRatioMax": 1.18
+    "continuousNarration": true,
+    "maxInternalSilenceMs": 180,
+    "targetIntegratedLufs": -12.5,
+    "maxVoiceSpeedRatio": 1.15
   },
   "visualSystem": {
-    "fontFamily": "Smiley Sans",
-    "paletteMode": "source-native-single-accent",
-    "motionSet": [
+    "layoutModes": [
+      "type-stage",
+      "logo-stage",
+      "floating-proof-card",
+      "immersive-ui-crop"
+    ],
+    "motionRecipes": [
+      "staggered-line-drop",
+      "badge-diagonal-peel",
+      "hook-logo-collapse",
+      "hand-drawn-pointer",
+      "diagonal-page-curl",
+      "stacked-bubble-pop",
+      "radial-zoom-bridge",
+      "focus-lens",
+      "overzoom-settle",
       "hard-cut",
-      "masked-push",
-      "focus-lock",
-      "slow-crop"
+      "evidence-circle-draw",
+      "scroll-focus",
+      "return-state-settle"
     ],
     "generatedProductUiAllowed": false
   },
-  "flowVariant": "input-action-result",
   "claims": [
     {
       "id": "C01",
-      "text": "示例网站提供一项已验证的核心能力",
+      "text": "该网站公开展示一项可信度证据",
       "sourceUrl": "https://example.com",
       "evidenceType": "official-page",
-      "capturedAt": "2026-01-01",
+      "capturedAt": "2026-01-01T00:00:00Z",
+      "evidenceCaptured": true
+    },
+    {
+      "id": "C02",
+      "text": "该网站公开展示一项降低使用门槛的事实",
+      "sourceUrl": "https://example.com",
+      "evidenceType": "official-page",
+      "capturedAt": "2026-01-01T00:00:00Z",
       "evidenceCaptured": true
     }
   ],
   "materials": [
     {
       "id": "M01",
-      "type": "browser-screenshot",
+      "type": "official-logo",
       "sourceUrl": "https://example.com",
-      "localPath": "example-home.png",
+      "localPath": "logo.png",
+      "capturedAt": "2026-01-01T00:00:00Z",
       "provenanceVerified": true,
-      "rightsStatus": "user-authorized-capture"
+      "rightsStatus": "user-authorized-capture",
+      "containsProductUi": false,
+      "synthetic": false
     },
     {
       "id": "M02",
       "type": "browser-recording",
-      "sourceUrl": "https://example.com",
-      "localPath": "example-flow.mp4",
+      "sourceUrl": "https://example.com/demo",
+      "localPath": "value-proof.mp4",
+      "capturedAt": "2026-01-01T00:00:00Z",
       "provenanceVerified": true,
-      "rightsStatus": "user-authorized-capture"
+      "rightsStatus": "user-authorized-capture",
+      "containsProductUi": true,
+      "synthetic": false
+    },
+    {
+      "id": "M03",
+      "type": "browser-recording",
+      "sourceUrl": "https://example.com",
+      "localPath": "navigation.mp4",
+      "capturedAt": "2026-01-01T00:00:00Z",
+      "provenanceVerified": true,
+      "rightsStatus": "user-authorized-capture",
+      "containsProductUi": true,
+      "synthetic": false
+    },
+    {
+      "id": "M04",
+      "type": "browser-recording",
+      "sourceUrl": "https://example.com/demo/1",
+      "localPath": "demo-01.mp4",
+      "capturedAt": "2026-01-01T00:00:00Z",
+      "provenanceVerified": true,
+      "rightsStatus": "user-authorized-capture",
+      "containsProductUi": true,
+      "synthetic": false
+    },
+    {
+      "id": "M05",
+      "type": "browser-recording",
+      "sourceUrl": "https://example.com/demo/2",
+      "localPath": "demo-02.mp4",
+      "capturedAt": "2026-01-01T00:00:00Z",
+      "provenanceVerified": true,
+      "rightsStatus": "user-authorized-capture",
+      "containsProductUi": true,
+      "synthetic": false
+    },
+    {
+      "id": "M06",
+      "type": "browser-recording",
+      "sourceUrl": "https://example.com/demo/3",
+      "localPath": "demo-03.mp4",
+      "capturedAt": "2026-01-01T00:00:00Z",
+      "provenanceVerified": true,
+      "rightsStatus": "user-authorized-capture",
+      "containsProductUi": true,
+      "synthetic": false
+    },
+    {
+      "id": "M07",
+      "type": "browser-recording",
+      "sourceUrl": "https://example.com/demo/4",
+      "localPath": "demo-04.mp4",
+      "capturedAt": "2026-01-01T00:00:00Z",
+      "provenanceVerified": true,
+      "rightsStatus": "user-authorized-capture",
+      "containsProductUi": true,
+      "synthetic": false
+    },
+    {
+      "id": "M08",
+      "type": "browser-recording",
+      "sourceUrl": "https://example.com/demo/5",
+      "localPath": "demo-05.mp4",
+      "capturedAt": "2026-01-01T00:00:00Z",
+      "provenanceVerified": true,
+      "rightsStatus": "user-authorized-capture",
+      "containsProductUi": true,
+      "synthetic": false
+    },
+    {
+      "id": "M09",
+      "type": "browser-screenshot",
+      "sourceUrl": "https://example.com/proof",
+      "localPath": "credibility.png",
+      "capturedAt": "2026-01-01T00:00:00Z",
+      "provenanceVerified": true,
+      "rightsStatus": "user-authorized-capture",
+      "containsProductUi": true,
+      "synthetic": false
+    },
+    {
+      "id": "M10",
+      "type": "browser-screenshot",
+      "sourceUrl": "https://example.com/access",
+      "localPath": "friction-proof.png",
+      "capturedAt": "2026-01-01T00:00:00Z",
+      "provenanceVerified": true,
+      "rightsStatus": "user-authorized-capture",
+      "containsProductUi": true,
+      "synthetic": false
+    },
+    {
+      "id": "M11",
+      "type": "browser-recording",
+      "sourceUrl": "https://example.com",
+      "localPath": "access-path.mp4",
+      "capturedAt": "2026-01-01T00:00:00Z",
+      "provenanceVerified": true,
+      "rightsStatus": "user-authorized-capture",
+      "containsProductUi": true,
+      "synthetic": false
     }
   ],
-  "shots": [
+  "beats": [
     {
-      "id": "S01",
-      "job": "hook",
+      "id": "B01",
+      "family": "series-hook",
       "startFrame": 0,
-      "endFrame": 90,
-      "sourceRef": "M01",
-      "voiceover": "还在用低效的方法解决这个问题？",
-      "onScreenText": "别再低效处理",
+      "endFrame": 66,
+      "layoutMode": "type-stage",
+      "motionRecipes": [
+        "staggered-line-drop",
+        "badge-diagonal-peel"
+      ],
+      "viewerJob": "在两秒内建立系列与价值期待",
+      "voiceover": "一天一个强大的网站。",
+      "onScreenText": "一天一个｜强大的｜网站",
+      "sourceRefs": [],
       "claimIds": []
     },
     {
-      "id": "S02",
-      "job": "identity-proof",
-      "startFrame": 90,
-      "endFrame": 210,
-      "sourceRef": "M01",
-      "voiceover": "这个网站把核心能力直接放进真实工作流程。",
-      "onScreenText": "真实能力，一眼看懂",
+      "id": "B02",
+      "family": "identity-anchor",
+      "startFrame": 66,
+      "endFrame": 120,
+      "layoutMode": "logo-stage",
+      "motionRecipes": [
+        "hook-logo-collapse",
+        "hand-drawn-pointer"
+      ],
+      "viewerJob": "让观众记住真实产品身份",
+      "voiceover": "它叫示例网站。",
+      "onScreenText": "示例网站",
+      "sourceRefs": [
+        "M01"
+      ],
+      "claimIds": []
+    },
+    {
+      "id": "B03",
+      "family": "value-proof",
+      "startFrame": 120,
+      "endFrame": 209,
+      "layoutMode": "floating-proof-card",
+      "motionRecipes": [
+        "diagonal-page-curl",
+        "stacked-bubble-pop"
+      ],
+      "viewerJob": "用真实产品画面证明一句核心价值",
+      "voiceover": "它把复杂的工作变成直观操作。",
+      "onScreenText": "把复杂工作｜变成直观操作",
+      "sourceRefs": [
+        "M02"
+      ],
+      "claimIds": []
+    },
+    {
+      "id": "B04",
+      "family": "navigation-proof",
+      "startFrame": 209,
+      "endFrame": 372,
+      "layoutMode": "immersive-ui-crop",
+      "motionRecipes": [
+        "radial-zoom-bridge",
+        "focus-lens"
+      ],
+      "viewerJob": "证明内容广度并展示如何找到目标功能",
+      "voiceover": "从入口筛选到结果列表，路径非常清楚。",
+      "onScreenText": "筛选入口到结果列表",
+      "sourceRefs": [
+        "M03"
+      ],
+      "claimIds": []
+    },
+    {
+      "id": "B05",
+      "family": "demo-run",
+      "startFrame": 372,
+      "endFrame": 746,
+      "layoutMode": "floating-proof-card",
+      "motionRecipes": [
+        "overzoom-settle",
+        "hard-cut"
+      ],
+      "viewerJob": "连续展示三到五个真实能力，建立产品密度",
+      "voiceover": "拖拽、调整、比较和输出，都能直接看到结果。",
+      "onScreenText": "真实操作，连续证明",
+      "sourceRefs": [
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08"
+      ],
+      "claimIds": [],
+      "demoClips": [
+        {
+          "id": "D01",
+          "sourceRef": "M04",
+          "startFrame": 372,
+          "endFrame": 515,
+          "caption": "拖拽对象，立即看到变化",
+          "join": "opening"
+        },
+        {
+          "id": "D02",
+          "sourceRef": "M05",
+          "startFrame": 515,
+          "endFrame": 617,
+          "caption": "抽象概念变成动态模型",
+          "join": "hard-cut"
+        },
+        {
+          "id": "D03",
+          "sourceRef": "M06",
+          "startFrame": 617,
+          "endFrame": 662,
+          "caption": "参数变化即时反馈",
+          "join": "hard-cut"
+        },
+        {
+          "id": "D04",
+          "sourceRef": "M07",
+          "startFrame": 662,
+          "endFrame": 705,
+          "caption": "过程与结果同时可见",
+          "join": "hard-cut"
+        },
+        {
+          "id": "D05",
+          "sourceRef": "M08",
+          "startFrame": 705,
+          "endFrame": 746,
+          "caption": "复杂关系也能直观理解",
+          "join": "hard-cut"
+        }
+      ]
+    },
+    {
+      "id": "B06",
+      "family": "credibility-proof",
+      "startFrame": 746,
+      "endFrame": 841,
+      "layoutMode": "immersive-ui-crop",
+      "motionRecipes": [
+        "evidence-circle-draw"
+      ],
+      "viewerJob": "用官方证据建立可信度",
+      "voiceover": "官网还公开展示了可信度证据。",
+      "onScreenText": "可信度证据",
+      "sourceRefs": [
+        "M09"
+      ],
       "claimIds": [
         "C01"
       ]
     },
     {
-      "id": "S03",
-      "job": "core-operation",
-      "startFrame": 210,
-      "endFrame": 360,
-      "sourceRef": "M02",
-      "voiceover": "放入真实输入，完成一次连续操作，不用来回切工具。",
-      "onScreenText": "输入 → 操作",
+      "id": "B07",
+      "family": "friction-proof",
+      "startFrame": 841,
+      "endFrame": 894,
+      "layoutMode": "immersive-ui-crop",
+      "motionRecipes": [
+        "radial-zoom-bridge",
+        "evidence-circle-draw"
+      ],
+      "viewerJob": "消除一个真实使用顾虑",
+      "voiceover": "更重要的是，它降低了开始使用的门槛。",
+      "onScreenText": "降低使用门槛",
+      "sourceRefs": [
+        "M10"
+      ],
+      "claimIds": [
+        "C02"
+      ]
+    },
+    {
+      "id": "B08",
+      "family": "access-path",
+      "startFrame": 894,
+      "endFrame": 1057,
+      "layoutMode": "floating-proof-card",
+      "motionRecipes": [
+        "scroll-focus",
+        "radial-zoom-bridge",
+        "focus-lens"
+      ],
+      "viewerJob": "展示一个真实的首次使用入口",
+      "voiceover": "沿着页面找到入口，完成一次真实设置。",
+      "onScreenText": "找到入口，完成设置",
+      "sourceRefs": [
+        "M11"
+      ],
       "claimIds": []
     },
     {
-      "id": "S04",
-      "job": "concrete-result",
-      "startFrame": 360,
-      "endFrame": 510,
-      "sourceRef": "M02",
-      "voiceover": "操作结束后，真实结果会直接出现在同一个流程里。",
-      "onScreenText": "操作 → 结果",
-      "claimIds": []
-    },
-    {
-      "id": "S05",
-      "job": "audience-value",
-      "startFrame": 510,
-      "endFrame": 630,
-      "sourceRef": "M01",
-      "voiceover": "适合需要提升效率，又不想学习复杂软件的人。",
-      "onScreenText": "更快 · 更直观 · 可落地",
-      "claimIds": []
-    },
-    {
-      "id": "S06",
-      "job": "clean-close",
-      "startFrame": 630,
-      "endFrame": 720,
-      "sourceRef": "M01",
-      "voiceover": "先收藏它，网址就在屏幕上。",
-      "onScreenText": "example.com",
+      "id": "B09",
+      "family": "return-close",
+      "startFrame": 1057,
+      "endFrame": 1091,
+      "layoutMode": "floating-proof-card",
+      "motionRecipes": [
+        "return-state-settle"
+      ],
+      "viewerJob": "回到可继续操作的产品状态并自然收尾",
+      "voiceover": "现在就可以直接开始用了。",
+      "onScreenText": "直接开始使用",
+      "sourceRefs": [
+        "M11"
+      ],
       "claimIds": []
     }
   ],
   "qa": {
-    "sixShotsVerified": false,
+    "referenceProfileVerified": false,
+    "nineBeatOrderVerified": false,
     "realUiOnly": false,
     "claimsVerified": false,
-    "operationResultMatch": false,
-    "typographySafe": false,
-    "singleAccent": false,
-    "motionSetCompliant": false,
-    "noClippingOrEmptyUi": false,
-    "finalUrlHoldVerified": false,
-    "dayiSegmentsVerified": false,
-    "shotBoundariesVerified": false
+    "layoutModesVerified": false,
+    "motionRecipesVerified": false,
+    "demoHardCutsVerified": false,
+    "captionsVerified": false,
+    "noEmptyOrUnreadableUi": false,
+    "audioContinuityVerified": false,
+    "finalProductStateVerified": false,
+    "frameInspectionComplete": false
   },
   "delivery": {
     "projectId": "",

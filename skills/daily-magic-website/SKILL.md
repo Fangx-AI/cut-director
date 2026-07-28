@@ -1,94 +1,97 @@
 ---
 name: daily-magic-website
-description: Produce repeatable, evidence-based Chinese “每日神器网站” horizontal videos from a website URL in ChatCut. Use when Codex must research a website, collect real official UI media, write and validate a fixed-format episode plan, create a polished 24-second 16:9 website recommendation video with Dayi narration, reuse compatible CutDirector local-edit Prompts, verify composed frames, or revise an existing episode without introducing random layouts, motion, colors, or unsupported product claims.
+description: Produce reference-calibrated Chinese “每日神器网站” portrait videos from a website URL in ChatCut. Use when Codex must study or reproduce the EHOrMdeO master film’s visual grammar, research a website, acquire real official UI media, create a deterministic 30–45 second 1080×1920 episode, validate a nine-beat episode plan, place fast continuous narration, or revise an episode without random layouts, transitions, generated product UI, unsupported claims, empty placeholders, or a generic CTA ending.
 ---
 
 # 每日神器网站
 
 ## Goal
 
-Produce a stable series, not a new visual experiment for every website. Keep the master structure and motion grammar fixed. Replace only verified website content, real source media, claims, and episode copy.
+Build repeatable website-recommendation films from one measured industry reference, not from taste guesses.
 
-Treat `cut-director` as the parent repository:
+The master reference is the user-provided `EHOrMdeO.mp4`. The repository stores only its technical fingerprint and analytical observations; never add or redistribute the source video.
 
-- This Skill owns complete “每日神器网站” episodes.
-- Root CutDirector Prompt recipes own reusable local editing effects.
-- Route a shot to a Prompt only when its viewer job and required inputs match.
+Content is editable. Grammar is controlled:
 
-## Mandatory References
+- Replace the website, copy, real captures, proof points, and source-native color.
+- Keep the nine viewer jobs in order.
+- Use only the four layout modes and measured motion recipes.
+- Recalibrate the grammar only when the user approves a new master reference.
 
-Read before planning:
+## Required Reading
 
-1. [series-contract.md](references/series-contract.md)
-2. [shot-grammar.md](references/shot-grammar.md)
+Before planning, read:
 
-Read [evidence-and-assets.md](references/evidence-and-assets.md) before researching or acquiring media.
+1. [reference-analysis.md](references/reference-analysis.md)
+2. [visual-grammar.md](references/visual-grammar.md)
+3. [evidence-and-assets.md](references/evidence-and-assets.md)
 
-Read [chatcut-execution.md](references/chatcut-execution.md) before modifying ChatCut.
+Before editing ChatCut, read [chatcut-execution.md](references/chatcut-execution.md).
 
-Read [quality-gate.md](references/quality-gate.md) before handoff, export, or calling an episode complete.
+Before handoff or export, read [quality-gate.md](references/quality-gate.md).
 
 ## Non-Negotiable Rules
 
-- Never invent a new composition, palette, transition, or motion language per website.
-- Never call a style “Master V1” until the user approves an actual rendered calibration episode and its reference is recorded.
-- Never generate, redraw, or fake a real product interface.
-- Use official website screenshots, official demo media, user-provided media, or verified browser captures.
-- Keep one source-native accent color plus series neutrals. Do not add a second arbitrary accent.
-- Use only the six fixed shot jobs and frame ranges in Master V1.
-- Make every spoken product claim visible or provable in its shot.
-- Do not show an abstract placeholder as if it were the product.
-- Keep every likely-to-change title, number, URL, color, image, and video source editable.
+- Produce 1080×1920 at 30 fps for this reference profile. A horizontal film needs a separately approved horizontal master; never stretch this grammar into 16:9.
+- Use real official UI, official media, verified browser captures, or user-provided product footage.
+- Never generate, redraw, beautify, or fake a product interface.
+- Do not invent a transition. Route every beat to an allowed motion recipe.
+- Keep the product readable. Stylized motion is brief and settles to a sharp evidence frame.
+- Keep the demo run to three–five real demonstrations joined by hard cuts.
+- Make every spoken capability, number, pricing statement, and access claim visible or source-backed.
+- Use the master’s two presentation modes intentionally: floating proof card or immersive UI crop.
+- Keep narration continuous and clause-aligned; do not leave dead air between beats.
+- End by returning to a useful product state. Do not append a generic URL card, “点赞关注”, or invented CTA.
+- Keep all website content, numbers, URLs, captions, colors, screenshots, recordings, and demo ranges editable.
 - Do not export unless the user asks.
-- Do not silently replace Dayi when voice generation is unavailable.
-- Treat any new effect idea as a separate candidate Prompt test, never as an unreviewed production change.
 
 ## Workflow
 
-### 1. Intake
+### 1. Confirm the Reference Profile
 
-Require:
+Use `EHOrMdeO-master-v1` unless the user supplies and approves another master.
 
-- Website URL.
-- Target ChatCut project or permission to create one.
-- Any user-provided reference episode or series update.
+If the reference must be re-audited, run:
 
-Default to:
+```powershell
+python scripts/analyze_reference_video.py <video.mp4> <analysis-directory> --ffmpeg <ffmpeg.exe> --ffprobe <ffprobe.exe>
+```
 
-- 1920×1080, 30 fps, 720 frames.
-- Chinese horizontal Bilibili delivery.
-- Doubao Dayi voice (`provider: doubao`, `voiceId: dayi`).
-- Master V1 visual and shot grammar.
-
-Do not ask for choices already frozen by the series contract.
+The script extracts every frame, contact sheets, scene candidates, silence data, loudness data, and a machine-readable fingerprint. Analytical outputs stay outside the repository.
 
 ### 2. Research the Website
 
-Inspect the official site and its official documentation/demo surfaces. Capture:
+Inspect the official website and official documentation/demo surfaces. Collect enough real evidence for all nine viewer jobs:
 
-- The strongest immediately understandable product view.
-- One complete core interaction.
-- One concrete result or output.
-- One proof of scale, usefulness, or credibility when available.
-- Brand name, URL, and one source-native accent color.
+1. Series hook
+2. Identity anchor
+3. One-sentence value proof
+4. Breadth or navigation proof
+5. Core demo run
+6. Credibility proof
+7. Friction proof
+8. Access path
+9. Return close
 
-Record every factual claim with its source. Follow [evidence-and-assets.md](references/evidence-and-assets.md).
+If a website lacks a public usage number, award, price, or localization feature, use another verified proof serving the same viewer job. Never fabricate the missing fact.
 
-### 3. Build the Episode Plan
+### 3. Acquire Real Media
 
-Copy [episode-plan.template.json](assets/episode-plan.template.json) into a task-local working file. Replace all example values.
+Follow this order:
 
-Select exactly one controlled flow variant:
+1. Website-provided original video
+2. Website-provided original image or logo
+3. Verified browser screen recording
+4. Verified browser screenshot
+5. User-provided media
 
-- `browse-filter-detail`
-- `input-action-result`
-- `query-filter-result`
-- `input-progress-output`
-- `overview-example-detail`
+Capture the actual interaction, not a blank loading state. For every asset, record source URL, capture time, provenance, rights status, and whether it contains product UI.
 
-Fill all six shots. Do not change shot IDs, jobs, frame ranges, or master visual-system values.
+### 4. Build and Validate the Episode Plan
 
-If `masterReference.status` is `provisional`, produce a calibration episode only. After the user approves its actual rendered result, set the reference to `approved` and record the stable ChatCut timeline or exported-video ID. Later episodes must compare against that reference.
+Copy [episode-plan.template.json](assets/episode-plan.template.json) into the task workspace and replace all sample values.
+
+Keep the nine beat families in order. Durations may move only inside the measured envelopes. The demo run must contain three–five subclips whose ranges are contiguous and whose joins are hard cuts.
 
 Validate before any ChatCut write:
 
@@ -96,56 +99,46 @@ Validate before any ChatCut write:
 python scripts/validate_episode_plan.py <episode-plan.json> --stage plan
 ```
 
-If validation fails, repair the plan. Do not work around the validator.
-
-### 4. Acquire Real Media
-
-Follow this priority:
-
-1. Website-provided original video.
-2. Website-provided original images.
-3. Verified browser screenshot or screen recording.
-4. User-provided media.
-
-Use AI generation only for clearly non-product decorative media after explicit user approval. Never use it for UI evidence.
+Repair every validation error. Do not bypass the validator.
 
 ### 5. Execute in ChatCut
 
-Load and follow the applicable ChatCut skills. Use [chatcut-execution.md](references/chatcut-execution.md) as the fixed order of operations.
+Load the applicable ChatCut skills for asset import, Motion Graphics, voice, verification, and export. Follow [chatcut-execution.md](references/chatcut-execution.md).
 
-Create a fresh timeline named:
-
-```text
-每日神器网站 <episodeId>｜<websiteName>｜Master V1
-```
-
-Execute the six planned shots exactly. Use real media as the visual base; Motion Graphics may focus, label, mask, compare, or arrange that media but may not replace it.
-
-Use compatible root CutDirector Prompts only through the routing table in [shot-grammar.md](references/shot-grammar.md).
-
-### 6. Generate and Place Voice
-
-Generate six separate Dayi segments, one per shot. Keep each segment inside its assigned shot range.
-
-Use a consistent performance direction:
+Name the timeline:
 
 ```text
-年轻男性科技产品推荐口播，清晰、克制、有节奏；关键功能和数字重读，句尾收稳，不要播音腔。
+每日神器网站｜<episodeId>｜<websiteName>｜EHOrMdeO-v1
 ```
 
-Inspect actual durations before placement. Shorten copy before increasing speed beyond the series limit.
+Build the visual proof first, then narration, then captions, then sound, then verification. Motion Graphics may frame, crop, magnify, annotate, reflect, label, or transition real media; it may not replace the product.
 
-If ChatCut credits are insufficient, keep the verified visual draft, report the missing voice honestly, and stop. Do not use another voice or external TTS without user approval.
+### 6. Narration
+
+The current series default is Doubao Dayi (`voiceId: dayi`), but voice identity remains editable. Timing behavior is mandatory:
+
+- One clause per visible proof.
+- No silence longer than 180 ms inside the body.
+- No cut inside a spoken word.
+- No speed-up above the value recorded in the episode plan.
+- Shorten copy before compressing delivery.
+- Keep the mix near the reference’s dense, controlled level; verify rather than guessing.
+
+If voice generation is unavailable, keep the verified visual plan and report the limitation. Do not silently substitute another voice.
 
 ### 7. Verify
 
-Render and inspect at least:
+Inspect:
 
-- One settled frame from each of S01–S06.
-- Every seam between adjacent shots when motion or opacity overlaps.
-- The final visible frame.
+- Every settled beat frame
+- Every stylized transition frame-by-frame
+- Every hard-cut seam in the demo run
+- Every evidence annotation before, during, and after its draw
+- The final visible frame
+- Caption legibility and UI occlusion
+- Audio continuity and loudness
 
-Complete the `qa` and `delivery` fields in the episode plan, then run:
+Complete `qa` and `delivery`, then run:
 
 ```powershell
 python scripts/validate_episode_plan.py <episode-plan.json> --stage final
@@ -157,11 +150,13 @@ Do not call the episode complete until final validation passes.
 
 Report:
 
-- Timeline name and duration.
-- Real source assets used.
-- Any claim or media limitation.
-- Voice status.
-- Verification status.
-- Whether export was requested or intentionally not performed.
+- Timeline and duration
+- Reference profile
+- Real source assets used
+- Claims and evidence sources
+- Voice and mix status
+- Verification status
+- Any known source limitation
+- Whether export was requested or intentionally skipped
 
-Keep failed experiments as clearly named candidate/test timelines; never present them as Master V1.
+Keep experiments in clearly named test timelines. Never let a candidate effect silently enter the production grammar.

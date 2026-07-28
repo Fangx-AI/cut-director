@@ -1,71 +1,106 @@
-# Evidence and Asset Policy
+# Evidence and Assets
 
-## Source Hierarchy
+## Principle
 
-Prefer:
+The product is the visual. Motion Graphics may direct attention to real evidence but may not substitute for it.
 
-1. Official product page or official documentation.
-2. Official demo video, screenshots, press kit, or product account.
-3. Visible browser capture of the official product.
-4. User-provided media with known provenance.
+## Asset Priority
 
-Use third-party commentary only for discovery, never as the sole proof of a product claim when an official source exists.
+Use:
 
-## Required Evidence Record
+1. Official embedded demo video
+2. Official downloadable image, logo, or product media
+3. Verified browser screen recording
+4. Verified browser screenshot
+5. User-provided media
 
-For every spoken number, capability, comparison, or availability claim, record:
+Do not use:
 
-- Claim ID.
-- Exact claim text.
-- Direct source URL.
-- Evidence type.
-- Capture date.
-- Whether the evidence was captured.
+- AI-generated product UI
+- Hand-redrawn interface
+- Generic stock footage presented as the product
+- Empty wireframes, skeleton screens, or placeholder cards
+- A third-party screenshot when the official state can be captured
 
-Do not use a claim in narration until `evidenceCaptured` is true.
+Decorative generated media is outside the reference grammar and requires explicit user approval.
 
-## Real UI Rule
+## Capture Rules
 
-Real product UI must come from:
+For each browser recording:
 
-- Original website images or videos.
-- Browser screenshots.
-- Browser screen recordings.
-- User-provided product media.
+- Start from a loaded, readable state.
+- Use a deterministic viewport and zoom.
+- Hide unrelated browser chrome when possible.
+- Remove cursor wandering, failed clicks, and loading dead time.
+- Record a complete interaction with its visible result.
+- Capture enough pre-roll and post-roll for a clean edit.
+- Do not crop away the control that caused the result.
+- Preserve text sharpness; avoid scaling beyond the source resolution.
 
-Never:
+For each screenshot:
 
-- Generate a fake UI.
-- Replace missing UI with skeleton cards.
-- Use abstract placeholders while describing a concrete feature.
-- Reconstruct a brand logo.
-- Present a Motion Graphic as a screenshot of the product.
+- Capture the exact state supporting the planned claim.
+- Keep the source page URL.
+- Record capture date and viewport.
+- Preserve the original before annotation.
 
-Motion Graphics may add:
+## Claim Ledger
 
-- Masks and focus regions.
-- Labels and pointers.
-- Accurate editable text.
-- Verified numbers.
-- Layout of several real source images.
+Every factual statement needs a claim record:
 
-## Media Record
+- `id`
+- exact spoken or visible text
+- source URL
+- evidence type
+- capture time
+- `evidenceCaptured: true`
+- optional notes about volatility
 
-Each material needs:
+Numbers, awards, prices, “free”, “no login”, privacy claims, language counts, platform support, and user counts are claims.
 
-- Stable material ID.
-- Type: `official-video`, `official-image`, `browser-screenshot`, `browser-recording`, or `user-provided`.
-- Source URL or local source reference.
-- `provenanceVerified: true`.
-- Rights status sufficient for the user’s intended use.
+If a claim changes, recapture it. If it cannot be verified, remove or rewrite it.
 
-Shots S01–S05 must reference at least one material. S06 may reuse a prior material.
+## Material Ledger
 
-## Missing Evidence
+Every material needs:
 
-If the website blocks access or a critical feature requires unavailable authentication:
+- `id`
+- `type`
+- source URL or local path
+- capture time
+- provenance status
+- rights status
+- whether it contains product UI
+- `synthetic: false`
 
-- State the limitation.
-- Remove or soften the unsupported claim.
-- Do not replace the missing proof with generated media.
-- Ask for user-provided footage only when it materially changes the episode.
+Allowed types:
+
+- `official-logo`
+- `official-image`
+- `official-video`
+- `browser-screenshot`
+- `browser-recording`
+- `user-provided`
+
+## Viewer-Job Substitution
+
+When a literal reference element does not exist, preserve the viewer job:
+
+- Usage number → official customer list, review score, award, case study, or adoption proof
+- “Free” → no login, open source, browser access, trial, export, or another verified objection remover
+- Language dropdown → search, install, import, login, upload, export, or another first-use path
+
+Do not preserve a literal scene by inventing content.
+
+## Repository Boundary
+
+Do not commit the user’s source master or acquired third-party media unless the user explicitly authorizes redistribution and the rights status permits it.
+
+The Skill repository should contain:
+
+- Analytical measurements
+- Source metadata and hashes
+- Plans and validators
+- Reusable instructions
+
+It should not contain the original master video or copied website media by default.
