@@ -22,7 +22,7 @@ those materials, obtain any permission required by the relevant owner.
 
 ## Third-party brands in demonstrations
 
-Files under `assets/verified-prompts/**` may show third-party product names,
+Files under `assets/verified-prompts/**` and `assets/extracted-prompts/**` may show third-party product names,
 logos, interfaces, or other brand material for identification, comparison, or
 demonstration. Those marks and materials remain the property of their
 respective owners. No endorsement or transfer of rights is implied.
@@ -32,6 +32,13 @@ respective owners. No endorsement or transfer of rights is implied.
 The presence of a person in an image or video does not grant rights to use that
 person's name, image, voice, or likeness. Demonstration media is reserved as
 described in `LICENSE`.
+
+The clips and stills under `assets/extracted-prompts/**` are source-shot
+demonstrations for viewing through this repository and linking to when
+describing CutDirector. They are not reusable source assets licensed with the
+written Prompts. The published extraction references do not include the
+private source documents or original screen recordings used in the source
+project.
 
 ## Reporting a rights issue
 

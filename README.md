@@ -16,7 +16,7 @@
 [![Code License](https://img.shields.io/badge/代码-AGPL--3.0--or--later-8A63D2?style=flat-square&labelColor=0B0C0D)](LICENSE)
 [![Prompt License](https://img.shields.io/badge/原创_Prompt-CC_BY--SA_4.0-36C7B4?style=flat-square&labelColor=0B0C0D)](LICENSE)
 
-[查看真实效果与 Prompt](#已验证效果) · [30 秒开始](#30-秒开始) · [浏览效果参考库](VISUAL-GALLERY.md) · [开源与原创保护](#开源原创与商用)
+[查看真实效果与 Prompt](#已验证效果) · [从成片提炼的 Prompt](#extracted-prompts) · [30 秒开始](#30-秒开始) · [浏览效果参考库](VISUAL-GALLERY.md) · [开源与原创保护](#开源原创与商用)
 
 </div>
 
@@ -281,6 +281,52 @@
 | **009** | 输入、反馈、结果三拍形成可编辑因果链，可选使用已验证结果图片 | **已验证上线** |
 
 后续案例只在真实时间线中完成并通过验证后，才会加入这个系列。
+
+<a id="extracted-prompts"></a>
+
+## 从成片提炼 · 待通用换料验证
+
+以下 3 条 Prompt 从已完成的讲解视频中提炼，状态为 **experimental**：原镜头已经检查，替换为其他标题、材料和旁白后的通用效果尚未重新制作验证，因此不计入上方 9 条已验证 Prompt。使用时先做一个代表镜头，核验实际画面后再扩展。
+
+编号 010、011 用于独立提案 [PR #16](https://github.com/Fangx-AI/cut-director/pull/16)，本批从 012 开始。
+
+### Prompt 012 · 环形扫描章节卡
+
+[![Prompt 012 - 环形扫描章节卡原镜头](assets/extracted-prompts/prompt-012-radial-scan-chapter.jpg)](assets/extracted-prompts/prompt-012-radial-scan-chapter.mp4)
+
+**快速使用**
+
+```text
+在 [章节边界] 制作环形扫描章节转场。用环形运动与扫描光线引出 [章节标题]，标题单独排版并稳定保持，随后衔接下一镜。时长、色彩与运动强度适配原片；先核对中文、文字可读时间和前后接缝。
+```
+
+用于独立的章节切换。预览展示原成片中两秒的“实操演示”章节卡，仅证明原镜头效果；更换标题和参数后仍需验证。它与 Prompt 004 的全片进度导航承担不同任务。
+
+[观看原镜头](assets/extracted-prompts/prompt-012-radial-scan-chapter.mp4) · [查看完整通用 Prompt](references/prompt-012-radial-scan-chapter.md)
+
+### Prompt 013 · 原页、关键字段与出处拆层
+
+**快速使用**
+
+```text
+把 [目标时间段] 的真实材料做成原页、关键字段与出处的拆层讲解。先建立完整原页，再突出 [关键字段] 并关联 [来源标识]，最后回到可核对的整体关系。只使用清晰真实材料，保持字段与原页对应，文字标注独立可编辑；先检查清晰度、出处与前后接缝。
+```
+
+用于报告、合同、研究资料和证据材料的来源讲解。提炼的是原页与细节的空间关系及出现顺序；原例中的材料不随模板公开，使用者需提供自己的可用素材。
+
+[查看完整通用 Prompt](references/prompt-013-source-page-evidence-layers.md)
+
+### Prompt 014 · 旁白驱动实机区域导览
+
+**快速使用**
+
+```text
+让 [目标时间段] 的真实录屏跟随旁白依次导览。逐句对应讲解对象、鼠标位置、真实点击与系统反馈：讲到哪个区域，鼠标和辅助高亮就停留在哪个区域。高亮避开关键信息，操作后保留阅读时间；逐段播放检查声画同步，不用后期动画伪造实际操作。
+```
+
+用于已有旁白的软件实操讲解。它关注跨句段的定位、操作与阅读节奏，区别于 Prompt 007 的单页聚焦和 Prompt 009 的抽象因果动效。这里只公开方法，原实录不随模板公开。
+
+[查看完整通用 Prompt](references/prompt-014-narration-synced-screen-tour.md)
 
 ## 30 秒开始
 

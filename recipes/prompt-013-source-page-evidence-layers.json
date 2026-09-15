@@ -1,0 +1,183 @@
+{
+  "recipe_schema_version": "0.2",
+  "recipe_id": "prompt-013-source-page-evidence-layers",
+  "name": "原页拆层与出处锚定",
+  "status": "experimental",
+  "public_prompt": "在 [目标时间段] 把 [真实文档原页] 做成“原页—关键片段—出处”的三层溯源镜头。使用同一份资料中可核对的 [关键表格/段落/图表区域]、[需要强调的原句或关键值] 和 [页码/文件标题/引用位置区域]，画幅与帧率继承目标视频。\n\n先稳定展示原页的整体上下文；随后让关键片段从它在原页中的真实位置平滑抬升到前景，原页略微缩小、后退并轻微压暗，仍然可辨认。再把原页中真实存在的出处区域抽出为第三层，保持“完整资料—局部证据—来源位置”的对应关系。用 [强调色] 细框或短扫描光突出目标原句或关键值，保留必要的表头、单位和上下文。前景落稳后留出阅读时间，结尾保持三层关系或平滑回收。\n\n三个图像层必须来自同一可靠原页，允许从同一源文档重新取得更高清的相同区域；不得拼接其他页面的数值或出处，不得生成、重绘、改写原文。若局部放大后不清晰，重新获取高分辨率原页；无法取得时缩小放大幅度或保持整页，不把低清插值称为高清。原页没有可核对的出处区域时，不编造页码或引用条，先使用清晰的整页与关键片段两层。\n\n将源图、裁切区域、层间距、运动方向、强调框和可选 [说明标题] 分别组织。图像内部的文字、数字和表格仍是引用图像，不能宣称可作为文字属性编辑；可选说明标题使用独立可编辑文字层，留空时隐藏。新增说明不冒充原文，标题避开文件标题，出处层避开关键内容；本镜头不自动增加逐句字幕，也不改变原旁白。\n\n先检查整页建立、片段离开原位、出处落位和最终阅读状态，再核对实际导出中的原文一致性、局部清晰度、图层遮挡、前后接缝与可编辑性边界。换用新资料后重新验证，不沿用其他素材的裁切坐标或验证结论。",
+  "compatibility": {
+    "public_prompt_source": "references/prompt-013-source-page-evidence-layers.md",
+    "readme_must_contain_public_prompt": false,
+    "legacy_reference": "references/prompt-013-source-page-evidence-layers.md"
+  },
+  "triggers": {
+    "intent": "把同一真实资料的整页、关键片段和来源位置拆层展示，突出重点并保留可核对上下文。",
+    "signals_any": [
+      "从原页抽出关键表格",
+      "文档拆层溯源",
+      "局部证据与出处同时展示",
+      "原页保留上下文的资料动效"
+    ],
+    "reject_when": [
+      "只有无来源的片段而无法定位真实原页",
+      "需要伪造页码、原文或关键值",
+      "仅需单焦点标注而没有拆层价值",
+      "要求把原图文字直接作为可编辑文案修改"
+    ]
+  },
+  "required_inputs": [
+    {
+      "id": "confirmed_time_range",
+      "required_for": "first_approval",
+      "description": "目标时间段、画幅和帧率，及足够的原页建立和局部阅读时间。",
+      "on_missing": "检查目标视频并沿用已确认范围；无法确定时先定位一个代表片段。"
+    },
+    {
+      "id": "verified_source_page",
+      "required_for": "planning",
+      "description": "用户提供或当前项目已验证的真实原页；同文档高清重取必须对应同一页。",
+      "on_missing": "请求源资料，禁止生成替代文书。"
+    },
+    {
+      "id": "evidence_region_and_anchor",
+      "required_for": "planning",
+      "description": "关键表格、段落或图表的区域，以及需要强调的真实原句或关键值。",
+      "on_missing": "根据讲解与源页明确目标；不能随意摘取数值。"
+    },
+    {
+      "id": "source_location_region",
+      "required_for": "planning",
+      "description": "可核对的页码、文件标题或引用位置区域；来自同一源页。",
+      "on_missing": "没有真实出处区域时降为整页与关键片段两层，不补假页码。"
+    },
+    {
+      "id": "optional_editorial_style",
+      "required_for": "planning",
+      "description": "可选说明标题、强调色、运动方向；须与原文区分。",
+      "on_missing": "隐藏说明标题并继承原片样式，不增加占位内容。"
+    }
+  ],
+  "asset_strategy": {
+    "required": true,
+    "sources_in_order": [
+      "user_provided_original_document_page",
+      "verified_existing_project_source_page",
+      "higher_resolution_render_of_the_same_verified_document_page"
+    ],
+    "per_asset_inspection": [
+      "verify_page_provenance_and_shared_source_for_all_crops",
+      "compare_crop_text_numbers_units_headers_and_location_to_source",
+      "inspect_evidence_crop_at_final_output_scale",
+      "distinguish_editorial_text_from_raster_source_text",
+      "confirm_publication_scope_before_including_source_material_in_a_public_demo"
+    ],
+    "forbidden": [
+      "generated_or_redrawn_document_content",
+      "values_or_location_strips_spliced_from_other_pages",
+      "fabricated_page_numbers_or_citations",
+      "low_resolution_upscaling_presented_as_high_definition",
+      "raster_text_claimed_as_editable_text",
+      "private_source_material_published_as_a_template_preview_without_authorization"
+    ],
+    "on_unverified": "来源无法核对时不做拆层；仅缺出处区域时使用真实整页与关键片段两层，绝不编造出处。"
+  },
+  "layout_safe_zones": {
+    "protect": [
+      "document_title_and_page_identity",
+      "evidence_headers_units_and_qualifying_context",
+      "highlighted_source_text_or_value",
+      "source_location_strip",
+      "existing_narration_captions_and_adjacent_shot_content"
+    ],
+    "placement_rule": "关键片段从真实原位移动到前景，整页退后仍可辨认；出处层避开关键内容，可选说明标题避开文件标题。保留支持理解的表头、单位与限定条件。",
+    "conflict_fallbacks": [
+      "省略可选说明标题并重排层间距",
+      "减少位移或放大幅度，保留原页与关键片段",
+      "没有来源条或无法安全容纳时使用两层",
+      "仍不能清晰展示时保持整页或请求更高清源页及合适时间段"
+    ]
+  },
+  "timing_animation": {
+    "requires_confirmed_time_range": true,
+    "trigger_alignment": "先建立整页上下文，再从真实位置抽出关键片段，随后展示同页出处；依据旁白与阅读量安排节拍，不套用其他资料的固定时长。",
+    "entry": "稳定呈现真实原页及其文件身份，再从原始坐标开始局部抬升。",
+    "hold": "原页轻微后退和压暗，关键片段进入前景，出处层错峰落位；强调框或短扫描光仅突出真实目标，落稳后留出阅读时间。",
+    "exit": "保持三层对应关系或平滑回收至原页，保留原旁白并检查相邻镜头接缝。",
+    "forbidden": [
+      "crop_teleporting_without_source_relationship",
+      "unreadable_excessive_perspective_or_motion",
+      "highlight_covering_source_text",
+      "fake_source_location",
+      "abrupt_black_frame_or_unmotivated_hard_cut"
+    ]
+  },
+  "blocking_policies": {
+    "missing_time_range": "inspect_target_and_reuse_confirmed_scope_or_locate_a_representative_range",
+    "missing_source_page": "request_verified_source_page_and_do_not_generate_a_document",
+    "missing_evidence_region": "identify_the_source_grounded_anchor_before_animating",
+    "missing_source_location": "use_verified_two_layer_page_and_evidence_view_without_fake_citation",
+    "insufficient_crop_resolution": "obtain_same_page_at_higher_resolution_or_reduce_magnification",
+    "safe_zone_conflict": "reflow_or_reduce_layers_and_keep_the_page_clean_if_legibility_cannot_be_preserved",
+    "flattened_only_source": "state_that_existing_layers_are_baked_and_request_original_image_or_project_for_rebuild"
+  },
+  "execution_gates": [
+    "time",
+    "assets",
+    "copy",
+    "safe_zones",
+    "first_approval"
+  ],
+  "fallback_chain": [
+    {
+      "id": "same_page_three_layer_evidence",
+      "when": "真实原页、关键片段与出处区域均可核对，且清晰度、时间和安全区足够。",
+      "action": "制作原页、关键片段与出处三层，并单独组织后期说明与强调框。",
+      "terminal": false
+    },
+    {
+      "id": "verified_two_layer_evidence",
+      "when": "整页与关键片段可靠，但没有真实出处区域或第三层妨碍阅读。",
+      "action": "省略出处层，保留原页上下文与局部证据，不编造引用位置。",
+      "terminal": false
+    },
+    {
+      "id": "keep_original_page_and_request_source",
+      "when": "来源不可靠、局部无法清晰阅读或时间无法承载拆层。",
+      "action": "保持干净原页；请求可靠或更高清的源资料及合适范围，不发布未经验证的替代物。",
+      "terminal": true
+    }
+  ],
+  "verification": {
+    "required_stages": [
+      "asset",
+      "beginning",
+      "middle",
+      "ending"
+    ],
+    "checks": [
+      {
+        "id": "same_source_and_resolution",
+        "stage": "asset",
+        "rule": "所有裁切来自同一真实原页，关键文字、单位、表头、限定条件及出处一致，局部按输出尺寸检查清晰度。",
+        "evidence_required": "verified_original_page_crop_mapping_and_full_scale_crop_inspection"
+      },
+      {
+        "id": "page_context_and_origin",
+        "stage": "beginning",
+        "rule": "先建立完整上下文，关键片段从正确原位开始；说明标题与原文件标题互不遮挡。",
+        "evidence_required": "actual_source_page_entry_and_crop_departure_frames"
+      },
+      {
+        "id": "evidence_location_layers",
+        "stage": "middle",
+        "rule": "关键片段与出处按顺序落位，原页仍可辨认；没有真实出处区域时已明确使用两层。",
+        "evidence_required": "actual_layer_transition_frames_and_realtime_playback"
+      },
+      {
+        "id": "reading_and_editability_boundaries",
+        "stage": "ending",
+        "rule": "最终状态可读且无黑帧接缝；实际工程中图像与独立文字的边界清楚，换料后重新验证，不能把原片检查宣称为通用模板验证。",
+        "evidence_required": "final_export_frames_project_layer_inspection_and_new_material_verification_record"
+      }
+    ]
+  }
+}

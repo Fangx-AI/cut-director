@@ -1,13 +1,13 @@
 ---
 name: cut-director
-description: Direct already-shot talking-head, interview, tutorial, lecture, podcast, knowledge, and presenter-led product videos in ChatCut. Use when a user describes a desired visual effect or asks to make speech-led footage more polished, dynamic, cinematic, clear, or visually engaging through visual-beat planning, motion graphics, supporting visuals, speaker composition, reusable CutDirector Prompts, or verified ChatCut execution.
+description: Direct already-shot talking-head, interview, tutorial, lecture, podcast, knowledge, presenter-led product videos, and recorded software demonstrations with narration in ChatCut. Use when a user describes a desired visual effect or asks to make speech-led footage more polished, dynamic, cinematic, clear, or visually engaging through visual-beat planning, motion graphics, supporting visuals, speaker composition, reusable CutDirector Prompts, or verified ChatCut execution.
 ---
 
 # CutDirector
 
 ## Scope
 
-Direct visuals for already-shot, presenter-led videos. Preserve finished A-roll and original wording by default. Do not use this Skill for a general montage, an unshot script, or a non-presenter-led video.
+Direct visuals for already-shot, presenter-led videos and real software screen recordings that already have narration. Preserve finished A-roll, recorded operations, and original wording by default. A visible presenter is optional for narrated screen recordings. Do not use this Skill for a general montage, an unshot script, or footage without presenter-led or narrated context.
 
 Let the user describe the result in natural language. Never ask the user to fill an internal schema, recipe, crop parameter, animation curve, or verification checklist.
 
@@ -58,6 +58,11 @@ Load only the matching recipe and its public reference:
 | A verified high-resolution real page receives editable typing annotation, a dimming mask, and an accurately positioned focus lock | `recipes/prompt-007-hd-page-focus-lock.json` | `references/prompt-007-hd-page-focus-lock.md` |
 | Three to five verified real images fly in as a deck, settle into a fan, and elevate a user-selected hero card | `recipes/prompt-008-real-image-deck-hero.json` | `references/prompt-008-real-image-deck-hero.md` |
 | Editable input, feedback, and result beats explain one causal chain; optional real result media is verified and abstract UI never masquerades as a product interface | `recipes/prompt-009-input-feedback-result.json` | `references/prompt-009-input-feedback-result.md` |
+| Experimental: a standalone chapter card uses radial scan motion to introduce one readable title and hand off to the next shot | `recipes/prompt-012-radial-scan-chapter.json` | `references/prompt-012-radial-scan-chapter.md` |
+| Experimental: a real source page separates into page context, key fields, and provenance while preserving their correspondence | `recipes/prompt-013-source-page-evidence-layers.json` | `references/prompt-013-source-page-evidence-layers.md` |
+| Experimental: narration, pointer position, recorded clicks, system feedback, and focus cues align throughout a real screen tour | `recipes/prompt-014-narration-synced-screen-tour.json` | `references/prompt-014-narration-synced-screen-tour.md` |
+
+Prompts 012–014 were extracted from inspected finished footage; their generalized inputs have not yet been re-rendered and verified. Keep their recipe status `experimental`, state this limit when selecting them, and validate one representative Beat with the user's actual content before expansion. Source-shot evidence is not proof of general template compatibility. Prompts 010–011 belong to a separate proposal and are not included in this checkout.
 
 Treat recipe triggers as routing evidence, not keyword-only commands. A visual resemblance is insufficient when the viewing task differs.
 

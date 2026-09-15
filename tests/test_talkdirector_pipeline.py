@@ -48,9 +48,34 @@ class RecipeValidationTest(unittest.TestCase):
                 "prompt-007-hd-page-focus-lock",
                 "prompt-008-real-image-deck-hero",
                 "prompt-009-input-feedback-result",
+                "prompt-012-radial-scan-chapter",
+                "prompt-013-source-page-evidence-layers",
+                "prompt-014-narration-synced-screen-tour",
             },
         )
-        self.assertTrue(all(recipe["status"] == "verified" for recipe in self.recipes.values()))
+        verified_ids = {
+            "prompt-001-gesture-logo-pop",
+            "prompt-002-split-screen-explainer",
+            "prompt-003-brand-mode-comparison",
+            "prompt-004-top-chapter-progress-rail",
+            "prompt-005-diagonal-card-waterfall",
+            "prompt-006-editable-three-card-flip",
+            "prompt-007-hd-page-focus-lock",
+            "prompt-008-real-image-deck-hero",
+            "prompt-009-input-feedback-result",
+        }
+        self.assertEqual(
+            {recipe_id for recipe_id, recipe in self.recipes.items() if recipe["status"] == "verified"},
+            verified_ids,
+        )
+        self.assertEqual(
+            {recipe_id for recipe_id, recipe in self.recipes.items() if recipe["status"] == "experimental"},
+            {
+                "prompt-012-radial-scan-chapter",
+                "prompt-013-source-page-evidence-layers",
+                "prompt-014-narration-synced-screen-tour",
+            },
+        )
 
     def test_recipes_define_deterministic_execution_gates(self):
         self.assertEqual(
@@ -239,7 +264,7 @@ class RecipeValidationTest(unittest.TestCase):
         ):
             self.assertIn(phrase, prompt_008)
 
-        prompt_009 = quick_prompt("009", None)
+        prompt_009 = quick_prompt("009", "012")
         self.assertGreater(len(prompt_009), 500)
         for phrase in (
             "所有文字保留为 Motion Graphic 属性",
@@ -249,6 +274,28 @@ class RecipeValidationTest(unittest.TestCase):
             "不冒充真实产品原生 UI",
         ):
             self.assertIn(phrase, prompt_009)
+
+    def test_extracted_prompts_separate_source_evidence_from_template_validation(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("已验证_Prompt-009-", readme)
+        verified_section, extracted_section = readme.split(
+            "## 从成片提炼 · 待通用换料验证", 1
+        )
+        extracted_section = extracted_section.split("## 30 秒开始", 1)[0]
+        self.assertNotIn("### Prompt 012", verified_section)
+        self.assertIn("替换为其他标题、材料和旁白后的通用效果尚未重新制作验证", extracted_section)
+
+        for number, name in (
+            ("012", "radial-scan-chapter"),
+            ("013", "source-page-evidence-layers"),
+            ("014", "narration-synced-screen-tour"),
+        ):
+            with self.subTest(prompt=number):
+                self.assertIn(f"### Prompt {number}", extracted_section)
+                self.assertIn(f"references/prompt-{number}-{name}.md", extracted_section)
+
+        self.assertIn("assets/extracted-prompts/prompt-012-radial-scan-chapter.mp4", extracted_section)
+        self.assertNotRegex(extracted_section, r"assets/[^)\s]*prompt-01[34][^)\s]*\.(?:mp4|gif|jpg|png)")
 
     def test_missing_recipe_field_fails(self):
         path = ROOT / "recipes" / "prompt-001-gesture-logo-pop.json"
