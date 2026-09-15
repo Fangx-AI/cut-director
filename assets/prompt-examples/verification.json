@@ -1,0 +1,162 @@
+{
+  "prompt-012": {
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "180",
+          "side_data_list": [
+            {}
+          ]
+        },
+        {
+          "codec_type": "audio",
+          "avg_frame_rate": "0/0",
+          "nb_frames": "283"
+        }
+      ],
+      "format": {
+        "duration": "6.000000"
+      }
+    },
+    "full_decode": "pass",
+    "visual_inspection": {
+      "status": "pass",
+      "frames": [
+        0,
+        44,
+        89,
+        134,
+        179
+      ],
+      "method": "local decoded contact sheet reviewed",
+      "scope": "layout, readable holds, first and final frames; not target ChatCut composition"
+    },
+    "human_listening": "not_performed",
+    "scope": "local_original_abstract_demonstration_only",
+    "sha256": "c536ae2c0ad88cec6db7b1066c3dc30dc87b6fb325b11ab642243f8f51ab656a",
+    "audio_measurement": {
+      "mean_dbfs": -24.8,
+      "peak_dbfs": -8.2,
+      "clipping_detected": false,
+      "human_listening": "not_performed",
+      "voice_ducking": "not_tested_no_narration"
+    }
+  },
+  "prompt-013": {
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "180",
+          "side_data_list": [
+            {}
+          ]
+        }
+      ],
+      "format": {
+        "duration": "6.000000"
+      }
+    },
+    "full_decode": "pass",
+    "visual_inspection": {
+      "status": "pass",
+      "frames": [
+        0,
+        44,
+        89,
+        134,
+        179
+      ],
+      "method": "local decoded contact sheet reviewed",
+      "scope": "layout, readable holds, first and final frames; not target ChatCut composition"
+    },
+    "human_listening": "not_applicable_no_audio",
+    "scope": "local_original_abstract_demonstration_only",
+    "sha256": "6da2a24a06d6ed36cb012fe1b49a14994d57b056d00f2d638c41cb0297419d5a"
+  },
+  "prompt-014": {
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "180",
+          "side_data_list": [
+            {}
+          ]
+        }
+      ],
+      "format": {
+        "duration": "6.000000"
+      }
+    },
+    "full_decode": "pass",
+    "visual_inspection": {
+      "status": "pass",
+      "frames": [
+        0,
+        44,
+        89,
+        134,
+        179
+      ],
+      "method": "local decoded contact sheet reviewed",
+      "scope": "layout, readable holds, first and final frames; not target ChatCut composition"
+    },
+    "human_listening": "not_applicable_no_audio",
+    "scope": "local_original_abstract_demonstration_only",
+    "sha256": "51ff692d664a5bbdfba09fd13828c41f0bed143e6305491062f9535abbcaa15d"
+  },
+  "prompt-015": {
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "180",
+          "side_data_list": [
+            {}
+          ]
+        }
+      ],
+      "format": {
+        "duration": "6.000000"
+      }
+    },
+    "full_decode": "pass",
+    "visual_inspection": {
+      "status": "pass",
+      "frames": [
+        0,
+        44,
+        89,
+        134,
+        179
+      ],
+      "method": "local decoded contact sheet reviewed",
+      "scope": "layout, readable holds, first and final frames; not target ChatCut composition"
+    },
+    "human_listening": "not_applicable_no_audio",
+    "scope": "local_original_abstract_demonstration_only",
+    "sha256": "57cd752e37a568e5bb96e9d0843455ddba2966810c5b46b479d45ab7cba4147a"
+  }
+}

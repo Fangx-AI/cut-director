@@ -1,5 +1,28 @@
 # 本地 Prompt 示例源文件
 
+[返回素材索引](../../../PROMPT-LIBRARY.md)
+
+## 012–015 · 节奏与信息结构
+
+`RhythmExamples.tsx` 提供 `Prompt012`、`Prompt013`、`Prompt014`、`Prompt015`，均为 1280×720、30fps、180 帧。图形与动画独立制作；014/015 是抽象结构示例，非产品录屏。
+
+在 React 19.2.3、Remotion / @remotion/cli 4.0.521 项目中，将文件用作入口：
+
+```sh
+npx remotion render RhythmExamples.tsx Prompt012 prompt-012-silent.mp4 --codec=h264 --crf=21
+python make_accent.py accent.wav
+ffmpeg -i prompt-012-silent.mp4 -i accent.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 160k -shortest prompt-012.mp4
+npx remotion render RhythmExamples.tsx Prompt013 prompt-013.mp4 --codec=h264 --crf=21
+npx remotion render RhythmExamples.tsx Prompt014 prompt-014.mp4 --codec=h264 --crf=21
+npx remotion render RhythmExamples.tsx Prompt015 prompt-015.mp4 --codec=h264 --crf=21
+```
+
+`make_accent.py` 只使用 Python 标准库，以固定随机种子合成原创 120 BPM 节拍，不需要下载音乐。012 无旁白，不能据此宣称旁白避让已试听验证。013–015 发布预览移除静音音轨；如渲染器自动附带静音轨，可用 `ffmpeg -i input.mp4 -c:v copy -an output.mp4` 移除。
+
+颜色、字体和角标可用 CLI `--props` 修改；短句与形状在源码中修改。其他内容长度、数量、画幅和 fps 需要调整构图与时间。此示例不保证直接在 ChatCut 执行，见[兼容说明](../../../references/compatibility.md)。
+
+## 010–011 · 片头与看板
+
 `PromptExamples.tsx` 同时提供两个独立 Composition：`Prompt010`、`Prompt011`。内容为独立重制的通用示例，不含客户视频、第三方案例录屏、人物素材或配乐。
 
 - 已使用 React 19.2.3、Remotion / @remotion/cli 4.0.521 导出。

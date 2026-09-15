@@ -14,7 +14,7 @@ Let the user describe the result in natural language. Never ask the user to fill
 ## Core Workflow
 
 1. Inspect the source, transcript, timing, frame, speaker, gestures, captions, Logo, product UI, existing text, motion paths, and real empty space.
-2. Load the planning references in the order below. Identify verbatim anchors and select sparse, high-value visual Beats.
+2. Load only references needed for this request. Identify verbatim anchors and select visual Beats that help the viewer.
 3. Match a verified effect recipe when its viewing task and constraints fit. Otherwise design a custom Beat using the same safety and fallback principles.
 4. Deliver a confirmable Visual Beat Map and select exactly one representative Beat.
 5. After the first approval, initialize or resume the project manifest and pass every recipe gate before executing only the representative Beat.
@@ -26,22 +26,11 @@ The model owns semantics, director judgment, visual language, and medium choice.
 
 Do not generate media, create MG, modify the timeline, consume credits, or claim execution before the first approval.
 
-For a request to skip planning, finish the whole video immediately, or add effects everywhere, respond in this order:
+Use existing source context and approvals before asking for anything. Planning, Prompt selection, and read-only inspection do not require execution approval. For a simple requested effect, give a short proposal proportional to the task; do not force a full-video table or reject effect density the user did not request.
 
-1. Reject exhaustive effect coverage because excessive density looks cheap; state that the Quality Gate keeps sparse, high-value Beats.
-2. State the complete sequence: Visual Beat Map -> first approval -> execute one representative Beat -> verify and show its actual result -> second approval -> expand.
-3. State in a separate sentence that no generation, timeline change, or credit use is authorized now.
-4. Request one missing source only: a target project with readable transcript context, a transcript, a timestamped script, or one usable verbatim phrase.
+If execution approval is missing, show the concrete representative proposal and ask only for the missing decision. If a source or verbatim anchor is missing, ask one focused source question. Never invent timing or facts.
 
-For Chinese intake with no source context, include this sentence verbatim:
-
-```text
-当前不生成素材、不修改时间线、不消耗额度。
-```
-
-Do not open a project picker or call a ChatCut project/form tool before stating this boundary. Project selection is source intake, not execution approval.
-
-If no transcript or verbatim anchor exists, ask one narrow source question and stop at intake. Do not invent timing, anchors, facts, or a representative Beat. State that the Visual Beat Map is the next safe deliverable.
+Approvals persist within their actual scope. Record existing approval evidence in the manifest rather than repeatedly asking the same question. A local revision to an accepted Beat can reuse valid direction and scope; update affected facts and verification evidence. New direction, material scope changes, or additional paid actions need the applicable authorization. Do not fabricate the `first` or `second` evidence fields or bypass the existing pipeline gates.
 
 ## Recipe Routing
 
@@ -67,6 +56,18 @@ For gesture effects, require a user-confirmed exact time range before asset acqu
 
 For real brands, use verifiable official assets and never generate, redraw, or stylistically imitate a real Logo. If identity or provenance cannot be verified, stop that asset and request one verified source.
 
+## Viewer-task routing
+
+For reusable material, consult [the Prompt index](PROMPT-LIBRARY.md). In addition to the existing verified recipes:
+
+- Music and visual emphasis do not land together: [012](references/prompt-012-semantic-audio-accent.md).
+- Clauses should accumulate toward one conclusion: [013](references/prompt-013-incremental-payoff.md).
+- Show a real change to the same subject: [014](references/prompt-014-matched-before-after.md).
+- Connect real demonstration clips within existing speech: [015](references/prompt-015-demo-relay.md).
+- Adapt 006/008 to another ratio or add a following focus to 007: [variants](references/prompt-variants.md).
+
+012–015 are local demonstrations, not verified ChatCut recipes. Use as custom Beat references; do not imply native property or real-footage verification. Preserve finished A-roll unless editing it is explicitly within the user’s request. Read [compatibility](references/compatibility.md) before choosing the current execution surface.
+
 ## Planning References
 
 ### Supplementary Prompt material
@@ -75,7 +76,7 @@ For a release/count/viewer-benefit title sequence, consult [Prompt 010](referenc
 
 These are local Remotion examples, not verified ChatCut recipes. Use them as custom-Beat references within the existing scope and approval workflow; do not claim ChatCut execution or property editability from the local preview. Their source files and verification limits are linked in each reference. Do not substitute Prompt 010 for a full-video progress rail (004), or Prompt 011 for a single input–feedback–result explanation (009).
 
-Load in this order:
+For full-video planning, consult these references as needed:
 
 1. `references/visual-director-framework.md`
 2. `references/transcript-to-beats.md`
@@ -107,7 +108,7 @@ Treat official ChatCut patterns as information-structure and motion references, 
 
 ## User-Facing Output
 
-Use the fixed order and fields in `references/visual-beat-map.md`. Include:
+For full-video planning, use `references/visual-beat-map.md`. For one effect or a local revision, present only the affected content, placement, timing, input needs and preview decision. Keep the complete internal evidence without making the user read every field. A full plan includes:
 
 - overall director judgment and one named visual language;
 - the Visual Beat Map with exact displayed content, speaker treatment, safe zones, editable properties, media/person window, asset responsibilities, compositing, sound, user prompt, director constraints, risks, scores, and quality decision;

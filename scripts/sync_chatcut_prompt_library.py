@@ -158,7 +158,9 @@ def render_catalog(cards: list[dict[str, str]], synced_on: str | None = None) ->
     for category in sorted(counts):
         lines.append(f"| {escape_cell(category)} | {counts[category]} |")
 
-    for category in CATEGORY_LABELS.values():
+    ordered_categories = list(CATEGORY_LABELS.values())
+    ordered_categories.extend(sorted(set(counts) - set(ordered_categories)))
+    for category in ordered_categories:
         category_cards = [card for card in cards if card["category"] == category]
         if not category_cards:
             continue
@@ -199,6 +201,14 @@ def render_catalog_json(cards: list[dict[str, str]], synced_on: str) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
+        "--compare", type=Path,
+        help="Previous JSON catalog. Compare captured metadata by stable ID before writing.",
+    )
+    parser.add_argument(
+        "--diff-output", type=Path,
+        help="Optional JSON report of added, removed and changed entries; requires --compare.",
+    )
+    parser.add_argument(
         "--output",
         default="references/chatcut-official-catalog.md",
         help="Catalog output path relative to the current working directory.",
@@ -209,11 +219,20 @@ def main() -> None:
         help="Machine-readable catalog output path.",
     )
     args = parser.parse_args()
+    if args.diff_output and not args.compare:
+        parser.error("--diff-output requires --compare")
     output = Path(args.output)
     json_output = Path(args.json_output)
     output.parent.mkdir(parents=True, exist_ok=True)
     json_output.parent.mkdir(parents=True, exist_ok=True)
     cards = fetch_cards()
+    if args.compare:
+        previous = json.loads(args.compare.read_text(encoding="utf-8"))["entries"]
+        report = compare_catalogs(previous, cards)
+        print(json.dumps(report, ensure_ascii=False))
+        if args.diff_output:
+            args.diff_output.parent.mkdir(parents=True, exist_ok=True)
+            args.diff_output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     synced_on = date.today().isoformat()
     output.write_text(
         render_catalog(cards, synced_on), encoding="utf-8", newline="\n"
@@ -222,6 +241,27 @@ def main() -> None:
         render_catalog_json(cards, synced_on), encoding="utf-8", newline="\n"
     )
     print(f"Wrote {len(cards)} official entries to {output} and {json_output}")
+
+
+def compare_catalogs(previous, current):
+    def by_id(entries):
+        result = {}
+        for entry in entries:
+            key = entry.get("reference_id")
+            if not key or key in result:
+                raise ValueError(f"Missing or duplicate official reference ID: {key!r}")
+            result[key] = entry
+        return result
+    old, new = by_id(previous), by_id(current)
+    return {
+        "scope": "captured_metadata_only",
+        "added": sorted(set(new) - set(old)),
+        "removed": sorted(set(old) - set(new)),
+        "changed": [
+            {"reference_id": key, "fields": sorted(field for field in set(old[key]) | set(new[key]) if old[key].get(field) != new[key].get(field))}
+            for key in sorted(set(old) & set(new)) if old[key] != new[key]
+        ],
+    }
 
 
 if __name__ == "__main__":
