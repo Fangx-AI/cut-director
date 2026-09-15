@@ -144,6 +144,12 @@ def validate_recipe(recipe: dict[str, Any], path: Path, root: Path) -> None:
     legacy_reference = compatibility.get("legacy_reference")
     _require(legacy_reference and (root / legacy_reference).is_file(), f"{path}: legacy public path is missing")
     readme = (root / "README.md").read_text(encoding="utf-8")
+    # Complete examples live one click from the concise homepage. Keep legacy
+    # compatibility fields checking the same published text after the move.
+    examples_path = root / "PROMPTS.md"
+    if examples_path.is_file():
+        _require("(PROMPTS.md)" in readme, f"{path}: README no longer links complete examples")
+        readme = examples_path.read_text(encoding="utf-8")
     prompt_number = recipe["recipe_id"].split("-")[1]
     _require(f"Prompt {prompt_number}" in readme, f"{path}: README no longer exposes Prompt {prompt_number}")
     _require(legacy_reference in readme, f"{path}: README no longer links the legacy public path")

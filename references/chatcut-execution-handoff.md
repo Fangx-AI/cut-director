@@ -12,6 +12,12 @@
 
 只有用户第一次明确确认主视觉语言、人物处理和会消耗额度的动作后，才能执行这一个代表性 Beat。执行后必须验证实际结果并向用户展示，再等待第二次明确确认；只有收到第二次确认后，才能扩展剩余 Beat。不得把尚未执行的 Beat 描述为已完成或当前交付物。
 
+## 当前宿主与授权延续
+
+先读 [兼容说明](compatibility.md)，区分内置 Agent、Desktop ACP / local CLI 和 hosted 插件。Desktop 直接 JSX 不等于内置生成路径；本地 Remotion TSX 不能直接当作 ChatCut MG 输入。
+
+先恢复同一来源中仍有效的用户确认，不因换一轮对话重新索取同一授权。局部修改可沿用已接受的方向和对应范围，更新受影响事实与写后证据；新增范围或方向则取得对应确认。manifest 的 first / second evidence 仍必须来自实际用户授权，不能为通过门禁填造。
+
 ## 执行 Skill 路由
 
 按需要使用已安装的 ChatCut skills：
@@ -22,7 +28,7 @@
 | 获取 transcript、字幕和词点 | `chatcut:transcription` |
 | 创建或放置 MG | `chatcut:create-motion-graphics` |
 | 生成视频补画面 | `chatcut:video-gen` |
-| 生成或编辑静态画面 | `chatcut:image-gen` |
+| 生成或编辑静态画面 | 当前宿主实际提供的图片能力；不假设 Codex 包存在 `chatcut:image-gen` |
 | 导入用户或外部素材 | `chatcut:asset-import` |
 | 背景音乐和节奏 | `chatcut:music` |
 | 音效或旁白 | `chatcut:voice` |

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="200" viewBox="0 0 1280 200" role="img" aria-labelledby="title desc">
+  <title id="title">CutDirector</title>
+  <desc id="desc">Read the moment. Direct the visual. A video editing skill by Fangx-AI.</desc>
+  <rect width="1280" height="200" rx="18" fill="#101419"/>
+  <path d="M44 42h28M44 42v28M1236 158h-28M1236 158v-28" stroke="#cbf66f" stroke-width="3" fill="none"/>
+  <text x="85" y="107" fill="#f5f3ec" font-family="Arial,Helvetica,sans-serif" font-size="56" font-weight="800" letter-spacing="-2">CUT<tspan fill="#cbf66f">DIRECTOR</tspan></text>
+  <text x="87" y="141" fill="#9da8b5" font-family="Arial,Helvetica,sans-serif" font-size="14" letter-spacing="3">A SKILL BY FANGX-AI</text>
+  <path d="M668 100h56l14-28 17 56 18-83 20 111 18-72 16 32 15-16h57" stroke="#cbf66f" stroke-width="3" fill="none" stroke-linejoin="round"/>
+  <text x="940" y="88" fill="#f5f3ec" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="600">Read the moment.</text>
+  <text x="940" y="123" fill="#9da8b5" font-family="Arial,Helvetica,sans-serif" font-size="22">Direct the visual.</text>
+</svg>

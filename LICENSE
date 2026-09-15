@@ -24,6 +24,7 @@ General Public License, version 3 or any later version
 - `package.json`
 - `package-lock.json`
 - other source-code and machine-configuration files
+- `assets/prompt-examples/source/*.tsx` and `*.py`
 
 The complete license text is in:
 `LICENSES/AGPL-3.0-or-later.txt`
@@ -44,6 +45,8 @@ license (`CC BY-SA 4.0`). This includes:
 - original CutDirector material in `references/**`
 - original diagrams and their source files in `assets/**`
 - `assets/IMAGE-PROMPTS.md`
+- original text in `PROMPTS.md`, `PROMPT-LIBRARY.md`, `CONTRIBUTING.md`, and `CHANGELOG.md`
+- original MP4/GIF demonstrations under `assets/prompt-examples/` (010-015)
 
 The complete license text is in:
 `LICENSES/CC-BY-SA-4.0.txt`
@@ -68,6 +71,7 @@ The following project media are not licensed for independent redistribution,
 editing, dataset creation, model training, resale, or commercial reuse:
 
 - `assets/hero.png`
+- `assets/brand-banner.svg`
 - `assets/talkdirector-presenter.png`
 - `assets/verified-prompts/**`
 

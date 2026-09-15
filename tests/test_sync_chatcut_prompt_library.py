@@ -2,10 +2,26 @@ import json
 import unittest
 from pathlib import Path
 
-from scripts.sync_chatcut_prompt_library import parse_cards, render_catalog_json
+from scripts.sync_chatcut_prompt_library import parse_cards, render_catalog_json, render_catalog, compare_catalogs
 
 
 class PromptCatalogTest(unittest.TestCase):
+    def test_metadata_diff_does_not_treat_rename_as_new_template(self):
+        old = [{"reference_id":"one", "name":"Old"}, {"reference_id":"removed"}]
+        new = [{"reference_id":"one", "name":"New"}, {"reference_id":"added"}]
+        report=compare_catalogs(old,new)
+        self.assertEqual(report["added"],["added"])
+        self.assertEqual(report["removed"],["removed"])
+        self.assertEqual(report["changed"],[{"reference_id":"one","fields":["name"]}])
+
+    def test_duplicate_reference_id_is_rejected(self):
+        with self.assertRaises(ValueError):
+            compare_catalogs([], [{"reference_id":"one"},{"reference_id":"one"}])
+
+    def test_future_category_is_visible_in_markdown(self):
+        card={"category":"New category","name":"Example","description":"A useful example","reference_id":"new","entry_url":"https://example.org"}
+        self.assertIn("## New category",render_catalog([card]))
+
     def setUp(self):
         self.page = Path("tests/fixtures/prompt-library-sample.html").read_text(
             encoding="utf-8"

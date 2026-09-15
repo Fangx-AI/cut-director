@@ -183,7 +183,7 @@ class RecipeValidationTest(unittest.TestCase):
         self.assertIn("abstract_motion_graphic_presented_as_native_product_ui", causal_recipe["asset_strategy"]["forbidden"])
 
     def test_verified_quick_use_prompts_are_independently_executable(self):
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        readme = (ROOT / "PROMPTS.md").read_text(encoding="utf-8")
 
         def quick_prompt(number: str, next_number: str | None) -> str:
             section = readme.split(f"### Prompt {number}", 1)[1]
