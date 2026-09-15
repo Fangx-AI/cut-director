@@ -70,6 +70,7 @@ editing, dataset creation, model training, resale, or commercial reuse:
 - `assets/hero.png`
 - `assets/talkdirector-presenter.png`
 - `assets/verified-prompts/**`
+- `assets/extracted-prompts/**`
 
 These files may be viewed through the canonical repository and may be linked to
 when accurately describing CutDirector. No right to a person's name, image,

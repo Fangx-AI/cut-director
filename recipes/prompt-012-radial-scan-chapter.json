@@ -1,0 +1,162 @@
+{
+  "recipe_schema_version": "0.2",
+  "recipe_id": "prompt-012-radial-scan-chapter",
+  "name": "环形扫描章节转场",
+  "status": "experimental",
+  "public_prompt": "在 [章节边界] 制作约 [时长，默认 2 秒] 的全屏环形扫描章节转场，中央准确显示「[章节名]」。沿用原片画幅、帧率、字体与 [背景色/强调色]，不要把横屏示例的尺寸强加到其他画幅。\n\n用前后错开的同心扫描环、短弧和细刻度建立向中心聚拢的运动，形成空间纵深。标题随聚拢动作清晰落位；字面保持明亮、完整、正向可读，装饰避开标题，辉光只作边缘点缀。默认只有一行短标题，不自动添加序号、英文、伪代码或额外口号。\n\n将标题保留为独立可编辑文字层，背景环、扫描光和字层分开。使用能正确显示目标语言的字体，逐字核对章节名；不能让视频生成模型直接生成需要准确识读的文字。标题、字体、色彩、环的速度、辉光强度和时长作为复用时需要开放的属性，完成后检查实际可编辑性，不能把一个成片 MP4 当作已具备这些属性的模板。\n\n先让扫描环与标题入场，再稳定展示标题，最后衔接下一章节的真实首帧。2 秒示例可按约 0.4 秒入场、1.2 秒清晰保持、0.4 秒出场分配；这只是换料起点，长标题应增加保持时间或调整排版，不能读不完就离场。背景可以继续缓慢运动，标题落稳后不持续抖动或反复闪白。\n\n如使用短掠过音效，对齐视觉收束点，并避让上一句旁白的收尾。原片配音保留完整；需要增加时间时延后后续镜头并保持声画对应，不截断旁白强行塞入转场。导出前检查前镜末帧、入场、标题稳定帧、出场和下一镜首帧，确认无错误中文、无残留上一镜、无黑帧或遗漏的下一镜内容。",
+  "triggers": {
+    "intent": "用独立全屏扫描环和准确短标题提示真实章节切换。",
+    "signals_any": [
+      "全屏章节切换",
+      "环形扫描章节卡",
+      "短标题科技转场"
+    ],
+    "reject_when": [
+      "不存在真实章节边界",
+      "需要贯穿式导航而非独立转场",
+      "要求把生成视频中的乱码当作准确标题",
+      "只能通过截断旁白挤出转场时间"
+    ]
+  },
+  "required_inputs": [
+    {
+      "id": "confirmed_time_range",
+      "required_for": "first_approval",
+      "description": "章节插入点、时长及前后镜头；说明复用已有空档还是延后后续镜头。",
+      "on_missing": "读取真实时间线并确定可容纳转场的位置。"
+    },
+    {
+      "id": "chapter_copy",
+      "required_for": "planning",
+      "description": "准确章节名，保持用户原文，不自动加序号或副标题。",
+      "on_missing": "请求章节名，不以随机文字补齐。"
+    },
+    {
+      "id": "visual_context",
+      "required_for": "planning",
+      "description": "原片画幅、帧率、字体、背景与强调色以及标题安全区。",
+      "on_missing": "检查原片代表帧；独立预览可明确采用深蓝青色示例，不称为原片样式。"
+    },
+    {
+      "id": "audio_boundary",
+      "required_for": "first_approval",
+      "description": "上一句旁白尾音、下一句入点及可选音效来源。",
+      "on_missing": "暂不加音效，检查原音频边界后再安排时长。"
+    }
+  ],
+  "asset_strategy": {
+    "required": false,
+    "sources_in_order": [
+      "user_provided_exact_chapter_copy",
+      "existing_project_visual_style_and_fonts",
+      "editable_motion_graphic_rings_and_text",
+      "optional_verified_short_sound_effect"
+    ],
+    "per_asset_inspection": [
+      "font_supports_exact_title_glyphs",
+      "optional_sound_source_and_narration_tail_are_checked",
+      "source_preview_is_not_misrepresented_as_editable_template"
+    ],
+    "forbidden": [
+      "model_generated_title_glyphs",
+      "random_english_code_or_slogans",
+      "private_project_media_in_public_examples",
+      "baked_preview_claimed_as_editable_mg"
+    ],
+    "on_unverified": "使用准确文字层与可实现的简化扫描环；未知音效不使用，缺失标题则等待补充。"
+  },
+  "layout_safe_zones": {
+    "protect": [
+      "complete_title_glyphs",
+      "chapter_title_reading_area",
+      "frame_safe_margins",
+      "adjacent_shot_content"
+    ],
+    "placement_rule": "短标题居中且完整可读，扫描环与刻度围绕标题分层，辉光不填满字面；按目标画幅重新排版。",
+    "conflict_fallbacks": [
+      "减少弧线和辉光",
+      "调整字号间距或增加阅读时长",
+      "退化为准确短标题与简单扫描光"
+    ]
+  },
+  "timing_animation": {
+    "requires_confirmed_time_range": true,
+    "trigger_alignment": "在真实章节边界出现，保护前后旁白；音效可选且不覆盖尾音。",
+    "entry": "扫描环聚拢并让标题清晰落位；2秒换料起点约0.4秒入场，非已验证固定帧数。",
+    "hold": "标题静稳可读，背景缓慢运行；2秒换料起点约1.2秒保持，标题更长则延长。",
+    "exit": "约0.4秒收束并接入下一镜真实首帧；实际衔接需检查，不截断旁白。",
+    "forbidden": [
+      "truncated_narration",
+      "random_flicker_over_title",
+      "wrong_or_mirrored_glyphs",
+      "black_gap_or_leaked_adjacent_frame",
+      "unverified_fixed_frame_claims"
+    ]
+  },
+  "blocking_policies": {
+    "missing_time_range": "inspect_real_chapter_boundary_and_available_time",
+    "missing_copy": "request_exact_chapter_title",
+    "safe_zone_conflict": "simplify_background_and_reflow_title_without_changing_copy",
+    "insufficient_reading_time": "extend_transition_or_reflow_title_without_cutting_narration",
+    "preview_limit": "source_clip_proves_visual_only_not_generalized_editability_or_audio_sync"
+  },
+  "execution_gates": [
+    "time",
+    "copy",
+    "safe_zones",
+    "first_approval"
+  ],
+  "fallback_chain": [
+    {
+      "id": "layered_radial_chapter",
+      "when": "真实章节、准确标题、阅读时间与前后音频均已明确。",
+      "action": "用独立字层与扫描环重做章节镜头，按目标项目检查属性与接缝。",
+      "terminal": false
+    },
+    {
+      "id": "simple_scan_title",
+      "when": "复杂环线干扰阅读或目标设备难以稳定渲染。",
+      "action": "减少背景层数与辉光，保留准确标题、简单扫描动作和清晰保持段。",
+      "terminal": false
+    },
+    {
+      "id": "keep_boundary_clean",
+      "when": "没有真实章节、准确标题或可容纳的时间。",
+      "action": "保持原衔接，取得缺失输入后再制作，不截断原配音。",
+      "terminal": true
+    }
+  ],
+  "verification": {
+    "required_stages": [
+      "beginning",
+      "middle",
+      "ending"
+    ],
+    "checks": [
+      {
+        "id": "real_boundary_and_entry",
+        "stage": "beginning",
+        "rule": "前镜末帧与转场入场衔接正确，章节文字来自准确文案且原旁白保留。",
+        "evidence_required": "adjacent_previous_frame_entry_frames_and_audio_review"
+      },
+      {
+        "id": "readable_editable_title",
+        "stage": "middle",
+        "rule": "字形完整、标题稳定可读、装饰避让；在新工程实际修改标题与颜色检查独立属性。",
+        "evidence_required": "full_resolution_stable_frame_and_actual_property_edit_check"
+      },
+      {
+        "id": "clean_next_shot",
+        "stage": "ending",
+        "rule": "出场和下一镜首帧无黑帧或残留内容，回听配音尾音与可选音效接缝。",
+        "evidence_required": "exit_and_next_shot_frames_export_probe_and_audio_review"
+      }
+    ]
+  },
+  "compatibility": {
+    "public_prompt_source": "references/prompt-012-radial-scan-chapter.md",
+    "readme_must_contain_public_prompt": false,
+    "readme_prompt_excerpt": "在 [章节边界] 制作环形扫描章节转场。",
+    "legacy_reference": "references/prompt-012-radial-scan-chapter.md"
+  }
+}

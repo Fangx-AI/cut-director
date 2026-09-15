@@ -1,0 +1,194 @@
+{
+  "recipe_schema_version": "0.2",
+  "recipe_id": "prompt-014-narration-synced-screen-tour",
+  "name": "旁白驱动的真实界面导览",
+  "status": "experimental",
+  "public_prompt": "把 [目标时间段] 的 [真实软件录屏] 做成跟随 [已批准配音] 的界面导览。先从实际配音提取方位词、对象名和动作词，整理“发声时间窗—目标区域—真实动作—页面反馈”的对应表，再安排画面；不要按稿子字数估算操作时间。\n\n讲到某个区域时，让唯一一个与真实输入事件对应的鼠标指针已抵达目标旁边的空白位置；说到左侧、右侧或下方时，指针和焦点框必须同时位于对应区域。当前对象使用 [强调色] 细框或四角框，外围轻微压暗，保留原内容亮度与文字清晰度。指针不挡关键文字，只有真实点击发生时才产生短促点击光圈。\n\n页面切换或弹窗打开前清除旧框，等真实内容出现后重新定位。长页面先滚动、停稳，再聚焦并讲解下一项；不要在该项讲完前把它滚走。保留点击、加载、反馈与结果的真实先后顺序，页面尚未就绪时不得提前显示或指向结果。\n\n若现有画面与配音不匹配，优先剪除无意义等待、调整允许调整的停顿，或补录真实操作。局部变速只能用于不影响理解的移动与等待，保留源片到成片映射；不能改写业务数据、把失败剪成成功，或用虚构鼠标轨迹冒充操作。不同批次的结果示例要保留来源说明，不能宣称它是前一个点击立即产生的新结果。已批准配音与页面原有文字保持，本镜头不自动增加逐句字幕。\n\n要独立修改辅助层，必须有不含这些辅助效果的干净源录屏，并把区域框、暗场和点击光圈单独制作。已有录屏含鼠标时不叠加第二个；已有框和指针已经烘焙时，不能假装它们可独立移动，应保留原效果或从干净源素材重做。确有真实输入事件记录且录屏没有指针时，可以按记录呈现唯一指针，不凭旁白编造点击。\n\n完成后按最终编码视频核对每个方位词的发声帧、点击帧、页面就绪帧、滚动停稳帧和焦点退出帧；事件日志只能辅助，不能代替画面检查。检查 100% 尺度的文字清晰度、唯一指针、焦点区域与旁白一致、接缝无旧框和黑帧，交付同步表与实际导出预览。新界面须重新测量区域和时间，不复用旧页面坐标。",
+  "compatibility": {
+    "public_prompt_source": "references/prompt-014-narration-synced-screen-tour.md",
+    "readme_must_contain_public_prompt": false,
+    "legacy_reference": "references/prompt-014-narration-synced-screen-tour.md"
+  },
+  "triggers": {
+    "intent": "按实际配音的方位词和动作词编排真实鼠标、点击、焦点及页面反馈，修正跨区域跨页面的声画错位。",
+    "signals_any": [
+      "配音和鼠标同步",
+      "讲到左侧时指向左侧",
+      "真实录屏逐项导览",
+      "滚动停稳后聚焦流程节点"
+    ],
+    "reject_when": [
+      "没有真实录屏或可补录的实际操作来源",
+      "要求用虚构点击或生成页面冒充实操",
+      "只需要单个页面的静态焦点而不需要声画编排",
+      "只有烘焙成片却要求独立移动原有指针和框且没有源素材"
+    ]
+  },
+  "required_inputs": [
+    {
+      "id": "confirmed_time_range",
+      "required_for": "first_approval",
+      "description": "真实录屏目标范围、帧率和画幅；沿用已确认的旁白及画面范围。",
+      "on_missing": "检查实际素材并定位代表片段，不按稿子字数编造时间。"
+    },
+    {
+      "id": "verified_screen_recording",
+      "required_for": "planning",
+      "description": "真实界面、操作与结果可核验的录屏，以及可用的原始录制批次信息。",
+      "on_missing": "请求真实录屏或在可用环境补录，不生成假界面。"
+    },
+    {
+      "id": "approved_narration_and_word_times",
+      "required_for": "planning",
+      "description": "已批准配音及实际发声时间窗；没有可靠逐词时间时以音频和视频逐段校正。",
+      "on_missing": "可以先规划流程，但不宣称已同步，不凭文本字数估算。"
+    },
+    {
+      "id": "operation_targets",
+      "required_for": "planning",
+      "description": "方位词、对象、动作、真实结果与页面状态的对应关系。",
+      "on_missing": "根据旁白与真实页面核对，不补不存在的功能。"
+    },
+    {
+      "id": "clean_source_or_rebuild_access",
+      "required_for": "planning",
+      "description": "独立调节辅助层需要不含这些效果的干净录屏；已有指针可保留，已烘焙框不能假称独立可改。",
+      "on_missing": "保留现有效果或请求干净源录屏，不叠第二个指针。"
+    },
+    {
+      "id": "optional_input_event_log",
+      "required_for": "planning",
+      "description": "可选真实输入事件日志，用于核验指针到达和点击；最终以编码后画面校正。",
+      "on_missing": "逐帧核对可观察动作；缺少证据时不按旁白虚构点击。"
+    }
+  ],
+  "asset_strategy": {
+    "required": true,
+    "sources_in_order": [
+      "user_provided_original_screen_recording_and_approved_voiceover",
+      "verified_existing_project_recording_with_source_batch_mapping",
+      "new_real_operation_recording_in_an_available_authorized_environment",
+      "recorded_real_input_events_as_auxiliary_evidence"
+    ],
+    "per_asset_inspection": [
+      "verify_recording_is_real_and_preserves_actual_system_states",
+      "inspect_actual_narration_word_windows",
+      "identify_existing_cursor_and_baked_guidance_layers",
+      "check_viewport_resolution_and_output_scale",
+      "verify_navigation_loading_and_result_order",
+      "keep_source_batch_and_wait_edit_mapping"
+    ],
+    "forbidden": [
+      "generated_or_redrawn_product_ui_presented_as_live_operation",
+      "invented_cursor_path_or_click_presented_as_real",
+      "duplicate_cursor_over_existing_pointer",
+      "modified_business_data_or_failed_state_presented_as_success",
+      "different_batch_result_presented_as_immediate_current_click_output",
+      "baked_effects_claimed_as_independently_editable",
+      "private_source_recording_published_as_a_public_template_demo_without_authorization"
+    ],
+    "on_unverified": "没有真实操作或声音证据时不声称已完成实操同步；保留当前真实画面并请求所缺录屏、配音或可补录环境。"
+  },
+  "layout_safe_zones": {
+    "protect": [
+      "current_target_text_and_controls",
+      "single_real_event_corresponding_pointer",
+      "native_loading_error_and_result_states",
+      "current_document_or_reference_content",
+      "existing_captions_and_other_meaningful_overlays"
+    ],
+    "placement_rule": "指针停在目标旁边空白区，区域细框沿对象边缘且不压字，外围只轻微压暗；导航前清除旧框，真实内容出现后按新页面重新定位。",
+    "conflict_fallbacks": [
+      "缩小框或减少四角长度，降低外围压暗",
+      "将指针停在目标邻近空白处并保留原始事件关系",
+      "清除辅助框，仅保留清楚的真实操作",
+      "需要独立改动但无干净源时保留原片或补录，不伪造可编辑性"
+    ]
+  },
+  "timing_animation": {
+    "requires_confirmed_time_range": true,
+    "trigger_alignment": "从实际配音建立发声窗口与目标、输入事件、页面反馈的同步表；方位词发声时指针和焦点已到位，点击与结果遵循真实因果顺序。",
+    "entry": "目标讲解前指针抵达不遮字的位置，当前区域加细框或四角，真实点击发生才产生短脉冲。",
+    "hold": "讲解期间焦点稳定；长页面先滚动停稳再高亮，讲完该对象才移动；页面切换前清框，内容就绪后重新定位。",
+    "exit": "清除已结束的焦点与脉冲，接下一个真实画面；保留旁白，最终以编码后视频而非事件日志核验。",
+    "forbidden": [
+      "wrong_side_pointer_during_direction_word",
+      "stale_focus_box_on_new_page",
+      "scrolling_target_away_before_narration_finishes",
+      "result_highlight_before_real_result_is_visible",
+      "fake_click_pulses_without_actual_click",
+      "blanket_time_offset_without_final_frame_checks"
+    ]
+  },
+  "blocking_policies": {
+    "missing_time_range": "inspect_real_audio_and_video_then_locate_confirmed_scope",
+    "missing_narration": "plan_only_and_do_not_claim_audio_visual_sync",
+    "missing_real_recording": "request_real_recording_or_capture_actual_operations",
+    "missing_event_log": "inspect_observable_actions_in_frames_without_inventing_events",
+    "flattened_guidance_only": "preserve_baked_effects_or_request_clean_source_before_independent_changes",
+    "state_or_batch_mismatch": "preserve_real_state_and_document_batch_relation_instead_of_faking_causality",
+    "safe_zone_conflict": "reduce_or_remove_guidance_and_preserve_native_content",
+    "timing_mismatch": "trim_waits_or_adjust_permitted_pauses_or_recapture_real_actions_then_verify_encoded_frames"
+  },
+  "execution_gates": [
+    "time",
+    "assets",
+    "copy",
+    "safe_zones",
+    "first_approval"
+  ],
+  "fallback_chain": [
+    {
+      "id": "clean_recording_with_separate_guidance",
+      "when": "有真实录屏、可靠配音时间窗及可独立制作辅助层的源素材。",
+      "action": "建立同步表并单独组织区域框、暗场和真实点击脉冲，按最终帧校正。",
+      "terminal": false
+    },
+    {
+      "id": "preserve_baked_real_recording",
+      "when": "现有录屏含已烘焙指针或辅助框，且原动作基本可用。",
+      "action": "保留真实指针和已有层，不叠第二套；仅进行允许的剪辑并如实说明不能独立修改，需改动时请求干净源或补录。",
+      "terminal": false
+    },
+    {
+      "id": "keep_real_footage_and_request_missing_evidence",
+      "when": "真实操作来源、配音或必要干净源缺失，或声画错位无法通过合理剪辑解决。",
+      "action": "保持现有真实画面，请求缺失素材或补录；不生成假界面、点击或成功结果。",
+      "terminal": true
+    }
+  ],
+  "verification": {
+    "required_stages": [
+      "asset",
+      "beginning",
+      "middle",
+      "ending"
+    ],
+    "checks": [
+      {
+        "id": "audio_visual_source_mapping",
+        "stage": "asset",
+        "rule": "真实录屏、配音时间窗、已有指针与烘焙状态清楚；不同批次和等待修剪保留映射。",
+        "evidence_required": "recording_inspection_audio_word_windows_and_source_to_output_map"
+      },
+      {
+        "id": "direction_and_pointer_agreement",
+        "stage": "beginning",
+        "rule": "方位词发声时唯一指针和焦点同处目标区域，不挡文字；点击脉冲对应实际点击。",
+        "evidence_required": "actual_encoded_word_onset_frames_and_click_frames"
+      },
+      {
+        "id": "navigation_scroll_and_feedback_order",
+        "stage": "middle",
+        "rule": "导航前清框，内容真实出现后重新定位；滚动停稳再聚焦，系统失败和加载状态不被伪造。",
+        "evidence_required": "page_ready_scroll_settle_focus_frames_and_realtime_audio_video_review"
+      },
+      {
+        "id": "final_sync_and_editability",
+        "stage": "ending",
+        "rule": "按最终视频逐项核对发声、动作、反馈、退出和接缝；交付同步表，只有干净源与独立辅助层才声称可分别编辑，换料后重新验证。",
+        "evidence_required": "final_export_review_sync_table_project_layer_inspection_and_new_material_verification_record"
+      }
+    ]
+  }
+}
