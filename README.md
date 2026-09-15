@@ -282,6 +282,30 @@
 
 后续案例只在真实时间线中完成并通过验证后，才会加入这个系列。
 
+## 补充 Prompt 素材
+
+以下两项由制作实践提炼，并提供独立重制的本地 Remotion 演示与可编辑源文件。**尚未进行 ChatCut 时间线验证，不计入上方 9 个 Verified Prompt。** 使用时按目标口播和安全区适配。
+
+### Prompt 010 · 三段式数字片头
+
+[![三段式数字片头](assets/prompt-examples/prompt-010-three-stage-count-hook.gif)](assets/prompt-examples/prompt-010-three-stage-count-hook.mp4)
+
+```text
+把 [目标时间段] 做成“发布消息 → 数量与内容 → 观众收益”的三段式片头。大字快速推入，准确数量短暂跳动后落稳，最后让收益句滑入。按口播切换，文字、数量、配色和时长可编辑。
+```
+
+[完整 Prompt 与替换说明](references/prompt-010-three-stage-count-hook.md) · [MP4 演示](assets/prompt-examples/prompt-010-three-stage-count-hook.mp4)
+
+### Prompt 011 · 任务卡片推进看板
+
+[![任务卡片推进看板](assets/prompt-examples/prompt-011-task-board-progression.gif)](assets/prompt-examples/prompt-011-task-board-progression.mp4)
+
+```text
+把 [流程主题] 做成三列任务看板。同一批任务卡片错峰从 [起始状态] 进入 [处理中状态]，停留后再进入 [完成状态]。完成时变色并打勾，保留卡片身份和文字；按实际状态展示，不编造完成结果。
+```
+
+[完整 Prompt 与替换说明](references/prompt-011-task-board-progression.md) · [MP4 演示](assets/prompt-examples/prompt-011-task-board-progression.mp4) · [两项示例源文件与导出方法](assets/prompt-examples/source/README.md)
+
 ## 30 秒开始
 
 ### 1. 安装 Skill

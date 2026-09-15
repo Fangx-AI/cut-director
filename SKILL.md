@@ -69,6 +69,12 @@ For real brands, use verifiable official assets and never generate, redraw, or s
 
 ## Planning References
 
+### Supplementary Prompt material
+
+For a release/count/viewer-benefit title sequence, consult [Prompt 010](references/prompt-010-three-stage-count-hook.md). For multiple persistent task cards moving through workflow states, consult [Prompt 011](references/prompt-011-task-board-progression.md).
+
+These are local Remotion examples, not verified ChatCut recipes. Use them as custom-Beat references within the existing scope and approval workflow; do not claim ChatCut execution or property editability from the local preview. Their source files and verification limits are linked in each reference. Do not substitute Prompt 010 for a full-video progress rail (004), or Prompt 011 for a single input–feedback–result explanation (009).
+
 Load in this order:
 
 1. `references/visual-director-framework.md`
