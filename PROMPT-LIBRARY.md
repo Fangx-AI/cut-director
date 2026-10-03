@@ -2,7 +2,7 @@
 
 [返回首页](README.md) · [完整 Prompt 展示](PROMPTS.md) · [官方效果参考](VISUAL-GALLERY.md)
 
-直接看效果，找到喜欢的镜头，再打开对应 Prompt 替换内容。预览为动态 WebP 或 GIF；点击预览或“完整视频”可打开 MP4，012 提供带配乐的版本。
+直接看效果，找到喜欢的镜头，再打开对应 Prompt 替换内容。点击预览或“完整视频”可打开 MP4，012 提供带配乐的版本。预览为动态 WebP 或 GIF；开启系统“减少动态效果”时显示静帧。
 
 **001–009：ChatCut 案例已验证。010–015：本地动画演示，尚未在 ChatCut 验证。** 标签只代表对应案例的验证范围，不代表任意素材都能直接复刻。
 
@@ -24,13 +24,13 @@
 <tr>
 <td width="50%" valign="top">
 <h3>003 · 品牌能力递进</h3>
-<a href="assets/verified-prompts/prompt-003-brand-mode-comparison.mp4"><img src="assets/verified-prompts/prompt-003-brand-mode-comparison.gif" alt="Prompt 003 品牌能力递进动态演示" width="100%"></a>
+<a href="assets/verified-prompts/prompt-003-brand-mode-comparison.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-003-still.jpg"><img src="assets/verified-prompts/prompt-003-brand-mode-comparison.gif" alt="Prompt 003 品牌能力递进演示" width="100%"></picture></a>
 <p>解释变化 · 准备：官方 Logo + 两种模式</p>
 <p><a href="references/prompt-003-brand-mode-comparison.md">复制 Prompt →</a> · <a href="assets/verified-prompts/prompt-003-brand-mode-comparison.mp4">完整视频</a></p>
 </td>
 <td width="50%" valign="top">
 <h3>004 · 自适应章节导航</h3>
-<a href="assets/verified-prompts/prompt-004-top-chapter-progress-rail.mp4"><img src="assets/verified-prompts/prompt-004-top-chapter-progress-rail.gif" alt="Prompt 004 自适应章节导航动态演示" width="100%"></a>
+<a href="assets/verified-prompts/prompt-004-top-chapter-progress-rail.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-004-still.jpg"><img src="assets/previews/prompt-004.webp" alt="Prompt 004 自适应章节导航演示" width="100%"></picture></a>
 <p>连接段落 · 准备：全片结构与时间</p>
 <p><a href="references/prompt-004-top-chapter-progress-rail.md">复制 Prompt →</a> · <a href="assets/verified-prompts/prompt-004-top-chapter-progress-rail.mp4">完整视频</a></p>
 </td>
@@ -38,13 +38,13 @@
 <tr>
 <td width="50%" valign="top">
 <h3>005 · 原素材瀑布墙</h3>
-<a href="assets/verified-prompts/prompt-005-diagonal-card-waterfall.mp4"><img src="assets/verified-prompts/prompt-005-diagonal-card-waterfall.gif" alt="Prompt 005 原素材瀑布墙动态演示" width="100%"></a>
+<a href="assets/verified-prompts/prompt-005-diagonal-card-waterfall.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-005-still.jpg"><img src="assets/previews/prompt-005.webp" alt="Prompt 005 原素材瀑布墙演示" width="100%"></picture></a>
 <p>展示广度 · 准备：指定源视频，不可换卡片内容</p>
 <p><a href="references/prompt-005-diagonal-card-waterfall.md">复制 Prompt →</a> · <a href="assets/verified-prompts/prompt-005-diagonal-card-waterfall.mp4">完整视频</a></p>
 </td>
 <td width="50%" valign="top">
 <h3>006 · 三卡翻面</h3>
-<a href="assets/verified-prompts/prompt-006-editable-three-card-flip.mp4"><img src="assets/verified-prompts/prompt-006-editable-three-card-flip.gif" alt="Prompt 006 三卡翻面动态演示" width="100%"></a>
+<a href="assets/verified-prompts/prompt-006-editable-three-card-flip.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-006-still.jpg"><img src="assets/verified-prompts/prompt-006-editable-three-card-flip.gif" alt="Prompt 006 三卡翻面演示" width="100%"></picture></a>
 <p>解释变化 · 准备：三组正反面内容</p>
 <p><a href="references/prompt-006-editable-three-card-flip.md">复制 Prompt →</a> · <a href="assets/verified-prompts/prompt-006-editable-three-card-flip.mp4">完整视频</a></p>
 </td>
@@ -52,13 +52,13 @@
 <tr>
 <td width="50%" valign="top">
 <h3>007 · 真实页面焦点锁定</h3>
-<a href="assets/verified-prompts/prompt-007-hd-page-focus-lock.mp4"><img src="assets/verified-prompts/prompt-007-hd-page-focus-lock.gif" alt="Prompt 007 真实页面焦点锁定动态演示" width="100%"></a>
+<a href="assets/verified-prompts/prompt-007-hd-page-focus-lock.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-007-still.jpg"><img src="assets/verified-prompts/prompt-007-hd-page-focus-lock.gif" alt="Prompt 007 真实页面焦点锁定演示" width="100%"></picture></a>
 <p>证明结果 · 准备：高清截图或录屏</p>
 <p><a href="references/prompt-007-hd-page-focus-lock.md">复制 Prompt →</a> · <a href="assets/verified-prompts/prompt-007-hd-page-focus-lock.mp4">完整视频</a></p>
 </td>
 <td width="50%" valign="top">
 <h3>008 · 图片卡组与主卡</h3>
-<a href="assets/verified-prompts/prompt-008-real-image-deck-hero.mp4"><img src="assets/verified-prompts/prompt-008-real-image-deck-hero.gif" alt="Prompt 008 图片卡组与主卡动态演示" width="100%"></a>
+<a href="assets/verified-prompts/prompt-008-real-image-deck-hero.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-008-still.jpg"><img src="assets/verified-prompts/prompt-008-real-image-deck-hero.gif" alt="Prompt 008 图片卡组与主卡演示" width="100%"></picture></a>
 <p>展示选择 · 准备：3–5 张真实图片</p>
 <p><a href="references/prompt-008-real-image-deck-hero.md">复制 Prompt →</a> · <a href="assets/verified-prompts/prompt-008-real-image-deck-hero.mp4">完整视频</a></p>
 </td>
@@ -66,13 +66,13 @@
 <tr>
 <td width="50%" valign="top">
 <h3>009 · 输入、反馈、结果</h3>
-<a href="assets/verified-prompts/prompt-009-input-feedback-result.mp4"><img src="assets/verified-prompts/prompt-009-input-feedback-result.gif" alt="Prompt 009 输入、反馈、结果动态演示" width="100%"></a>
+<a href="assets/verified-prompts/prompt-009-input-feedback-result.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-009-still.jpg"><img src="assets/verified-prompts/prompt-009-input-feedback-result.gif" alt="Prompt 009 输入、反馈、结果演示" width="100%"></picture></a>
 <p>解释因果 · 准备：三拍文案，可选结果图</p>
 <p><a href="references/prompt-009-input-feedback-result.md">复制 Prompt →</a> · <a href="assets/verified-prompts/prompt-009-input-feedback-result.mp4">完整视频</a></p>
 </td>
 <td width="50%" valign="top">
 <h3>010 · 三段式数字片头</h3>
-<a href="assets/prompt-examples/prompt-010-three-stage-count-hook.mp4"><img src="assets/prompt-examples/prompt-010-three-stage-count-hook.gif" alt="Prompt 010 三段式数字片头动态演示" width="100%"></a>
+<a href="assets/prompt-examples/prompt-010-three-stage-count-hook.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-010-still.jpg"><img src="assets/prompt-examples/prompt-010-three-stage-count-hook.gif" alt="Prompt 010 三段式数字片头演示" width="100%"></picture></a>
 <p>抓住注意 · 准备：消息、数量、观众收益</p>
 <p><a href="references/prompt-010-three-stage-count-hook.md">复制 Prompt →</a> · <a href="assets/prompt-examples/prompt-010-three-stage-count-hook.mp4">完整视频</a></p>
 </td>
@@ -80,13 +80,13 @@
 <tr>
 <td width="50%" valign="top">
 <h3>011 · 任务推进看板</h3>
-<a href="assets/prompt-examples/prompt-011-task-board-progression.mp4"><img src="assets/prompt-examples/prompt-011-task-board-progression.gif" alt="Prompt 011 任务推进看板动态演示" width="100%"></a>
+<a href="assets/prompt-examples/prompt-011-task-board-progression.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-011-still.jpg"><img src="assets/prompt-examples/prompt-011-task-board-progression.gif" alt="Prompt 011 任务推进看板演示" width="100%"></picture></a>
 <p>解释流程 · 准备：真实任务状态</p>
 <p><a href="references/prompt-011-task-board-progression.md">复制 Prompt →</a> · <a href="assets/prompt-examples/prompt-011-task-board-progression.mp4">完整视频</a></p>
 </td>
 <td width="50%" valign="top">
 <h3>012 · 语义重音与音乐落点</h3>
-<a href="assets/prompt-examples/prompt-012.mp4"><img src="assets/prompt-examples/prompt-012.gif" alt="Prompt 012 语义重音与音乐落点动态演示" width="100%"></a>
+<a href="assets/prompt-examples/prompt-012.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-012-still.jpg"><img src="assets/prompt-examples/prompt-012.gif" alt="Prompt 012 语义重音与音乐落点演示" width="100%"></picture></a>
 <p>抓住注意 · 准备：已有音乐 + 强调词</p>
 <p><a href="references/prompt-012-semantic-audio-accent.md">复制 Prompt →</a> · <a href="assets/prompt-examples/prompt-012.mp4">完整视频 · 有声</a></p>
 </td>
@@ -94,13 +94,13 @@
 <tr>
 <td width="50%" valign="top">
 <h3>013 · 短句累积与兑现</h3>
-<a href="assets/prompt-examples/prompt-013.mp4"><img src="assets/prompt-examples/prompt-013.gif" alt="Prompt 013 短句累积与兑现动态演示" width="100%"></a>
+<a href="assets/prompt-examples/prompt-013.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-013-still.jpg"><img src="assets/prompt-examples/prompt-013.gif" alt="Prompt 013 短句累积与兑现演示" width="100%"></picture></a>
 <p>解释递进 · 准备：2–4 条短句 + 结论</p>
 <p><a href="references/prompt-013-incremental-payoff.md">复制 Prompt →</a> · <a href="assets/prompt-examples/prompt-013.mp4">完整视频</a></p>
 </td>
 <td width="50%" valign="top">
 <h3>014 · 同构图前后对比</h3>
-<a href="assets/prompt-examples/prompt-014.mp4"><img src="assets/prompt-examples/prompt-014.gif" alt="Prompt 014 同构图前后对比动态演示" width="100%"></a>
+<a href="assets/prompt-examples/prompt-014.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-014-still.jpg"><img src="assets/prompt-examples/prompt-014.gif" alt="Prompt 014 同构图前后对比演示" width="100%"></picture></a>
 <p>证明结果 · 准备：同一对象前后素材</p>
 <p><a href="references/prompt-014-matched-before-after.md">复制 Prompt →</a> · <a href="assets/prompt-examples/prompt-014.mp4">完整视频</a></p>
 </td>
@@ -108,7 +108,7 @@
 <tr>
 <td width="50%" valign="top">
 <h3>015 · 真实演示连续接力</h3>
-<a href="assets/prompt-examples/prompt-015.mp4"><img src="assets/prompt-examples/prompt-015.gif" alt="Prompt 015 真实演示连续接力动态演示" width="100%"></a>
+<a href="assets/prompt-examples/prompt-015.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-015-still.jpg"><img src="assets/prompt-examples/prompt-015.gif" alt="Prompt 015 真实演示连续接力演示" width="100%"></picture></a>
 <p>连接段落 · 准备：真实演示片段与语义锚点</p>
 <p><a href="references/prompt-015-demo-relay.md">复制 Prompt →</a> · <a href="assets/prompt-examples/prompt-015.mp4">完整视频</a></p>
 </td>

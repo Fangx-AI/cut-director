@@ -14,6 +14,21 @@ class LocalLinksTest(unittest.TestCase):
     def test_code_examples_are_not_file_dependencies(self):
         self.assertEqual(missing_links(Path('/tmp/test.md'),'```md\n[example](missing.md)\n```'),[])
 
+    def test_picture_sources_and_density_variants_are_checked(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'motion.webp').touch();(root/'small.jpg').touch()
+            text='<picture><source srcset="missing.jpg"><img src="motion.webp" srcset="small.jpg 1x, large.jpg 2x"></picture>'
+            self.assertEqual(missing_links(root/'README.md',text),['large.jpg','missing.jpg'])
+
+    def test_html_entities_encoded_paths_and_remote_sources(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'a&b.jpg').touch();(root/'still with space.jpg').touch()
+            text='<source srcset="still%20with%20space.jpg"><a href="a&amp;b.jpg">image</a><source srcset="https://example.org/a.jpg 1x, https://example.org/b.jpg 2x">'
+            self.assertEqual(missing_links(root/'README.md',text),[])
+
+    def test_data_url_is_not_split_into_local_file_targets(self):
+        self.assertEqual(missing_links(Path('/tmp/test.md'),'<img srcset="data:image/png;base64,AAAA">'),[])
+
     def test_copied_installation_without_git_checks_docs_but_not_artifacts(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp)

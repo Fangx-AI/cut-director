@@ -20,9 +20,15 @@ class SpeechPlanError(ValueError):
 
 
 def _number(value: Any, label: str) -> float:
-    if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise SpeechPlanError(f"{label}: expected a finite number")
-    return float(value)
+    try:
+        number = float(value)
+    except OverflowError as error:
+        raise SpeechPlanError(f"{label}: expected a finite number") from error
+    if not math.isfinite(number):
+        raise SpeechPlanError(f"{label}: expected a finite number")
+    return number
 
 
 def _text(value: Any, label: str) -> str:
@@ -231,7 +237,9 @@ def main() -> int:
             result["anchor"] = map_anchor(plan, source_id, float(start), float(end))
         rendered = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
         if args.output:
-            if args.output.resolve() == args.plan.resolve():
+            if args.output.resolve() == args.plan.resolve() or (
+                args.output.exists() and args.output.samefile(args.plan)
+            ):
                 raise SpeechPlanError("output must not overwrite the input plan")
             args.output.parent.mkdir(parents=True, exist_ok=True)
             args.output.write_text(rendered, encoding="utf-8")

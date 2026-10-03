@@ -3,12 +3,31 @@
 import os
 import re
 import subprocess
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT=Path(__file__).resolve().parents[1]
 ARTIFACT_DIRS={'.git', '.agents', '.codex', '.talkdirector', '.worktrees', '.superpowers',
                'node_modules', 'test-results', 'playwright-report', '__pycache__'}
+
+class HtmlTargets(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.targets=[]
+
+    def handle_starttag(self, tag, attrs):
+        for name, value in attrs:
+            if value is None:
+                continue
+            if name in {'src', 'href'}:
+                self.targets.append(value)
+            elif name == 'srcset':
+                # A data URL can contain commas; local picture sources use file URLs.
+                if value.strip().startswith('data:'):
+                    continue
+                self.targets.extend(candidate.strip().split()[0]
+                                    for candidate in value.split(',') if candidate.strip())
 
 def markdown_paths(root):
     # Git defines the source set in a checkout; copied skill installations have no Git metadata.
@@ -32,7 +51,8 @@ def missing_links(path, text):
     # Ignore code examples, which may contain placeholder URLs or paths.
     text=re.sub(r'```.*?```','',text,flags=re.S)
     targets=re.findall(r'\]\((<[^>]+>|[^\s)]+)(?:\s+"[^"]*")?\)',text)
-    targets+=re.findall(r'(?:src|href)=["\']([^"\']+)["\']',text)
+    html=HtmlTargets();html.feed(text)
+    targets+=html.targets
     missing=[]
     for target in targets:
         target=target.strip('<>')

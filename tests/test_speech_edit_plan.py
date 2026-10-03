@@ -1,5 +1,6 @@
 import copy
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -78,7 +79,7 @@ class SpeechEditPlanTest(unittest.TestCase):
         self.assertFalse(compile_plan(self.plan)["sources"][0]["word_boundaries_checked"])
 
     def test_out_of_bounds_zero_length_and_nonfinite_times_are_rejected(self):
-        for start, end in ((-1, 2), (1, 11), (1, 1), (float("nan"), 2), (1, float("inf")), (True, 2)):
+        for start, end in ((-1, 2), (1, 11), (1, 1), (float("nan"), 2), (1, float("inf")), (True, 2), (1, 10 ** 400)):
             with self.subTest(start=start, end=end):
                 plan = copy.deepcopy(self.plan)
                 plan["keep"][0].update(start=start, end=end)
@@ -178,6 +179,22 @@ class SpeechEditPlanTest(unittest.TestCase):
             before = source.read_bytes()
             result = subprocess.run([
                 sys.executable, str(ROOT / "scripts/speech_edit_plan.py"), str(source), "--output", str(source),
+            ], capture_output=True, check=False)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertEqual(source.read_bytes(), before)
+
+    def test_cli_cannot_overwrite_its_plan_through_a_hard_link(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "plan.json"
+            source.write_bytes(FIXTURE.read_bytes())
+            linked = Path(temporary) / "compiled.json"
+            try:
+                os.link(source, linked)
+            except OSError as error:
+                self.skipTest(f"Filesystem does not support hard links: {error}")
+            before = source.read_bytes()
+            result = subprocess.run([
+                sys.executable, str(ROOT / "scripts/speech_edit_plan.py"), str(source), "--output", str(linked),
             ], capture_output=True, check=False)
             self.assertNotEqual(result.returncode, 0)
             self.assertEqual(source.read_bytes(), before)
