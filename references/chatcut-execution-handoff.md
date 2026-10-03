@@ -16,6 +16,8 @@
 
 先读 [兼容说明](compatibility.md)，区分内置 Agent、Desktop ACP / local CLI 和 hosted 插件。Desktop 直接 JSX 不等于内置生成路径；本地 Remotion TSX 不能直接当作 ChatCut MG 输入。
 
+执行端必须与用户这次选择一致。Desktop 工具存在不意味着可用它探测或修改无关仓库任务；Codex Browser 中的网页也不是 Desktop。确认目标项目和实际可播放媒体，注意桌面本地素材不会自动出现在网页。只在真实权限和工具合同允许的表面继续。
+
 先恢复同一来源中仍有效的用户确认，不因换一轮对话重新索取同一授权。局部修改可沿用已接受的方向和对应范围，更新受影响事实与写后证据；新增范围或方向则取得对应确认。manifest 的 first / second evidence 仍必须来自实际用户授权，不能为通过门禁填造。
 
 ## 执行 Skill 路由

@@ -21,11 +21,14 @@
 
 **1. 安装 Skill。** 在支持 Skill Installer 的 Codex 聊天中发送：
 
+默认安装 `main` 已发布版本。体验尚未合并的改动，请用[测试分支安装](references/user-guide.md#install-a-preview)。
+
 ```text
 $skill-installer install https://github.com/Fangx-AI/cut-director
+使用仓库根目录，技能命名 cut-director。
 ```
 
-重启 Codex，连接 ChatCut，打开要剪的项目。[其他安装方式与常见问题](references/user-guide.md#安装与更新)
+安装后在下一轮对话调用，连接 ChatCut 并打开要剪的项目。[其他安装方式与常见问题](references/user-guide.md#安装与更新)
 
 **2. 说出这次想要的结果。** 不需要学习内部规则，也不必一次做完所有环节。
 

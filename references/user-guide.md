@@ -8,6 +8,7 @@
 
 ```text
 $skill-installer install https://github.com/Fangx-AI/cut-director
+使用仓库根目录，技能命名 cut-director。
 ```
 
 执行剪辑还需要连接 ChatCut；安装本 Skill 不会自动安装、登录或购买 ChatCut。
@@ -39,6 +40,33 @@ New-Item -ItemType Junction -Path "$HOME\.codex\skills\cut-director" -Target (Re
 
 CLI 安装的版本可用 `npx skills update cut-director --global` 更新；更新前保存个人修改。仓库包含演示媒体，首次下载会比纯文本 Skill 更大；安装完成不等于 ChatCut 已连接。
 
+<a id="install-a-preview"></a>
+
+### 指定版本与测试分支
+
+默认 URL 和 CLI 命令安装 `main`。本轮完整语音流程在 [PR 19](https://github.com/Fangx-AI/cut-director/pull/19) 的 `codex/talking-head-editor` 分支中，尚未合并；不要把主分支安装当成本轮预览。
+
+要体验本轮版本，在 Codex 中发送这一段：
+
+```text
+$skill-installer 安装 Fangx-AI/cut-director。
+使用分支 codex/talking-head-editor 的仓库根目录。
+技能目录命名 cut-director，不覆盖已有版本。
+```
+
+固定历史版本时，把分支名换成目标提交 SHA。已有同名安装时先保留个人修改；安装器拒绝覆盖不代表应直接删除原目录。需要隔离试用时，让安装助手使用测试项目目录，而不是替换全局版本。
+
+<details>
+<summary>安装助手与维护者：根目录和带斜杠分支的参数</summary>
+
+当前 Skill Installer 脚本应使用 `--repo Fangx-AI/cut-director`、`--ref codex/talking-head-editor`、`--path .`、`--name cut-director`。测试可另加 `--dest <隔离目录>`。
+
+不要只根据 `.../tree/codex/talking-head-editor` URL 猜 ref：当前安装器把 `tree` 后第一个路径段作为 ref，带斜杠分支应显式传 `--ref`。根目录 `.` 也需要明确 `--name`，不能把 `.` 当技能目录名。
+
+本轮已通过官方 Skill Installer 的真实 GitHub 下载，在隔离目录安装测试分支；不表示用户的全局安装已更新。
+
+</details>
+
 ## 第一次只需要这些
 
 提供目标 ChatCut 项目或已拍视频，再说清这次要做什么：剪语音、调整节奏、加字幕、配声音、加动画或完整剪辑。目标画幅或风格与当前项目不同时补充说明。可以先只给逐字稿做方案，但没有视频和音频无法实际剪辑或试听。
@@ -68,6 +96,8 @@ CLI 安装的版本可用 `npx skills update cut-director --global` 更新；更
 **找不到 Skill？** 检查目录内是否有 SKILL.md，安装目录是否正确，再重启 Codex。旧调用名 `$chatcut-talking-head-visual-director` 已改为 `$cut-director`；避免两个版本同时安装。
 
 **只能给方案，不能执行？** 检查 ChatCut 是否已连接、项目是否可读，以及当前宿主有没有对应能力。参见[兼容说明](compatibility.md)。
+
+**桌面端能播，网页只显示重新链接？** Desktop 注册的本地素材不会自动上传；同一项目在网页或 hosted 插件里可能缺少可播放媒体。不要反复剪辑或生成代替缺失文件，先确认这次在哪个端工作以及素材是否可用。见[媒体跨端说明](compatibility.md#媒体与项目边界)。
 
 **示例能直接改吗？** 010–015 提供[本地示例源代码](../assets/prompt-examples/source/README.md)。ChatCut 已验证素材按各页说明替换字段；005 是源视频复用，不是可换内容的卡片模板。
 

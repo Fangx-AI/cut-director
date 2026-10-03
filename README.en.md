@@ -17,11 +17,14 @@ Filler words, retakes, pacing, captions, sound, and visuals, all serving what yo
 
 In Codex with Skill Installer, send:
 
+The default installs the published `main` branch. To try changes not yet merged, [install a specific revision](references/user-guide.md#install-a-preview).
+
 ```text
 $skill-installer install https://github.com/Fangx-AI/cut-director
+Use the repository root and name the skill cut-director.
 ```
 
-Restart Codex, connect ChatCut, and open your project. For a terminal installation with Node.js, see the [skills CLI](https://github.com/vercel-labs/skills):
+Use it in the next turn, connect ChatCut, and open your project. If the skill has not loaded, restart Codex. For a terminal installation with Node.js, see the [skills CLI](https://github.com/vercel-labs/skills):
 
 ```sh
 npx skills add Fangx-AI/cut-director --skill cut-director --agent codex --global

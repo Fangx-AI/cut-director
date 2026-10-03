@@ -1,6 +1,6 @@
 # 口播剪辑与项目页检查记录
 
-检查日期：2026-10-03 至 2026-10-04。功能代码与安装检查基于 `8c583e1`，提交在 [PR 19](https://github.com/Fangx-AI/cut-director/pull/19)。这份记录区分工程检查、页面观察和实际剪辑质量，不给项目授予主观“顶级认证”。
+检查日期：2026-10-03 至 2026-10-04。首轮功能代码与复制安装检查基于 `8c583e1`，后续 GitHub 下载安装基于 `4ef509d`，提交在 [PR 19](https://github.com/Fangx-AI/cut-director/pull/19)。这份记录区分工程检查、页面观察和实际剪辑质量，不给项目授予主观“顶级认证”。
 
 ## 三轮改进
 
@@ -27,6 +27,18 @@ Windows 本地环境：Python 3.14.2、Node.js v24.13.0、skills CLI 1.7.0。远
 | 安装目录内复测 | 同样 52 项通过、9 条 Recipe 通过、本地链接与 Skill 校验通过；不包含 `test-results` | 媒体剪辑工具一定可用 |
 
 安装使用 `npx --yes skills@1.7.0 add <干净源目录> --skill cut-director --agent codex --copy --yes`，未修改用户全局 Skills。在线仓库发现另行通过，但主分支仍是已发布版本；本次完整语音流程在 PR 分支中。
+
+### GitHub 下载安装补测
+
+继续检查发现两个首次使用问题：默认安装 `main` 不能体验 PR 内的语音更新；根目录 Skill 和带斜杠分支需要明确参数。中英文入口与使用指南现已区分稳定版和预览版。
+
+使用当前 Codex 内置 Skill Installer 的 `install-skill-from-github.py`，以 `--repo Fangx-AI/cut-director --ref codex/talking-head-editor --path . --name cut-director --method download` 从 GitHub 真实下载当时的 `4ef509d`，`--dest` 指向隔离项目目录，不替换全局安装。
+
+- 安装成功，安装目录内 52 项测试、9 条 Recipe、62 份 Markdown 显式本地目标和 Skill 元数据检查通过。
+- 对同一目标目录再次安装固定的 `4ef509d` 完整 SHA，安装器以退出码 1 拒绝已有目录，未覆盖原安装。这个退出码是预期保护结果，不是安装成功。
+- Desktop 工具声明、官方产品与导出文档另行核对，补充本地媒体与网页媒体的边界；没有启动 Desktop、探测用户活动项目或执行跨端传输回归。
+
+这次是 GitHub 下载路径的验证，不是用户当前 Codex 全局 Skill 或 ChatCut 运行时的验证。公开版本数字也不用于推断用户安装状态。
 
 线性合成案例将 10 秒原片的预选区间组装为 5.9 秒；原片 `7.2–8.6` 秒映射到剪后 `4.1–5.5` 秒。结果明确为 `media_verified: false`。已删除或拆分的锚点会要求重新定位。详见 [语音测试范围](speech-validation.md)。
 
