@@ -1,30 +1,59 @@
 ---
 name: cut-director
-description: Direct already-shot talking-head, interview, tutorial, lecture, podcast, knowledge, and presenter-led product videos in ChatCut. Use when a user describes a desired visual effect or asks to make speech-led footage more polished, dynamic, cinematic, clear, or visually engaging through visual-beat planning, motion graphics, supporting visuals, speaker composition, reusable CutDirector Prompts, or verified ChatCut execution.
+description: Edit recorded talking-head and speech-led videos in ChatCut. Use for filler-word, false-start, retake and redundant-sentence cleanup, natural pacing, captions, audio, motion graphics, B-roll and export, or a local revision to any of these. Preserve the speaker's meaning and voice while delivering an editable, verified cut.
 ---
 
 # CutDirector
 
 ## Scope
 
-Direct visuals for already-shot, presenter-led videos. Preserve finished A-roll and original wording by default. Do not use this Skill for a general montage, an unshot script, or a non-presenter-led video.
+Edit already-recorded talking-head, tutorial, lecture, interview, podcast and presenter-led product footage. Spoken delivery drives the edit: clean the speech, establish its rhythm, then support it with captions, sound and visuals as requested. Preserve the speaker's intended meaning, factual qualifiers and natural voice. Do not use this Skill for an unshot script or a general non-speech montage.
 
 Let the user describe the result in natural language. Never ask the user to fill an internal schema, recipe, crop parameter, animation curve, or verification checklist.
 
-## Core Workflow
+## Choose The Requested Edit
 
-1. Inspect the source, transcript, timing, frame, speaker, gestures, captions, Logo, product UI, existing text, motion paths, and real empty space.
+Read [the talking-head workflow](references/talking-head-workflow.md) for a full edit. Load only the branch needed for a local request:
+
+| User request | Work to do |
+| --- | --- |
+| Remove fillers, false starts, mistakes, retakes or dead air | Read [speech editing](references/speech-editing.md), edit A-roll and listen to the joins; no visual plan required |
+| Remove redundant sentences, shorten or restructure | Read speech editing; distinguish duplicate content from useful examples, qualifications and emphasis; only reorder within the requested scope |
+| Add or revise captions, voice treatment, music or export | Read the matching section of the workflow and current host guidance; preserve the accepted speech cut |
+| Add one animation or effect | Use the visual workflow below on the current cut; preserve A-roll |
+| Edit the whole talking-head video | Clean speech first, establish current timing, then captions, sound and suitable visual Beats; deliver the requested editable project or export |
+
+For a general edit with no pacing preference, use natural pacing. Honor supplied duration targets and preferences without another intake form. When the user supplies only text, give an editorial proposal; do not claim to have cut speech or validated sound.
+
+## Speech Editing
+
+Use the current host's talking-head and transcription guidance. The spoken-content edit surface is Script where available: read the current script, stage semantic edits, apply the authorized edit, and read the regenerated result. ASR corrections do not cut audio. Read [speech editing](references/speech-editing.md) before selecting cuts.
+
+- Judge fillers by their role in the actual sentence and audio, not a global word list. Never delete characters inside words such as `额度` or `那个方案`.
+- Choose one complete, correct and well-delivered take; the last take is a candidate, not an automatic winner. Retain useful setup that is absent from the replacement.
+- Distinguish mistakes from emphasis, callbacks, summaries and repeated statements that add a qualifier or new information. Do not remove unique meaning under the label "redundant".
+- Compress empty delays while keeping clause boundaries, breaths and rhetorical pauses. Low volume or an ASR gap alone does not prove silence.
+- Keep linked audio and video together. A Script gap on the only video track can produce black; retain source silence when breathing room is needed.
+- After each applied batch, re-read the actual timeline. Speech changes invalidate downstream timing; regenerate captions and re-anchor visuals, gestures and sound to the current cut.
+
+For linear 1x edits with known source ranges, [the speech edit plan](references/speech-edit-plan.md) provides deterministic boundary checks and source-to-cut mapping. It validates a chosen edit; it does not decide which sentences to delete, transcribe media or execute ChatCut calls. The existing visual recipe manifest is for visual effects, not a prerequisite for ordinary speech cleanup.
+
+## Visual Workflow
+
+1. Inspect the current speech cut, transcript, timing, frame, speaker, gestures, captions, Logo, product UI, existing text, motion paths, and real empty space. If this task includes speech cleanup, stabilize that edit first.
 2. Load only references needed for this request. Identify verbatim anchors and select visual Beats that help the viewer.
 3. Match a verified effect recipe when its viewing task and constraints fit. Otherwise design a custom Beat using the same safety and fallback principles.
 4. Deliver a confirmable Visual Beat Map and select exactly one representative Beat.
 5. After the first approval, initialize or resume the project manifest and pass every recipe gate before executing only the representative Beat.
-6. Record actual post-write evidence, reach `verified`, and show the result. Expand only after the second explicit approval.
+6. Record actual post-write evidence, reach `verified`, and show the result. Expand within actual authorization recorded as second-approval evidence; request it only when it is missing.
 
 The model owns semantics, director judgment, visual language, and medium choice. Deterministic scripts own required fields, IDs, time ranges, approval state, asset verification state, fallback chains, and evidence completeness. Read `references/pipeline-contract.md` before execution.
 
-## Confirmation Boundary
+## Authorization And Review
 
-Do not generate media, create MG, modify the timeline, consume credits, or claim execution before the first approval.
+A request to clean or edit speech authorizes reversible editing within that scope. If the user requests preview only, stage and preview without applying. Do not force a Visual Beat Map or representative-animation approval onto a speech-only task. Ask only about a content-changing decision outside the requested scope or a missing input that prevents a reliable cut.
+
+For new visual directions or credit-consuming generation, use the visual proposal and recipe gates below. Existing authorization carries forward within its scope; do not claim work is complete before it has been executed and checked.
 
 Use existing source context and approvals before asking for anything. Planning, Prompt selection, and read-only inspection do not require execution approval. For a simple requested effect, give a short proposal proportional to the task; do not force a full-video table or reject effect density the user did not request.
 
@@ -66,7 +95,7 @@ For reusable material, consult [the Prompt index](PROMPT-LIBRARY.md). In additio
 - Connect real demonstration clips within existing speech: [015](references/prompt-015-demo-relay.md).
 - Adapt 006/008 to another ratio or add a following focus to 007: [variants](references/prompt-variants.md).
 
-012–015 are local demonstrations, not verified ChatCut recipes. Use as custom Beat references; do not imply native property or real-footage verification. Preserve finished A-roll unless editing it is explicitly within the user’s request. Read [compatibility](references/compatibility.md) before choosing the current execution surface.
+012–015 are local demonstrations, not verified ChatCut recipes. Use as custom Beat references; do not imply native property or real-footage verification. Preserve accepted A-roll for visual-only tasks. Read [compatibility](references/compatibility.md) before choosing the current execution surface.
 
 ## Planning References
 
@@ -108,7 +137,9 @@ Treat official ChatCut patterns as information-structure and motion references, 
 
 ## User-Facing Output
 
-For full-video planning, use `references/visual-beat-map.md`. For one effect or a local revision, present only the affected content, placement, timing, input needs and preview decision. Keep the complete internal evidence without making the user read every field. A full plan includes:
+For speech editing, show the usable project or preview, duration change, a short explanation of the meaningful cuts and any passages needing review. Quote actual words instead of internal segment IDs. Do not require the user to approve a row for every filler.
+
+For full-video visual planning, use `references/visual-beat-map.md`. For one effect or a local revision, present only the affected content, placement, timing, input needs and preview decision. Keep the complete internal evidence without making the user read every field. A full visual plan includes:
 
 - overall director judgment and one named visual language;
 - the Visual Beat Map with exact displayed content, speaker treatment, safe zones, editable properties, media/person window, asset responsibilities, compositing, sound, user prompt, director constraints, risks, scores, and quality decision;
@@ -122,8 +153,10 @@ Reply in the user's language. Present the result, not the internal recipe or JSO
 
 ## Execution And Validation
 
-After the first approval, read `references/chatcut-execution-handoff.md` and route only the representative Beat to the required ChatCut execution Skills.
+Read [the execution handoff](references/chatcut-execution-handoff.md) for the active speech, caption, audio, visual or export task. For visual execution, route the approved representative Beat to the required current ChatCut capabilities.
 
-Use the internal cache and state flow in `references/pipeline-contract.md`. Before every ChatCut write, merge known facts and require an `executing` transition. After the write, record actual asset, beginning, middle, and ending evidence and require a `verified` transition. For any Beat that covers or replaces the speaker frame, beginning and ending evidence must include the clean frame outside the Beat, the transition in progress, and the settled state; a good middle frame does not prove a clean handoff.
+For visual recipe writes, use the internal cache and state flow in `references/pipeline-contract.md`, merge known facts and require an `executing` transition. After the write, record actual asset, beginning, middle, and ending evidence and require a `verified` transition. For any Beat that covers or replaces the speaker frame, beginning and ending evidence must include the clean frame outside the Beat, the transition in progress, and the settled state; a good middle frame does not prove a clean handoff.
 
-Never expose the manifest, commands, gates, or recovery mechanics as user work. Do not override a validation failure: fix a known fact, apply a documented fallback, or ask for the single blocking input. Show the verified result and wait for the second approval before expansion.
+For speech cuts, verify the regenerated transcript and actual audio at changed joins, plus A/V sync, visible continuity and the ending. For captions, verify the current cut's wording, timing and safe areas. For an export, inspect the actual file, requested resolution, sound and start/end. Script checks, rendered frames and listening are different evidence; disclose any unavailable check. New speech rules are not automatically covered by the existing nine verified visual recipes.
+
+Never expose the manifest, commands, gates, or recovery mechanics as user work. Do not override a validation failure: fix a known fact, apply a documented fallback, or ask for the single blocking input. Show the verified result and request expansion approval only if the corresponding authorization is missing.

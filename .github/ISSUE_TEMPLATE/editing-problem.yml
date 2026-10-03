@@ -1,0 +1,42 @@
+name: Report an editing problem
+description: Share a bad cut, timing issue, or visual problem so we can reproduce it.
+title: "[Editing] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        中文或 English 都可以。一个具体的失败片段比泛泛评分更有帮助。
+        请勿上传私有录音、未经授权的人物素材、密钥或账号信息。
+  - type: dropdown
+    id: area
+    attributes:
+      label: 问题类型 / Area
+      options:
+        - 语音误删或漏删 / Speech cleanup
+        - 重录选择 / Retake selection
+        - 节奏或接缝 / Pacing or joins
+        - 字幕或时间错位 / Captions or timing
+        - 动画、构图或素材 / Visuals or assets
+        - 安装、连接或导出 / Installation, connection or export
+    validations:
+      required: true
+  - type: textarea
+    id: request
+    attributes:
+      label: 你让助手做什么？ / Your request
+      description: 贴出实际指令，以及哪句话或哪个片段受影响。无需填写内部参数。
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 实际结果与期待结果 / Actual and expected result
+      description: 例如：保留“限时免费”，却剪掉了“限时”；预期只去掉前面的“呃”。
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: 可选信息 / Optional context
+      description: 使用的助手与 ChatCut 版本、Prompt 编号、安全的截图或有权公开的短示例。不要为了报告问题公开私人原片。

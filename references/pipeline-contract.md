@@ -1,6 +1,6 @@
 # CutDirector v0.2 管线契约
 
-用户始终只需要用自然语言描述效果。以下中间产物、命令和状态只供导演代理、确定性脚本与执行 Skill 协作，不要求用户填写 JSON 或运行命令。
+用户始终只需要用自然语言描述剪辑结果。下面的六段契约和 manifest 用于视觉 Recipe 执行；普通语音清理不需要匹配动画 Recipe 或等待代表性动画确认。语音剪辑见 [完整口播流程](talking-head-workflow.md)，线性剪点与时间映射见 [语音剪辑计划](speech-edit-plan.md)。中间产物、命令和状态由代理处理，不要求用户填写 JSON 或运行命令。
 
 ## 六段产物流
 
@@ -21,11 +21,13 @@
 
 1. `init`：从 recipe 和来源身份创建最小 `planned` 骨架。重复调用产生同一路径和相同内容。
 2. `build`：合并新读取的项目事实，按 ID 合并 transcript、Beat、素材和证据；只补齐空值或推进可验证状态，不覆盖已确认的文案、导演判断、时间或参数。
-3. `transition --to executing`：任何 ChatCut 写操作前运行；只有全部门禁通过才能记录本次写入意图。
+3. `transition --to executing`：任何视觉 Recipe 的 ChatCut 写操作前运行；只有全部门禁通过才能记录本次写入意图。
 4. 写操作后再次 `build`，加入实际素材与开、中、尾证据。
 5. `transition --to verified`：证据覆盖 recipe 要求后才能完成。
 
 崩溃或中断后从同一 manifest 继续，不重新询问已经确认的数据。来源或 recipe 不同必须使用新的来源 ID，避免混用状态。
+
+如果语音剪辑改变了某个已接受 Beat 的时间或原文，旧 manifest 只保留为历史证据。先回读当前时间线，重新定位该 Beat；当前合并器不覆盖已确认值，使用带粗剪版本的新来源 ID 建立视觉 manifest，并引用实际仍有效的授权。不得继续用旧的 verified 时间声称新结果已验证。
 
 ## 状态机
 

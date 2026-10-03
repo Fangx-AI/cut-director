@@ -1,7 +1,19 @@
-# ChatCut TalkDirector Image Prompts
+# CutDirector Image Prompts
 
-Use these prompts to replace the five README images without editing `README.md`.
-Export each result to the exact filename shown below. Preserve all requested text exactly.
+The current README uses `cutdirector-cover-v2.jpg`. The older diagrams below are archived concept artwork, not product screenshots or validation evidence. Changing an asset filename requires updating its Markdown reference.
+
+## Current cover · `cutdirector-cover-v2.jpg`
+
+Created on 2026-10-03 with the built-in image generation tool, using `hero.png` only as the authorized presenter identity reference. The image is 2172 × 724; the JPEG web version is approximately 159 KiB. Its title and Chinese subtitle were inspected. No software capability is proved by this artwork.
+
+```text
+Use case: ads-marketing. Asset type: GitHub README cinematic editorial brand cover for CutDirector, a skill dedicated exclusively to editing already-recorded talking-head videos. Create a panoramic 3:1 composition. The old cover is a reference for the presenter's identity only, not its dense infographic layout or gold colors. Keep the same bespectacled East Asian male presenter in a black shirt, speaking naturally with one expressive hand in a neutral dark recording studio. Full-bleed cinematic photography; presenter integrated directly into the scene, not boxed in a panel. Left and center have disciplined negative space and sharply legible editorial typography over the photographic background. Exact text: "CutDirector", "口播，剪好再出彩。", and "SPEECH / RHYTHM / VISUALS". Charcoal black, bright white, restrained acid-lime lines and one coral-red recording dot. A subtle abstract waveform with clean edit seams expresses natural speech pacing. This is concept artwork, not an editor screenshot. No gold palette, gradients, glowing orbs, dense rules, feature checklist, collage, miniature thumbnails, numeric claims or third-party logos. Generous safe margins and naturally lit faces. Eye-catching, polished and relevant rather than busy.
+```
+
+The original PNG master is retained outside the repository; only the lightweight web asset is versioned. Brand and presenter rights follow the [reserved-media policy](../LICENSE).
+
+<details>
+<summary>Archived TalkDirector concept images</summary>
 
 ## `hero.png` — 2400 x 1000
 
@@ -31,3 +43,5 @@ Design a premium before-and-after visual quality gate for talking-head video eff
 ```text
 Create a cinematic director's Visual Beat Map for an already-shot talking-head video, 16:9, designed as a premium GitHub README visual rather than a software screenshot. Near-black background, warm ivory typography, amber-gold timeline and connectors, coral-red confirmation markers. Show a horizontal transcript timeline with three selected beats. For each beat, visibly connect these exact fields: "原文锚点", "视觉目的", "手段", "人物处理", "提示词", "风险", "确认状态". The three beats should demonstrate: keeping the speaker for trust, adding MG for explanation, and briefly using a generated visual for an abstract metaphor. Include exact status labels "待确认" and "已确认". Precise editorial grid, generous spacing, readable Chinese, cinematic production-board feeling, no fake analytics dashboard, no decorative cards, no gradients, no extra text, no watermark.
 ```
+
+</details>

@@ -1,122 +1,125 @@
 <div align="center">
 
-![CutDirector · Read the moment. Direct the visual.](assets/brand-banner.svg)
+<img src="assets/cutdirector-cover-v2.jpg" alt="CutDirector：口播，剪好再出彩。人物、原声节奏与重点画面相互配合的品牌概念图" width="100%">
 
 # CutDirector
 
-**让口播里的重点，变成观众看得懂的画面。**
+**专为已拍口播。剪干净，讲清楚，再让重点出彩。**
 
-面向 ChatCut 的导演 Skill 与可复用 Prompt 库。读懂原声和真实素材，选择合适的视觉动作，做出可继续编辑的镜头。
+一个面向 ChatCut 的口播剪辑 Skill。处理口癖、重录、重复句和节奏，
+让字幕、声音与动画跟着你的表达走，而不是抢走观众的注意力。
 
-[![ChatCut verified](https://img.shields.io/badge/ChatCut_已验证-9-E6503C?style=flat-square)](PROMPT-LIBRARY.md)
-[![Local demos](https://img.shields.io/badge/本地演示-6-B7F34A?style=flat-square)](PROMPT-LIBRARY.md)
-[![Official references](https://img.shields.io/badge/官方参考-123-597CEB?style=flat-square)](VISUAL-GALLERY.md)
+[![ChatCut visual examples](https://img.shields.io/badge/ChatCut_动画案例-9-E6503C?style=flat-square)](PROMPT-LIBRARY.md)
+[![Local demos](https://img.shields.io/badge/本地动画演示-6-B7F34A?style=flat-square)](PROMPT-LIBRARY.md)
+[![Official references](https://img.shields.io/badge/官方参考-123-687078?style=flat-square)](VISUAL-GALLERY.md)
 
-[看效果](#先看效果) · [开始使用](#开始使用) · [选一个 Prompt](PROMPT-LIBRARY.md) · [使用指南](references/user-guide.md) · [参与贡献](CONTRIBUTING.md)
+[开始使用](#开始使用) · [看真实效果](#先看真实效果) · [选择动画](PROMPT-LIBRARY.md) · [English](README.en.md)
 
 </div>
 
-<a id="已验证效果"></a>
-
-## 先看效果
-
-<table>
-<tr>
-<td width="50%"><a href="references/prompt-001-gesture-logo-pop.md"><img src="assets/verified-prompts/prompt-001-gesture-logo-pop.gif" alt="人物指向两侧时，官方 Logo 随手势出现" width="100%"></a><br><strong>让品牌跟随手势出现</strong><br>001 · ChatCut 已验证</td>
-<td width="50%"><a href="references/prompt-010-three-stage-count-hook.md"><img src="assets/prompt-examples/prompt-010-three-stage-count-hook.gif" alt="消息、数量和观众收益依次形成片头" width="100%"></a><br><strong>三句话说清为什么值得看</strong><br>010 · 本地演示</td>
-</tr>
-<tr>
-<td width="50%"><a href="references/prompt-012-semantic-audio-accent.md"><img src="assets/prompt-examples/prompt-012.gif" alt="语义揭示与音乐重音对应，点击查看带声音示例" width="100%"></a><br><strong>让声音和画面一起落下</strong><br>012 · 本地演示 · <a href="assets/prompt-examples/prompt-012.mp4">听有声版</a></td>
-<td width="50%"><a href="references/prompt-013-incremental-payoff.md"><img src="assets/prompt-examples/prompt-013.gif" alt="短句逐项累积，最后收束为结论" width="100%"></a><br><strong>一句接一句，最后兑现</strong><br>013 · 本地演示</td>
-</tr>
-</table>
-
-[查看全部 15 条素材与使用条件 →](PROMPT-LIBRARY.md)
-
-## 什么时候用
-
-你已经拍好口播、教程、访谈或产品讲解，希望观众更快看懂重点：
-
-| 你遇到的问题 | 可以这样说 |
-|---|---|
-| 不知道哪里值得加画面 | “找出最值得强化的 3 句话，解释为什么。” |
-| 全片都是字幕，太单调 | “把这个对比变成一个看得懂的变化，沿用当前风格。” |
-| 网站演示看不清重点 | “跟着讲解锁定真实页面的操作区域。” |
-| 句与句之间松散 | “让这三句的画面递进，别每句都重新入场。” |
-| 已有镜头需要调整 | “沿用这版，把字放大，结尾更紧一点。” |
-
-保留你的原声、真实素材和已确认的风格。需要完整脚本创作、通用混剪或发布工作流时，应使用对应工具；本 Skill 聚焦口播中的视觉与局部节奏。
-
-<a id="30-秒开始"></a>
-
 ## 开始使用
 
-**1. 安装。** 在支持 Skill Installer 的 Codex 中发送：
+**1. 安装 Skill。** 在支持 Skill Installer 的 Codex 聊天中发送：
 
 ```text
 $skill-installer install https://github.com/Fangx-AI/cut-director
 ```
 
-安装后重启 Codex。没有 Installer 时，使用[手动安装说明](references/user-guide.md#安装与更新)。
+重启 Codex，连接 ChatCut，打开要剪的项目。[其他安装方式与常见问题](references/user-guide.md#安装与更新)
 
-**2. 准备素材。** 连接 ChatCut 并打开目标项目，或先提供视频、逐字稿、目标句子。只有逐字稿也能做方案；执行需要可访问的媒体和相应工具。
-
-**3. 发出第一条指令。**
+**2. 说出这次想要的结果。** 不需要学习内部规则，也不必一次做完所有环节。
 
 ```text
-使用 $cut-director 分析当前口播，找出最值得加画面的 3 个时刻。
-沿用我的原声和项目风格，先给出简短方案，再做一个代表镜头给我看。
+使用 $cut-director 剪辑这条口播。
+去掉无意义口癖、失败重录、重复句和多余空等，保留原意与自然语气。
+加清楚的字幕，重要观点搭配动画；新的视觉风格先做一个片段给我看。
 ```
 
-你会得到：**适合哪些句子 → 每处观众能看懂什么 → 一个代表片段 → 确认后扩展**。内部参数由助手处理；信息不足时，只补真正影响结果的输入。ChatCut 连接与生成费用由相应宿主提供，本 Skill 不包含生成额度。
+也可以只说 **“只去口癖”**、**“节奏紧一点”**、**“只改字幕”** 或 **“给这里加 Logo”**。
+已有的原声剪辑和已接受的风格会按这次要求保留。
 
-## 为什么保留这个 Skill
+> 执行需要可访问的音视频与相应 ChatCut 工具；只有逐字稿时可先做方案。Skill 不包含 ChatCut 账号或生成额度。
 
-**选择有依据。** 按口播语义和真实构图选择效果，让动作解释内容：比较、递进、因果、强调或结果揭示。
+<a id="已验证效果"></a>
 
-**素材可以继续改。** 效果页提供完整 Prompt、替换项和限制；原生 MG 保留适用的可编辑字段，本地演示提供源代码，并明确兼容范围。
+## 先看真实效果
 
-**修改延续已接受的结果。** 调位置、改文案或缩短动画时沿用已确认方向，检查受影响片段；不会把每次小改都当成新创意项目。
+### 品牌随着手势出现
 
-**验证范围看得见。** 9 条 ChatCut 已验证素材、6 条本地演示、123 条官方参考分别标记。样例好看不等于所有内容都适配，脚本通过也不等于声音和画面都通过。
+[![人物指向两侧时，ChatGPT 与 Kimi 官方图标依次弹出](assets/verified-prompts/prompt-001-gesture-logo-pop.gif)](assets/verified-prompts/prompt-001-gesture-logo-pop.mp4)
 
-## 更多入口
+**001 · 手势触发 Logo** · ChatCut 时间线已验证
 
-| 想做什么 | 从这里开始 |
-|---|---|
-| 按问题选效果 | [Prompt 索引](PROMPT-LIBRARY.md) |
-| 连续浏览已有完整 Prompt | [001–011 展示](PROMPTS.md) |
-| 做竖版、4:3 或局部变体 | [画幅与焦点变体](references/prompt-variants.md) |
-| 查看官方灵感 | [视觉参考画廊](VISUAL-GALLERY.md) |
-| 安装、修改或排查问题 | [使用指南](references/user-guide.md) |
-| 理解最新宿主差异 | [兼容说明](references/compatibility.md) |
-| 贡献你的效果 | [贡献指南](CONTRIBUTING.md) |
-| 看本次更新 | [更新记录](CHANGELOG.md) |
+人物保持全屏。品牌图标在确认的手势时间出现，不挡脸、不抢字幕。
 
-## 开源、原创与商用
+[复制 Prompt](references/prompt-001-gesture-logo-pop.md) · [播放完整视频](assets/verified-prompts/prompt-001-gesture-logo-pop.mp4)
 
-CutDirector 鼓励真实使用、改进和传播，但不允许抹去作者、闭源搬运原创成果或冒充官方项目。
+### 左边讲重点，右边给证据
 
-| 内容 | 授权与边界 |
+[![左侧讲解要点依次出现，右侧完整提示词缓慢向下滚动](assets/verified-prompts/prompt-002-split-screen-explainer.gif)](assets/verified-prompts/prompt-002-split-screen-explainer.mp4)
+
+**002 · 分屏要点与长文** · ChatCut 时间线已验证
+
+把要点和长文本放进同一镜头；右侧滚动速度与面积可按讲解调整，不必强行展示全文。
+
+[复制 Prompt](references/prompt-002-split-screen-explainer.md) · [播放完整视频](assets/verified-prompts/prompt-002-split-screen-explainer.mp4)
+
+还有[章节导航](references/prompt-004-top-chapter-progress-rail.md)、[三卡翻面](references/prompt-006-editable-three-card-flip.md)、[页面焦点](references/prompt-007-hd-page-focus-lock.md)、[前后对比](references/prompt-014-matched-before-after.md)等。进入 **[15 条动态演示画廊 →](PROMPT-LIBRARY.md)**，按效果选择。
+
+## 不只加特效，先把口播剪好
+
+| 你遇到的问题 | 剪辑时要解决的事 |
 | --- | --- |
-| 程序、Schema 与测试 | [AGPL-3.0-or-later](LICENSES/AGPL-3.0-or-later.txt)：修改、分发或通过网络提供时须遵守相应开源义务 |
-| `SKILL.md`、原创 Prompt、配方与方法论文档 | [CC BY-SA 4.0](LICENSES/CC-BY-SA-4.0.txt)：允许转载、改编和商用，但必须署名、标明修改，并以相同协议分享改编内容 |
-| 用户用 CutDirector 制作的成片 | 成片不会仅因使用 CutDirector 而自动适用上述许可证；用户可以将自己拥有权利的成片用于商业用途 |
-| CutDirector 名称与品牌 | 不得用于冒充官方、制造合作或授权假象，详见[品牌政策](TRADEMARKS.md) |
-| 演示视频、人物素材、ChatCut 官方图库与第三方 Logo | 不在项目开源授权范围内，详见[第三方声明](THIRD_PARTY_NOTICES.md) |
+| “呃……这个，嗯，这个工具……” | 清理无意义犹豫和失败起句；不按词表误删连接词 |
+| 同一句拍了几遍 | 留完整、正确、表达自然的一遍，不机械保留最后一遍 |
+| 反复解释，重点不清楚 | 去冗余，保留新事实、例子、限定条件与刻意强调 |
+| 气口太长，剪完又太急 | 压缩空等，保留呼吸、转折与重点停顿，试听接缝 |
+| 删了句子，字幕和动画错位 | 读取剪后时间，重新对齐字幕、关键词、手势与音效 |
+| 全程一张脸，信息难记住 | 用适合内容的 Logo、关键词、步骤、图表和真实辅助画面 |
 
-转载或改编原创 Prompt 时，请保留：
+**完整剪辑路径**：能听的粗剪 → 对齐的字幕 → 服务表达的画面与声音 → 可编辑项目与按需导出。
+小修改直接进入对应环节，不用每次重走全片流程。[看看第一条口播怎么剪](references/user-guide.md)
+
+> **目前的验证范围**：9 条动画在各自的 ChatCut 案例中完成过时间线验证；6 条为本地动画演示。新增语音剪辑规则与时间映射已做合成逻辑测试，**真人素材的误删率、听感与完整导出仍待回归**。品牌封面是概念图，不是产品截图。查看[验证记录](tests/speech-validation.md)。
+
+## 选一个适合你的画面
+
+不用先懂动画术语。先看观众在这一句需要理解什么：
+
+| 这一句要讲什么 | 可以参考 |
+| --- | --- |
+| 提到品牌，让人认出来 | [001 · 手势 Logo](references/prompt-001-gesture-logo-pop.md) |
+| 解释一组要点，旁边需要完整文本 | [002 · 分屏长文](references/prompt-002-split-screen-explainer.md) |
+| 长口播中，让人知道讲到哪里 | [004 · 章节与进度](references/prompt-004-top-chapter-progress-rail.md) |
+| 告诉观众“看这里” | [007 · 真实页面焦点](references/prompt-007-hd-page-focus-lock.md) |
+| 同一对象有什么变化 | [014 · 同构图前后对比](references/prompt-014-matched-before-after.md) |
+| 几句话逐步落到一个结论 | [013 · 累积与兑现](references/prompt-013-incremental-payoff.md) |
 
 ```text
-CutDirector by Fangx-AI
-https://github.com/Fangx-AI/cut-director
-Licensed under CC BY-SA 4.0. Changes, if any, must be identified.
+使用 $cut-director，参考 Prompt [编号] 处理 [目标句子或时间段]。
+沿用我的原声和风格，先做一个片段给我看。
 ```
 
-完整边界请以 [`LICENSE`](LICENSE)、[`NOTICE`](NOTICE)、[`TRADEMARKS.md`](TRADEMARKS.md) 和 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) 为准。
+[浏览全部动画](PROMPT-LIBRARY.md) · [连续复制完整 Prompt](PROMPTS.md) · [看 123 条官方参考](VISUAL-GALLERY.md) · [横竖屏变体](references/prompt-variants.md)
 
+## 改到你满意，而不是从头再做
 
-## 开发与验证
+- **“这句别删。”** 恢复对应原声，更新受影响的字幕和效果时间。
+- **“字大一点，其他别动。”** 只改相关文字，检查溢出和遮挡。
+- **“右边滚慢一点，时长不变。”** 降低滚动速度，不为了展示全文延长视频。
+- **“这个风格可以，继续。”** 在已确认范围内延续，不重复问同一个方向。
+
+适用于口播、教程、课程、访谈与人物主导的产品讲解。选题、未拍脚本创作和发布不在此 Skill 的工作范围。
+
+## 一起把口播剪得更好
+
+分享你真正用过的剪辑方法或效果：原片问题、可复用 Prompt、前后结果、验证范围和素材权利。
+语音案例尤其欢迎 **误删修正、重录选择、自然气口和字幕重对齐**。
+
+[贡献一个案例](CONTRIBUTING.md) · [报告问题](https://github.com/Fangx-AI/cut-director/issues) · [更新记录](CHANGELOG.md)
+
+<details>
+<summary>开发检查与深入文档</summary>
 
 ```sh
 python scripts/validate_talkdirector.py
@@ -124,4 +127,15 @@ python -m unittest discover -s tests
 python scripts/check_local_links.py
 ```
 
-验证器检查数据与执行合同；实际画面和声音仍需要对应宿主验证。[Skill 定义](SKILL.md) · [演示源文件](assets/prompt-examples/source/README.md) · [测试说明](tests/forward-results.md)
+[Skill 定义](SKILL.md) · [完整口播流程](references/talking-head-workflow.md) · [语音规则](references/speech-editing.md) · [宿主兼容](references/compatibility.md) · [研究记录](references/talking-head-research.md) · [演示源文件](assets/prompt-examples/source/README.md)
+
+测试检查合同、剪点与时间映射，不代替实际媒体试听或宿主验证。
+
+</details>
+
+## 授权
+
+代码使用 **AGPL-3.0-or-later**，原创 Prompt 与文档使用 **CC BY-SA 4.0**。
+使用 Skill 不会自动改变你自己的成片授权；演示人物、品牌媒体、官方参考和第三方 Logo 有独立边界。
+
+[完整许可](LICENSE) · [署名说明](NOTICE) · [品牌政策](TRADEMARKS.md) · [第三方素材](THIRD_PARTY_NOTICES.md)

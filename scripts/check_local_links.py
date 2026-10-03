@@ -1,11 +1,30 @@
 #!/usr/bin/env python3
 """Check tracked Markdown's explicit local file/image links, not remote URLs or anchors."""
+import os
 import re
 import subprocess
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT=Path(__file__).resolve().parents[1]
+ARTIFACT_DIRS={'.git', '.agents', '.codex', '.talkdirector', '.worktrees', '.superpowers',
+               'node_modules', 'test-results', 'playwright-report', '__pycache__'}
+
+def markdown_paths(root):
+    # Git defines the source set in a checkout; copied skill installations have no Git metadata.
+    try:
+        result=subprocess.run(['git','ls-files','--cached','--others','--exclude-standard','-z'],
+                              cwd=root,check=False,capture_output=True)
+    except FileNotFoundError:
+        result=None
+    if result is not None and result.returncode == 0:
+        return sorted({p for p in result.stdout.decode('utf-8').split('\0') if p.endswith('.md')})
+    paths=[]
+    for directory, subdirs, files in os.walk(root):
+        subdirs[:]=[name for name in subdirs if name not in ARTIFACT_DIRS]
+        paths.extend((Path(directory)/name).relative_to(root).as_posix()
+                     for name in files if name.endswith('.md'))
+    return sorted(paths)
 
 def missing_links(path, text):
     # Ignore code examples, which may contain placeholder URLs or paths.
@@ -25,8 +44,7 @@ def missing_links(path, text):
 
 def main():
     # Include new files before their first commit; omit ignored dependencies and artifacts.
-    result=subprocess.run(['git','ls-files','--cached','--others','--exclude-standard','-z'],cwd=ROOT,check=True,capture_output=True)
-    paths=sorted({p for p in result.stdout.decode('utf-8').split('\0') if p.endswith('.md')})
+    paths=markdown_paths(ROOT)
     errors=[]
     for name in paths:
         path=ROOT/name
