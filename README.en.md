@@ -30,10 +30,12 @@ npx skills add Fangx-AI/cut-director --skill cut-director --agent codex --global
 Then ask for the outcome:
 
 ```text
-Use $cut-director to edit this talking-head video.
-Remove meaningless fillers, failed retakes, redundant sentences, and empty delays.
-Keep the meaning and natural delivery. Add clear captions and suitable visuals.
-Show one representative clip before extending a new visual direction.
+Use $cut-director on this talking-head video.
+Remove meaningless fillers, failed retakes,
+redundant sentences, and empty delays.
+Keep the meaning and natural delivery.
+Add clear captions and relevant visuals.
+Preview one clip for any new visual style.
 ```
 
 You can request just one change, such as "remove fillers only," "tighten the pacing," "fix captions," or "add a Logo here." Keep the accepted parts of the edit.
@@ -87,8 +89,10 @@ The full path is **speech cut → aligned captions → purposeful visuals and so
 | Accumulate toward one conclusion | [013 · Incremental payoff](references/prompt-013-incremental-payoff.md) |
 
 ```text
-Use $cut-director with Prompt [number] for [sentence or time range].
-Keep my speech cut and style. Show one clip first.
+Use $cut-director with Prompt [number].
+Target: [sentence or time range].
+Keep my speech cut and style.
+Show one clip first.
 ```
 
 [Visual library](PROMPT-LIBRARY.md) · [Full prompts](PROMPTS.md) · [123 official references](VISUAL-GALLERY.md) · [Aspect-ratio variants](references/prompt-variants.md)

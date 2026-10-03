@@ -13,8 +13,10 @@ ARTIFACT_DIRS={'.git', '.agents', '.codex', '.talkdirector', '.worktrees', '.sup
 def markdown_paths(root):
     # Git defines the source set in a checkout; copied skill installations have no Git metadata.
     try:
+        repo=subprocess.run(['git','rev-parse','--show-toplevel'],cwd=root,check=False,capture_output=True)
+        is_checkout=repo.returncode == 0 and Path(repo.stdout.decode('utf-8').strip()).resolve() == root.resolve()
         result=subprocess.run(['git','ls-files','--cached','--others','--exclude-standard','-z'],
-                              cwd=root,check=False,capture_output=True)
+                              cwd=root,check=False,capture_output=True) if is_checkout else None
     except FileNotFoundError:
         result=None
     if result is not None and result.returncode == 0:
