@@ -2,6 +2,8 @@
 
 本文件使用控制器指定的最终响应组合。`Verbatim response` 下的内容逐字保留；评分和验证证据均写在响应块之外。
 
+> 这是既有视觉规划的历史记录，不是当前 Skill 全流程的重新验收。原响应和评分保留供比较；新增语音剪辑、宿主兼容与媒体质量请看[当前验证范围](speech-validation.md)和[工程检查记录](quality-review-2026-10-04.md)。
+
 ## S1
 
 ### Verbatim response
