@@ -75,6 +75,7 @@ editing, dataset creation, model training, resale, or commercial reuse:
 - `assets/brand-banner.svg`
 - `assets/talkdirector-presenter.png`
 - `assets/verified-prompts/**`
+- `assets/previews/prompt-00*`
 
 These files may be viewed through the canonical repository and may be linked to
 when accurately describing CutDirector. No right to a person's name, image,

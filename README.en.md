@@ -44,7 +44,7 @@ Execution requires accessible media and the appropriate ChatCut tools. Text alon
 
 ## Watch Real Examples
 
-[![Official brand icons appear beside the presenter at confirmed pointing gestures](assets/verified-prompts/prompt-001-gesture-logo-pop.gif)](assets/verified-prompts/prompt-001-gesture-logo-pop.mp4)
+<a href="assets/verified-prompts/prompt-001-gesture-logo-pop.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-001-still.jpg"><img src="assets/previews/prompt-001.webp" alt="Official brand icons appear beside the presenter at confirmed pointing gestures" width="100%"></picture></a>
 
 **001 · Gesture-triggered Logos** · Verified on a ChatCut timeline.
 
@@ -52,7 +52,7 @@ Keep the presenter full-frame; place official assets at confirmed gesture times 
 
 [Prompt and conditions](references/prompt-001-gesture-logo-pop.md) · [Full video](assets/verified-prompts/prompt-001-gesture-logo-pop.mp4)
 
-[![Key points appear on the left while supporting long text scrolls slowly on the right](assets/verified-prompts/prompt-002-split-screen-explainer.gif)](assets/verified-prompts/prompt-002-split-screen-explainer.mp4)
+<a href="assets/verified-prompts/prompt-002-split-screen-explainer.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-002-still.jpg"><img src="assets/previews/prompt-002.webp" alt="Key points appear on the left while supporting long text scrolls slowly on the right" width="100%"></picture></a>
 
 **002 · Points and scrolling evidence** · Verified on a ChatCut timeline.
 

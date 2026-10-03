@@ -48,7 +48,7 @@ $skill-installer install https://github.com/Fangx-AI/cut-director
 
 ### 品牌随着手势出现
 
-[![人物指向两侧时，ChatGPT 与 Kimi 官方图标依次弹出](assets/verified-prompts/prompt-001-gesture-logo-pop.gif)](assets/verified-prompts/prompt-001-gesture-logo-pop.mp4)
+<a href="assets/verified-prompts/prompt-001-gesture-logo-pop.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-001-still.jpg"><img src="assets/previews/prompt-001.webp" alt="人物指向两侧时，ChatGPT 与 Kimi 官方图标依次弹出" width="100%"></picture></a>
 
 **001 · 手势触发 Logo** · ChatCut 时间线已验证
 
@@ -58,7 +58,7 @@ $skill-installer install https://github.com/Fangx-AI/cut-director
 
 ### 左边讲重点，右边给证据
 
-[![左侧讲解要点依次出现，右侧完整提示词缓慢向下滚动](assets/verified-prompts/prompt-002-split-screen-explainer.gif)](assets/verified-prompts/prompt-002-split-screen-explainer.mp4)
+<a href="assets/verified-prompts/prompt-002-split-screen-explainer.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-002-still.jpg"><img src="assets/previews/prompt-002.webp" alt="左侧讲解要点依次出现，右侧完整提示词缓慢向下滚动" width="100%"></picture></a>
 
 **002 · 分屏要点与长文** · ChatCut 时间线已验证
 
