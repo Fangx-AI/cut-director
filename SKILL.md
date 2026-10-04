@@ -33,10 +33,11 @@ Use the current host's talking-head and transcription guidance. The spoken-conte
 - Choose one complete, correct and well-delivered take; the last take is a candidate, not an automatic winner. Retain useful setup that is absent from the replacement.
 - Distinguish mistakes from emphasis, callbacks, summaries and repeated statements that add a qualifier or new information. Do not remove unique meaning under the label "redundant".
 - Compress empty delays while keeping clause boundaries, breaths and rhetorical pauses. Low volume or an ASR gap alone does not prove silence.
+- Resolve explicit must-keep sentences and pauses to source ranges before cutting. Preserve each protected unit intact; a request to tighten pacing does not cancel it.
 - Keep linked audio and video together. A Script gap on the only video track can produce black; retain source silence when breathing room is needed.
 - After each applied batch, re-read the actual timeline. Speech changes invalidate downstream timing; regenerate captions and re-anchor visuals, gestures and sound to the current cut.
 
-For linear 1x edits with known source ranges, [the speech edit plan](references/speech-edit-plan.md) provides deterministic boundary checks and source-to-cut mapping. It validates a chosen edit; it does not decide which sentences to delete, transcribe media or execute ChatCut calls. The existing visual recipe manifest is for visual effects, not a prerequisite for ordinary speech cleanup.
+For linear 1x edits with known source ranges, [the speech edit plan](references/speech-edit-plan.md) checks boundaries and protected units, maps anchors, and locates changed joins for review. It validates a chosen edit; it does not decide which sentences to delete, transcribe media or execute ChatCut calls. The existing visual recipe manifest is for visual effects, not a prerequisite for ordinary speech cleanup.
 
 ## Visual Workflow
 

@@ -104,6 +104,8 @@ The detailed visual pages are currently in Chinese. Replies and project work sho
 
 ## Keep Improving The Accepted Cut
 
+"Keep this sentence and its pause" protects that spoken unit from later tightening.
+
 "Restore this sentence," "make the text larger, leave the rest," and "scroll slower without extending the clip" are local revisions. Preserve accepted direction and verify what changed.
 
 The skill serves talking-head videos, tutorials, lectures, interviews, and presenter-led product explanations. Topic selection, unshot scriptwriting, and publishing belong to other workflows.

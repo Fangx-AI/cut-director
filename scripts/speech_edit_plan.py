@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate linear speech selections and map source anchors to the edited cut."""
+"""Validate linear speech selections, map anchors and locate review windows."""
 
 from __future__ import annotations
 
@@ -71,7 +71,7 @@ def _overlap(left: tuple[float, float], right: tuple[float, float]) -> bool:
 def validate_plan(plan: Any) -> None:
     if not isinstance(plan, dict):
         raise SpeechPlanError("plan: expected an object")
-    _fields(plan, {"version", "mode", "revision", "allow_reorder", "reorder_reason", "sources", "keep", "cuts"}, "plan")
+    _fields(plan, {"version", "mode", "revision", "allow_reorder", "reorder_reason", "sources", "keep", "cuts", "protected_ranges"}, "plan")
     if plan.get("version") != "0.1" or plan.get("mode") != "linear-1x":
         raise SpeechPlanError("only version 0.1 linear-1x plans are supported")
     _text(plan.get("revision"), "revision")
@@ -84,9 +84,11 @@ def validate_plan(plan: Any) -> None:
     sources = _rows(plan.get("sources"), "sources", nonempty=True)
     keeps = _rows(plan.get("keep"), "keep", nonempty=True)
     cuts = _rows(plan.get("cuts", []), "cuts")
+    protections = _rows(plan.get("protected_ranges", []), "protected_ranges")
     _unique_ids(sources, "source_id", "sources")
     _unique_ids(keeps, "segment_id", "keep")
     _unique_ids(cuts, "cut_id", "cuts")
+    _unique_ids(protections, "protection_id", "protected_ranges")
     source_lookup = {source["source_id"]: source for source in sources}
     source_order = {source["source_id"]: index for index, source in enumerate(sources)}
 
@@ -149,6 +151,32 @@ def validate_plan(plan: Any) -> None:
             raise SpeechPlanError(f"{cut['cut_id']}: overlapping cut explanations")
         cut_by_source[source_id].append(span)
 
+    for protection in protections:
+        _fields(protection, {"protection_id", "source_id", "start", "end", "reason"}, "protection")
+        label = protection["protection_id"]
+        source_id = _text(protection.get("source_id"), f"{label}.source_id")
+        if source_id not in source_lookup:
+            raise SpeechPlanError(f"unknown protection source_id: {source_id}")
+        start, end = _interval(protection, source_lookup[source_id]["duration"], str(label))
+        _text(protection.get("reason"), f"{label}.reason")
+        cursor = start
+        previous_index = None
+        # Protect the spoken unit, not just its total retained duration.
+        for index, row in enumerate(keeps):
+            if row["source_id"] != source_id:
+                continue
+            left, right = max(start, row["start"]), min(end, row["end"])
+            if right - left <= EPSILON:
+                continue
+            if abs(left - cursor) > EPSILON:
+                raise SpeechPlanError(f"{label}: protected range was removed or reordered")
+            if previous_index is not None and index != previous_index + 1:
+                raise SpeechPlanError(f"{label}: unrelated speech inserted inside protected range")
+            cursor = right
+            previous_index = index
+        if abs(cursor - end) > EPSILON:
+            raise SpeechPlanError(f"{label}: protected range was removed or reordered")
+
 
 def _removed_ranges(duration: float, spans: list[tuple[float, float]]) -> list[dict[str, float]]:
     removed = []
@@ -162,8 +190,46 @@ def _removed_ranges(duration: float, spans: list[tuple[float, float]]) -> list[d
     return removed
 
 
-def compile_plan(plan: dict[str, Any]) -> dict[str, Any]:
+def _review_windows(
+    plan: dict[str, Any], segments: list[dict[str, Any]], context: float,
+) -> list[dict[str, Any]]:
+    sources = {source["source_id"]: source for source in plan["sources"]}
+    duration = segments[-1]["timeline_end"]
+    windows = []
+
+    def add(kind: str, at: float, left: dict[str, Any] | None, right: dict[str, Any] | None) -> None:
+        sides = {}
+        for side, segment, edge in (("left", left, "source_end"), ("right", right, "source_start")):
+            if segment is not None:
+                sides[side] = {
+                    "segment_id": segment["segment_id"], "source_id": segment["source_id"],
+                    "source_time": segment[edge],
+                }
+        windows.append({
+            "window_id": f"review-{len(windows) + 1:03d}", "revision": plan["revision"],
+            "kind": kind, "check_at": at,
+            "timeline_start": round(max(0.0, at - context), 9),
+            "timeline_end": round(min(duration, at + context), 9),
+            "sides": sides,
+        })
+
+    first, last = segments[0], segments[-1]
+    if first["source_id"] != plan["sources"][0]["source_id"] or first["source_start"] > EPSILON:
+        add("opening", 0.0, None, first)
+    for left, right in zip(segments, segments[1:]):
+        if left["source_id"] == right["source_id"] and abs(left["source_end"] - right["source_start"]) <= EPSILON:
+            continue
+        add("join", right["timeline_start"], left, right)
+    if last["source_id"] != plan["sources"][-1]["source_id"] or sources[last["source_id"]]["duration"] - last["source_end"] > EPSILON:
+        add("ending", duration, last, None)
+    return windows
+
+
+def compile_plan(plan: dict[str, Any], *, review_context: float = 1.5) -> dict[str, Any]:
     validate_plan(plan)
+    review_context = _number(review_context, "review_context")
+    if review_context <= EPSILON:
+        raise SpeechPlanError("review_context: must exceed the timestamp precision (1e-9 seconds)")
     segments = []
     cursor = 0.0
     for row in plan["keep"]:
@@ -185,7 +251,8 @@ def compile_plan(plan: dict[str, Any]) -> dict[str, Any]:
     return {
         "version": "0.1", "revision": plan["revision"], "mode": "linear-1x",
         "duration": round(cursor, 9), "segments": segments, "sources": source_reports,
-        "cuts": plan.get("cuts", []), "media_verified": False,
+        "cuts": plan.get("cuts", []), "protected_ranges": plan.get("protected_ranges", []),
+        "review_windows": _review_windows(plan, segments, review_context), "media_verified": False,
     }
 
 
@@ -227,11 +294,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("plan", type=Path)
     parser.add_argument("--anchor", nargs=3, metavar=("SOURCE_ID", "START", "END"))
+    parser.add_argument("--review-context", type=float, default=1.5, help="Seconds to review on each side of a changed join")
     parser.add_argument("--output", type=Path, help="Save compiled internal state; no media or timeline is changed")
     args = parser.parse_args()
     try:
         plan = json.loads(args.plan.read_text(encoding="utf-8-sig"))
-        result = compile_plan(plan)
+        result = compile_plan(plan, review_context=args.review_context)
         if args.anchor:
             source_id, start, end = args.anchor
             result["anchor"] = map_anchor(plan, source_id, float(start), float(end))

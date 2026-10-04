@@ -78,6 +78,128 @@ class SpeechEditPlanTest(unittest.TestCase):
         del self.plan["sources"][0]["words"]
         self.assertFalse(compile_plan(self.plan)["sources"][0]["word_boundaries_checked"])
 
+    def test_protection_preserves_selected_speech_without_changing_the_cut(self):
+        protected = compile_plan(self.plan)
+        legacy = copy.deepcopy(self.plan)
+        del legacy["protected_ranges"]
+        unprotected = compile_plan(legacy)
+        self.assertEqual(protected["segments"], unprotected["segments"])
+        self.assertEqual(protected["protected_ranges"], self.plan["protected_ranges"])
+        self.assertEqual(unprotected["protected_ranges"], [])
+        self.assertFalse(protected["media_verified"])
+
+    def test_protected_speech_cannot_be_silently_omitted_without_a_cut_note(self):
+        self.plan["cuts"] = []
+        self.plan["keep"][1]["start"] = 6.2
+        with self.assertRaisesRegex(SpeechPlanError, "correct-price: protected range"):
+            compile_plan(self.plan)
+
+    def test_partial_protected_removal_is_rejected_even_without_word_metadata(self):
+        self.plan["sources"][0].pop("words")
+        self.plan["keep"][1]["end"] = 5.8
+        with self.assertRaisesRegex(SpeechPlanError, "correct-price: protected range"):
+            compile_plan(self.plan)
+
+    def protection_plan(self):
+        return {
+            "version": "0.1", "mode": "linear-1x", "revision": "protected-001",
+            "sources": [{"source_id": "a", "duration": 2}, {"source_id": "b", "duration": 1}],
+            "keep": [
+                {"segment_id": "a1", "source_id": "a", "start": 0, "end": 1},
+                {"segment_id": "a2", "source_id": "a", "start": 1, "end": 2},
+                {"segment_id": "b1", "source_id": "b", "start": 0, "end": 1},
+            ],
+            "protected_ranges": [
+                {"protection_id": "sentence", "source_id": "a", "start": 0.25, "end": 1.75, "reason": "Keep this sentence intact."},
+            ],
+        }
+
+    def test_adjacent_keeps_can_preserve_one_protected_sentence(self):
+        self.assertEqual(compile_plan(self.protection_plan())["duration"], 3)
+
+    def test_authorized_reordering_cannot_reverse_a_protected_sentence(self):
+        plan = self.protection_plan()
+        plan.update(allow_reorder=True, reorder_reason="Move complete sections.")
+        plan["keep"][0], plan["keep"][1] = plan["keep"][1], plan["keep"][0]
+        with self.assertRaisesRegex(SpeechPlanError, "protected range was removed or reordered"):
+            compile_plan(plan)
+
+    def test_unrelated_speech_cannot_be_inserted_inside_a_protected_sentence(self):
+        plan = self.protection_plan()
+        plan.update(allow_reorder=True, reorder_reason="Move complete sections.")
+        plan["keep"] = [plan["keep"][0], plan["keep"][2], plan["keep"][1]]
+        with self.assertRaisesRegex(SpeechPlanError, "unrelated speech inserted"):
+            compile_plan(plan)
+
+    def test_protection_requires_valid_identity_bounds_and_a_reason(self):
+        for field, value in (("source_id", "missing"), ("start", -1), ("end", 11), ("reason", ""), ("extra", True)):
+            with self.subTest(field=field):
+                plan = copy.deepcopy(self.plan)
+                plan["protected_ranges"][0][field] = value
+                with self.assertRaises(SpeechPlanError):
+                    compile_plan(plan)
+        self.plan["protected_ranges"].append(copy.deepcopy(self.plan["protected_ranges"][0]))
+        with self.assertRaisesRegex(SpeechPlanError, "duplicate protection_id"):
+            compile_plan(self.plan)
+
+    def test_review_windows_cover_changed_joins_and_trimmed_head_and_tail(self):
+        windows = compile_plan(self.plan)["review_windows"]
+        self.assertEqual([window["kind"] for window in windows], ["opening", "join", "join", "ending"])
+        self.assertEqual([window["check_at"] for window in windows], [0, 2.6, 3.9, 5.9])
+        self.assertEqual((windows[1]["timeline_start"], windows[1]["timeline_end"]), (1.1, 4.1))
+        self.assertEqual(windows[1]["sides"]["left"]["source_time"], 3.5)
+        self.assertEqual(windows[1]["sides"]["right"]["source_time"], 5.2)
+        for window in windows:
+            self.assertEqual(window["revision"], self.plan["revision"])
+            self.assertLessEqual(window["timeline_start"], window["check_at"])
+            self.assertGreaterEqual(window["timeline_end"], window["check_at"])
+            self.assertGreater(window["timeline_end"], window["timeline_start"])
+
+    def test_unchanged_source_partition_does_not_invent_review_joins(self):
+        self.plan["keep"] = [
+            {"segment_id": "part1", "source_id": "camera-a", "start": 0, "end": 2.4},
+            {"segment_id": "part2", "source_id": "camera-a", "start": 2.4, "end": 10},
+        ]
+        self.plan["cuts"] = []
+        self.assertEqual(compile_plan(self.plan)["review_windows"], [])
+
+    def test_source_switch_at_equal_source_times_is_still_a_real_join(self):
+        plan = self.protection_plan()
+        plan["sources"][1]["duration"] = 3
+        plan["keep"] = [
+            {"segment_id": "a1", "source_id": "a", "start": 0, "end": 2},
+            {"segment_id": "b1", "source_id": "b", "start": 2, "end": 3},
+        ]
+        window = compile_plan(plan)["review_windows"][0]
+        self.assertEqual(window["kind"], "join")
+        self.assertEqual(window["check_at"], 2)
+        self.assertEqual(window["sides"]["left"]["source_id"], "a")
+        self.assertEqual(window["sides"]["right"]["source_id"], "b")
+        self.assertEqual(window["sides"]["left"]["source_time"], window["sides"]["right"]["source_time"])
+
+    def test_overlapping_review_windows_stay_separate_and_within_media(self):
+        windows = compile_plan(self.plan, review_context=100)["review_windows"]
+        self.assertEqual(len(windows), 4)
+        self.assertEqual(len({window["window_id"] for window in windows}), 4)
+        for window in windows:
+            self.assertEqual((window["timeline_start"], window["timeline_end"]), (0, 5.9))
+
+    def test_new_revision_regenerates_review_positions(self):
+        before = compile_plan(self.plan)["review_windows"]
+        self.plan["revision"] = "roughcut-002"
+        self.plan["keep"][0]["end"] = 3
+        after = compile_plan(self.plan)["review_windows"]
+        self.assertEqual(after[1]["check_at"], 2.1)
+        self.assertEqual(after[1]["sides"]["left"]["source_time"], 3)
+        self.assertTrue(all(window["revision"] == "roughcut-002" for window in after))
+        self.assertTrue(all(window["revision"] == "roughcut-001" for window in before))
+
+    def test_invalid_review_context_is_rejected(self):
+        for context in (True, 0, -1, 1e-10, float("nan"), float("inf"), 10 ** 400):
+            with self.subTest(context=context):
+                with self.assertRaises(SpeechPlanError):
+                    compile_plan(self.plan, review_context=context)
+
     def test_out_of_bounds_zero_length_and_nonfinite_times_are_rejected(self):
         for start, end in ((-1, 2), (1, 11), (1, 1), (float("nan"), 2), (1, float("inf")), (True, 2), (1, 10 ** 400)):
             with self.subTest(start=start, end=end):
@@ -160,6 +282,35 @@ class SpeechEditPlanTest(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(result.stdout)["anchor"]["spans"][0]["timeline_start"], 4.1)
         self.assertEqual(FIXTURE.read_bytes(), original)
+
+    def test_cli_review_context_sets_windows_without_claiming_media_verification(self):
+        result = subprocess.run([
+            sys.executable, str(ROOT / "scripts/speech_edit_plan.py"), str(FIXTURE),
+            "--review-context", "0.5",
+        ], capture_output=True, text=True, encoding="utf-8", check=False)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        report = json.loads(result.stdout)
+        window = report["review_windows"][1]
+        self.assertEqual((window["timeline_start"], window["timeline_end"]), (2.1, 3.1))
+        self.assertFalse(report["media_verified"])
+
+    def test_cli_rejects_protected_removal_without_saving_a_report(self):
+        self.plan["cuts"] = []
+        self.plan["keep"][1]["start"] = 6.2
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "plan.json"
+            output = Path(temporary) / "report.json"
+            source.write_text(json.dumps(self.plan), encoding="utf-8")
+            before = source.read_bytes()
+            result = subprocess.run([
+                sys.executable, str(ROOT / "scripts/speech_edit_plan.py"), str(source),
+                "--output", str(output),
+            ], capture_output=True, text=True, encoding="utf-8", check=False)
+            self.assertEqual(result.returncode, 1)
+            self.assertIn("correct-price: protected range", result.stderr)
+            self.assertEqual(result.stdout, "")
+            self.assertFalse(output.exists())
+            self.assertEqual(source.read_bytes(), before)
 
     def test_cli_rejects_corrupt_input_without_writing_output(self):
         with tempfile.TemporaryDirectory() as temporary:

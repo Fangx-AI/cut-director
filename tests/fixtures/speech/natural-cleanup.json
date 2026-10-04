@@ -24,6 +24,10 @@
     {"segment_id": "correct-take", "source_id": "camera-a", "start": 5.2, "end": 6.5},
     {"segment_id": "emphasis", "source_id": "camera-a", "start": 7, "end": 9}
   ],
+  "protected_ranges": [
+    {"protection_id": "complete-term", "source_id": "camera-a", "start": 1.5, "end": 2.4, "reason": "完整词免费额度必须保留，不按字符删额"},
+    {"protection_id": "correct-price", "source_id": "camera-a", "start": 5.2, "end": 6.2, "reason": "保留已确认的正确金额与单位"}
+  ],
   "cuts": [
     {"cut_id": "filler", "source_id": "camera-a", "start": 0.2, "end": 0.6, "kind": "filler", "reason": "孤立犹豫音；只删除词本身，不替换免费额度中的额"},
     {"cut_id": "failed-take", "source_id": "camera-a", "start": 3.5, "end": 5.2, "kind": "retake", "reason": "失败数字和制作修正由完整十九元版本覆盖；保留前面的然后"},
