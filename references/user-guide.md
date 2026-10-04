@@ -7,11 +7,21 @@
 推荐在支持 Skill Installer 的 Codex 中发送：
 
 ```text
-$skill-installer install https://github.com/Fangx-AI/cut-director
-使用仓库根目录，技能命名 cut-director。
+$skill-installer 安装 Fangx-AI/cut-director。
+使用分支 codex/talking-head-editor 的仓库根目录。
+技能目录命名 cut-director，不覆盖已有版本。
 ```
 
-执行剪辑还需要连接 ChatCut；安装本 Skill 不会自动安装、登录或购买 ChatCut。
+上面安装完整口播流程的预览分支，尚未合并到 `main`；真人素材回归仍待完成。执行剪辑还需要连接 ChatCut；安装本 Skill 不会自动安装、登录或购买 ChatCut。
+
+### 主分支与其他安装方式
+
+下面未指定分支的方式安装 `main`，不包含尚未合并的预览改动：
+
+```text
+$skill-installer install https://github.com/Fangx-AI/cut-director
+使用仓库根目录，技能命名 cut-director，不覆盖已有版本。
+```
 
 **使用终端安装。** 已安装 Node.js 时，可以用 [skills CLI](https://github.com/vercel-labs/skills) 指定 Codex：
 
@@ -44,7 +54,7 @@ CLI 安装的版本可用 `npx skills update cut-director --global` 更新；更
 
 ### 指定版本与测试分支
 
-默认 URL 和 CLI 命令安装 `main`。本轮完整语音流程在 [PR 19](https://github.com/Fangx-AI/cut-director/pull/19) 的 `codex/talking-head-editor` 分支中，尚未合并；不要把主分支安装当成本轮预览。
+未指定版本的 URL 和 CLI 命令安装 `main`。本轮完整语音流程在 [PR 19](https://github.com/Fangx-AI/cut-director/pull/19) 的 `codex/talking-head-editor` 分支中，尚未合并；不要把主分支安装当成本轮预览。
 
 要体验本轮版本，在 Codex 中发送这一段：
 
@@ -54,12 +64,16 @@ $skill-installer 安装 Fangx-AI/cut-director。
 技能目录命名 cut-director，不覆盖已有版本。
 ```
 
-固定历史版本时，把分支名换成目标提交 SHA。已有同名安装时先保留个人修改；安装器拒绝覆盖不代表应直接删除原目录。需要隔离试用时，让安装助手使用测试项目目录，而不是替换全局版本。
+固定历史版本时，把分支名换成目标提交 SHA。已有同名安装时先保留个人修改；安装器拒绝覆盖不代表应直接删除原目录。
+
+**已有旧版，想隔离试用？** 选一个独立测试项目，让安装助手把预览版放到该项目的 `.agents/skills/cut-director`，而不是任意下载目录或全局 Skills。然后在这个项目目录中开始 Codex 对话；下一轮若未出现，可重启 Codex。项目级扫描位置依据 [Codex 官方说明](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills)。
+
+同名 Skill 可能同时出现在选择器中，不要假定项目版本会覆盖全局旧版。先让助手确认本次读取的 `SKILL.md` 完整路径和安装来源版本；有歧义时明确提供测试项目中的 `SKILL.md` 路径。这里只确认指南已加载，不代表 ChatCut 或媒体已可用。
 
 <details>
 <summary>安装助手与维护者：根目录和带斜杠分支的参数</summary>
 
-当前 Skill Installer 脚本应使用 `--repo Fangx-AI/cut-director`、`--ref codex/talking-head-editor`、`--path .`、`--name cut-director`。测试可另加 `--dest <隔离目录>`。
+当前 Skill Installer 脚本应使用 `--repo Fangx-AI/cut-director`、`--ref codex/talking-head-editor`、`--path .`、`--name cut-director`。隔离使用时另加 `--dest <测试项目>/.agents/skills`；结果为其下的 `cut-director` 目录。在任意下载目录做文件测试，不等于 Codex 在当前项目已经发现这个 Skill。
 
 不要只根据 `.../tree/codex/talking-head-editor` URL 猜 ref：当前安装器把 `tree` 后第一个路径段作为 ref，带斜杠分支应显式传 `--ref`。根目录 `.` 也需要明确 `--name`，不能把 `.` 当技能目录名。
 
@@ -69,14 +83,27 @@ $skill-installer 安装 Fangx-AI/cut-director。
 
 ## 第一次只需要这些
 
-提供目标 ChatCut 项目或已拍视频，再说清这次要做什么：剪语音、调整节奏、加字幕、配声音、加动画或完整剪辑。目标画幅或风格与当前项目不同时补充说明。可以先只给逐字稿做方案，但没有视频和音频无法实际剪辑或试听。
+提供有权使用的已拍视频或目标 ChatCut 项目，说明在 Desktop 还是网页端工作；已有的信息不用再填一次。第一次建议只在独立测试副本剪一小段原声，先听是否自然，再继续全片。这里的 30 秒是试用建议，不是每个任务的硬性限制。
 
 ```text
-使用 $cut-director 剪辑这条口播：去无意义口癖、失败重录和重复句，保留自然节奏。
-再加清楚的字幕和适合内容的动画，沿用当前项目风格。
+使用 $cut-director，在独立测试副本中
+先剪这条口播的开头 30 秒；不足 30 秒就用实际时长。
+去无意义口癖、失败重录和重复句，压缩空等，保留原意与自然语气。
+先只剪原声，不新增字幕、动画或生成素材。
+给我可播放的粗剪，并说明重要删减和仍需核对的地方。
 ```
 
-语音清理请求可直接在范围内执行并展示粗剪。要求只预览时先预览；新增动画风格先看代表片段，沿用已接受的方向继续。所有字幕、动画和音效以剪后时间为依据。已提供的信息和已确认的方向应延续使用。详见[完整流程](talking-head-workflow.md)。
+听关键接缝、数字与否定句，以及必要的停顿。可以直接反馈“这句别删”或“这里太急”，先局部恢复再继续，不需要整片重做。
+
+认可粗剪后再说：
+
+```text
+这个原声节奏可以，按这个方向继续剩下的口播。
+再加清楚的字幕和适合内容的动画，沿用当前风格。
+新的视觉风格先给我看一个片段。
+```
+
+安装成功、ChatCut 已连接、文字方案和实际应用的剪辑，是四件不同的事。只有逐字稿时只能先做方案；静帧预览或字幕文字改正不代表原声已剪好。要求只预览时不要应用。所有字幕、动画和音效以剪后时间为依据。详见[完整流程](talking-head-workflow.md)。
 
 ## 怎样修改
 

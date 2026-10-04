@@ -4,6 +4,8 @@
 
 工程、安装与实际项目页检查见 [2026-10-04 检查记录](quality-review-2026-10-04.md)。历史视觉前向评分不代表当前语音分支已经通过回归。
 
+新增[独立文字决策对照](speech-review-benchmark.md)：8 个合成场景、34 个语义单元，官方指南基线与 CutDirector 均符合允许动作，结果持平。保存了实际代理输出和可复算评分。它不是 ChatCut 内部 Agent 的实测，也不证明真实剪点、试听或成片质量。
+
 `test_speech_edit_plan.py` 使用 [合成剪辑计划](fixtures/speech/natural-cleanup.json) 验证：
 
 - 保留区间连续组装、剪后时长与偏移计算。

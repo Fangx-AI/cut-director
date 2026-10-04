@@ -15,37 +15,39 @@ Filler words, retakes, pacing, captions, sound, and visuals, all serving what yo
 
 ## Get Started
 
+**The full speech-editing workflow is a preview.** Real-footage deletion accuracy, natural audio, and end-to-end export have not been accepted yet. [Validation scope](tests/speech-validation.md)
+
 In Codex with Skill Installer, send:
 
-The default installs the published `main` branch. To try changes not yet merged, [install a specific revision](references/user-guide.md#install-a-preview).
-
 ```text
-$skill-installer install https://github.com/Fangx-AI/cut-director
-Use the repository root and name the skill cut-director.
+$skill-installer install Fangx-AI/cut-director.
+Use the repository root on branch codex/talking-head-editor.
+Name the skill cut-director. Do not overwrite an existing installation.
 ```
 
-Use it in the next turn, connect ChatCut, and open your project. If the skill has not loaded, restart Codex. For a terminal installation with Node.js, see the [skills CLI](https://github.com/vercel-labs/skills):
+Use it in the next turn, connect ChatCut, and open your project. If the skill has not loaded, restart Codex. [Stable branch and other installation options](references/user-guide.md#安装与更新)
 
-```sh
-npx skills add Fangx-AI/cut-director --skill cut-director --agent codex --global
-```
-
-Then ask for the outcome:
+Start with a short cut you can listen to:
 
 ```text
-Use $cut-director on this talking-head video.
+Use $cut-director in an independent test copy.
+Edit the first 30 seconds, or the actual duration if shorter.
 Remove meaningless fillers, failed retakes,
 redundant sentences, and empty delays.
 Keep the meaning and natural delivery.
-Add clear captions and relevant visuals.
-Preview one clip for any new visual style.
+Edit the original speech only; add no captions, visuals, or generated assets yet.
+Give me a playable rough cut, the important cuts, and anything still needing review.
 ```
+
+The first result should include a playable rough cut and actual before/after durations, not just a claim that it has been optimized. For a proposal only, ask to preview deletions without applying them. [First-use steps](references/user-guide.md#第一次只需要这些)
 
 You can request just one change, such as "remove fillers only," "tighten the pacing," "fix captions," or "add a Logo here." Keep the accepted parts of the edit.
 
 Execution requires accessible media and the appropriate ChatCut tools. Text alone supports a proposal, not audio editing or listening validation. The skill does not include a ChatCut account or generation credits.
 
 ## Watch Real Examples
+
+These are existing visual examples, not before/after evidence for the new speech cleanup.
 
 <a href="assets/verified-prompts/prompt-001-gesture-logo-pop.mp4"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/previews/prompt-001-still.jpg"><img src="assets/previews/prompt-001.webp" alt="Official brand icons appear beside the presenter at confirmed pointing gestures" width="100%"></picture></a>
 

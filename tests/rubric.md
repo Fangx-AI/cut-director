@@ -28,7 +28,7 @@ S9 直接执行硬门槛：回答必须用独立句明确说明当前不生成�
 - Record `intake-valid; Map-score not applicable`; exclude it from the `>=12/14` Map comparison.
 - Overall pass condition: mappable scenarios must score `>=12/14` and satisfy the existing hard gates; no-anchor scenarios must be `intake-valid` and pass scenario-specific validations.
 
-## 口播剪辑场景 S12–S20
+## 口播剪辑场景 S12–S23
 
 只对实际涉及的能力评分，不给语音清理强加 Visual Beat Map。每项 0–2 分：
 

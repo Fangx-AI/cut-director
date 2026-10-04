@@ -19,26 +19,30 @@
 
 ## 开始使用
 
+**完整口播流程目前是预览版**，真人原片的误删、听感和完整导出尚未验收。[当前验证范围](tests/speech-validation.md)
+
 **1. 安装 Skill。** 在支持 Skill Installer 的 Codex 聊天中发送：
 
-默认安装 `main` 已发布版本。体验尚未合并的改动，请用[测试分支安装](references/user-guide.md#install-a-preview)。
-
 ```text
-$skill-installer install https://github.com/Fangx-AI/cut-director
-使用仓库根目录，技能命名 cut-director。
+$skill-installer 安装 Fangx-AI/cut-director。
+使用分支 codex/talking-head-editor 的仓库根目录。
+技能目录命名 cut-director，不覆盖已有版本。
 ```
 
-安装后在下一轮对话调用，连接 ChatCut 并打开要剪的项目。[其他安装方式与常见问题](references/user-guide.md#安装与更新)
+安装后在下一轮对话调用，连接 ChatCut 并打开要剪的项目。[主分支、其他安装方式与常见问题](references/user-guide.md#安装与更新)
 
-**2. 说出这次想要的结果。** 不需要学习内部规则，也不必一次做完所有环节。
+**2. 先剪一小段，听听效果。** 不需要学习内部规则，也不必一次做完所有环节。
 
 ```text
-使用 $cut-director 剪辑这条口播。
+使用 $cut-director，在独立测试副本中
+先剪这条口播的开头 30 秒；不足 30 秒就用实际时长。
 去无意义口癖、失败重录和重复句，
 压缩空等，保留原意与自然语气。
-加清楚的字幕和适合内容的动画，
-新的视觉风格先做一个片段给我看。
+先只剪原声，不新增字幕、动画或生成素材。
+给我可播放的粗剪，并说明重要删减和仍需核对的地方。
 ```
+
+第一份结果应是可播放的粗剪、实际剪前/剪后时长和重要删减，不是“已经优化”的文字结论。只想看方案，可把“先剪”改成“先预览会删哪些，不要应用”。[第一条口播的完整步骤](references/user-guide.md#第一次只需要这些)
 
 也可以只说 **“只去口癖”**、**“节奏紧一点”**、**“只改字幕”** 或 **“给这里加 Logo”**。
 已有的原声剪辑和已接受的风格会按这次要求保留。
@@ -48,6 +52,8 @@ $skill-installer install https://github.com/Fangx-AI/cut-director
 <a id="已验证效果"></a>
 
 ## 先看真实效果
+
+下面是已有的动画案例，不是新增语音清理的前后对比。
 
 ### 品牌随着手势出现
 

@@ -1,0 +1,231 @@
+{
+  "version": "1.0",
+  "cases": [
+    {
+      "case_id": "C01",
+      "decisions": [
+        {
+          "unit_id": "u1",
+          "action": "cut",
+          "reason": "已明确标记为独立犹豫音，不承载信息，建议删除。"
+        },
+        {
+          "unit_id": "u2",
+          "action": "keep",
+          "reason": "说明超额计费条件；“额度”是完整词，不能按口癖拆删。"
+        },
+        {
+          "unit_id": "u3",
+          "action": "keep",
+          "reason": "“然后”表示操作顺序，不是无意义口癖。"
+        },
+        {
+          "unit_id": "u4",
+          "action": "keep",
+          "reason": "“那个”指向具体选项，否定指令及收费后果均需保留。"
+        }
+      ],
+      "audio_verified": false,
+      "next_step": "仅提供建议；实际剪点需原声和可信词点核对，保持原顺序，不应用。"
+    },
+    {
+      "case_id": "C02",
+      "decisions": [
+        {
+          "unit_id": "u1",
+          "action": "keep",
+          "reason": "交代第二个选择的适用人群，后续重录未覆盖这项引入。"
+        },
+        {
+          "unit_id": "u2",
+          "action": "keep",
+          "reason": "这一遍完整说明离线记录及回办公室同步，文字上比后一次完整。"
+        },
+        {
+          "unit_id": "u3",
+          "action": "cut",
+          "reason": "已确认是对剪辑者说的重录指令，不属于讲解。"
+        },
+        {
+          "unit_id": "u4",
+          "action": "cut",
+          "reason": "同一意图的未完成尝试，信息已由完整的前一遍覆盖。"
+        },
+        {
+          "unit_id": "u5",
+          "action": "keep",
+          "reason": "说明无网络时仍可记录的实际意义，与保留的完整说法衔接。"
+        }
+      ],
+      "audio_verified": false,
+      "next_step": "建议保留完整的前一遍；实际剪辑前核对删除处接缝，不拼接两次尝试。"
+    },
+    {
+      "case_id": "C03",
+      "decisions": [
+        {
+          "unit_id": "u1",
+          "action": "keep",
+          "reason": "提供团购门槛的主题引入，不属于口误。"
+        },
+        {
+          "unit_id": "u2",
+          "action": "cut",
+          "reason": "金额和周期已被明确撤回，不能与正确条件并存。"
+        },
+        {
+          "unit_id": "u3",
+          "action": "cut",
+          "reason": "这是撤回口误并要求重来的制作话语，修正后无需保留。"
+        },
+        {
+          "unit_id": "u4",
+          "action": "keep",
+          "reason": "完整的新说法同时包含首月价格和第二个月恢复原价的条件。"
+        },
+        {
+          "unit_id": "u5",
+          "action": "keep",
+          "reason": "运费不包含在价格内是独有的费用限定，不能随口误删掉。"
+        }
+      ],
+      "audio_verified": false,
+      "next_step": "建议删除被撤回说法及重来备注；保留全部正确条件，接缝待原声核对。"
+    },
+    {
+      "case_id": "C04",
+      "decisions": [
+        {
+          "unit_id": "u1",
+          "action": "keep",
+          "reason": "作为免费导出的引入，与紧随其后的“但”构成完整限定关系。"
+        },
+        {
+          "unit_id": "u2",
+          "action": "keep",
+          "reason": "限定免费仅适用于测试版，并说明水印，防止首句被理解为普遍免费。"
+        },
+        {
+          "unit_id": "u3",
+          "action": "keep",
+          "reason": "新增正式版收费且非无限次的限制，不能归为重复。"
+        },
+        {
+          "unit_id": "u4",
+          "action": "keep",
+          "reason": "提供团队协作额度需另购的具体例子，前文未完整覆盖。"
+        },
+        {
+          "unit_id": "u5",
+          "action": "cut",
+          "reason": "测试版免费导出及水印信息已由前面的限定完整表达，没有新增条件。"
+        }
+      ],
+      "audio_verified": false,
+      "next_step": "建议仅删除末尾重复说明，保留引入、限定和例子；自然度待原声核对。"
+    },
+    {
+      "case_id": "C05",
+      "decisions": [
+        {
+          "unit_id": "u1",
+          "action": "keep",
+          "reason": "“这句后期删掉”是教学中的引用，整句承担讲解作用。"
+        },
+        {
+          "unit_id": "u2",
+          "action": "cut",
+          "reason": "已确认是真实制作备注，后续讲解不依赖它；不据此扩大删除范围。"
+        },
+        {
+          "unit_id": "u3",
+          "action": "keep",
+          "reason": "角色喊“重来”是剧情引用，说明引用与失败重录的区别。"
+        }
+      ],
+      "audio_verified": false,
+      "next_step": "建议只删除确定的制作备注，两处引用及其讲解保持不变。"
+    },
+    {
+      "case_id": "C06",
+      "decisions": [
+        {
+          "unit_id": "u1",
+          "action": "keep",
+          "reason": "原声已接受，句首“嗯”不在本次修改范围；仅建议修正对应字幕错字。"
+        },
+        {
+          "unit_id": "u2",
+          "action": "keep",
+          "reason": "原声中的重复已被接受，不能借字幕校对清理；仅修正“批次”的误识别。"
+        },
+        {
+          "unit_id": "u3",
+          "action": "keep",
+          "reason": "用户要求节奏不动，原声停顿必须完整保留。"
+        },
+        {
+          "unit_id": "u4",
+          "action": "keep",
+          "reason": "保留已接受原声及订单适用限制，本次不作语音编辑。"
+        }
+      ],
+      "audio_verified": false,
+      "next_step": "仅建议将字幕“批刺”更正为“批次”；声音、时序、节奏和动画不变，未应用。"
+    },
+    {
+      "case_id": "C07",
+      "decisions": [
+        {
+          "unit_id": "u1",
+          "action": "cut",
+          "reason": "明确为独立犹豫音，删除建议符合其余部分收紧的要求。"
+        },
+        {
+          "unit_id": "u2",
+          "action": "keep",
+          "reason": "用户明确要求整句完整保留，否定与适用范围均不得删改。"
+        },
+        {
+          "unit_id": "u3",
+          "action": "keep",
+          "reason": "这是用户指定保护的停顿，收紧节奏不能覆盖该要求。"
+        },
+        {
+          "unit_id": "u4",
+          "action": "keep",
+          "reason": "明确指出需要线下指导的人群，补充不适合的具体条件。"
+        },
+        {
+          "unit_id": "u5",
+          "action": "review",
+          "reason": "仅标记为候选空等，缺少原声，无法排除呼吸、轻声或表达停顿，暂留。"
+        }
+      ],
+      "audio_verified": false,
+      "next_step": "保护指定句和停顿；候选空等待原声证实后再决定是否压缩，不预设剪后时长。"
+    },
+    {
+      "case_id": "C08",
+      "decisions": [
+        {
+          "unit_id": "u1",
+          "action": "review",
+          "reason": "十五与五十无法从现有证据区分，暂留，不凭产品常识替换金额。"
+        },
+        {
+          "unit_id": "u2",
+          "action": "review",
+          "reason": "重复可能来自识别而非实际发音，暂留；未证实前不能建议删除原声中的一个“所以”。"
+        },
+        {
+          "unit_id": "u3",
+          "action": "keep",
+          "reason": "说明先试用以判断适合程度，与前句建议形成完整逻辑，没有确定冗余。"
+        }
+      ],
+      "audio_verified": false,
+      "next_step": "仅保留方案，不应用；待原声证据核对金额及重复，再区分字幕纠错与语音删减。"
+    }
+  ]
+}
