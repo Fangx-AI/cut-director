@@ -1,0 +1,36 @@
+{
+  "version": "0.1",
+  "mode": "linear-1x",
+  "revision": "roughcut-001",
+  "sources": [
+    {
+      "source_id": "camera-a",
+      "duration": 10,
+      "words": [
+        {"word_id": "w1", "text": "呃", "start": 0.2, "end": 0.6},
+        {"word_id": "w2", "text": "先看", "start": 1, "end": 1.4},
+        {"word_id": "w3", "text": "免费额度", "start": 1.5, "end": 2.4},
+        {"word_id": "w4", "text": "然后", "start": 3, "end": 3.4},
+        {"word_id": "w5", "text": "每月九十", "start": 3.5, "end": 4.2},
+        {"word_id": "w6", "text": "说错了", "start": 4.4, "end": 5},
+        {"word_id": "w7", "text": "每月十九元", "start": 5.2, "end": 6.2},
+        {"word_id": "w8", "text": "真的", "start": 7.2, "end": 7.6},
+        {"word_id": "w9", "text": "真的很重要", "start": 7.7, "end": 8.6}
+      ]
+    }
+  ],
+  "keep": [
+    {"segment_id": "setup", "source_id": "camera-a", "start": 0.9, "end": 3.5},
+    {"segment_id": "correct-take", "source_id": "camera-a", "start": 5.2, "end": 6.5},
+    {"segment_id": "emphasis", "source_id": "camera-a", "start": 7, "end": 9}
+  ],
+  "protected_ranges": [
+    {"protection_id": "complete-term", "source_id": "camera-a", "start": 1.5, "end": 2.4, "reason": "完整词免费额度必须保留，不按字符删额"},
+    {"protection_id": "correct-price", "source_id": "camera-a", "start": 5.2, "end": 6.2, "reason": "保留已确认的正确金额与单位"}
+  ],
+  "cuts": [
+    {"cut_id": "filler", "source_id": "camera-a", "start": 0.2, "end": 0.6, "kind": "filler", "reason": "孤立犹豫音；只删除词本身，不替换免费额度中的额"},
+    {"cut_id": "failed-take", "source_id": "camera-a", "start": 3.5, "end": 5.2, "kind": "retake", "reason": "失败数字和制作修正由完整十九元版本覆盖；保留前面的然后"},
+    {"cut_id": "empty-delay", "source_id": "camera-a", "start": 6.5, "end": 7, "kind": "silence", "reason": "缩短空等；保留强调前的气口"}
+  ]
+}

@@ -1,0 +1,533 @@
+{
+  "version": "1.0",
+  "source_type": "synthetic_transcript",
+  "cases": [
+    {
+      "case_id": "C01",
+      "request": "清理无意义口癖，保持原话意思和顺序，先给剪辑建议。",
+      "context": "这是测试用原创逐字稿，不是真实音频。u1 是单独标记的犹豫音；没有词点，不能验证剪点听感。",
+      "units": [
+        {
+          "unit_id": "u1",
+          "text": "呃……"
+        },
+        {
+          "unit_id": "u2",
+          "text": "超出的额度要另外计费。"
+        },
+        {
+          "unit_id": "u3",
+          "text": "然后再确认收件地址。"
+        },
+        {
+          "unit_id": "u4",
+          "text": "那个选项不要勾，它会额外收费。"
+        }
+      ],
+      "expected": [
+        {
+          "unit_id": "u1",
+          "acceptable": [
+            "cut",
+            "review"
+          ],
+          "critical_actions": []
+        },
+        {
+          "unit_id": "u2",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u3",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u4",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "C02",
+      "request": "同一句试了两遍，帮我清掉失败重录，留完整的一遍。",
+      "context": "u2 和 u4 是同一意图的两次尝试。u3 是对剪辑者说的话，不是引用。文字中的省略号表示没有说完，没有后续补全。",
+      "units": [
+        {
+          "unit_id": "u1",
+          "text": "第二个选择适合出差的人。"
+        },
+        {
+          "unit_id": "u2",
+          "text": "它能离线记录，回到办公室后再同步。"
+        },
+        {
+          "unit_id": "u3",
+          "text": "这句再试一遍。"
+        },
+        {
+          "unit_id": "u4",
+          "text": "它能离线记录，回到……"
+        },
+        {
+          "unit_id": "u5",
+          "text": "这样路上没有网络也不影响记录。"
+        }
+      ],
+      "expected": [
+        {
+          "unit_id": "u1",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u2",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u3",
+          "acceptable": [
+            "cut"
+          ],
+          "critical_actions": []
+        },
+        {
+          "unit_id": "u4",
+          "acceptable": [
+            "cut"
+          ],
+          "critical_actions": []
+        },
+        {
+          "unit_id": "u5",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "C03",
+      "request": "金额说错后重录了，删掉口误和重来那句，保留完整的正确条件。",
+      "context": "u3 明确撤回 u2；u4 是新的完整说法。测试只有文字，没有音频或可信词点。",
+      "units": [
+        {
+          "unit_id": "u1",
+          "text": "接下来讲团购门槛。"
+        },
+        {
+          "unit_id": "u2",
+          "text": "每月是一百二十元。"
+        },
+        {
+          "unit_id": "u3",
+          "text": "刚才金额和周期都说错了，重来。"
+        },
+        {
+          "unit_id": "u4",
+          "text": "首月十二元，第二个月恢复原价。"
+        },
+        {
+          "unit_id": "u5",
+          "text": "这个价格不包含运费。"
+        }
+      ],
+      "expected": [
+        {
+          "unit_id": "u1",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u2",
+          "acceptable": [
+            "cut"
+          ],
+          "critical_actions": [
+            "keep",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u3",
+          "acceptable": [
+            "cut"
+          ],
+          "critical_actions": []
+        },
+        {
+          "unit_id": "u4",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u5",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "C04",
+      "request": "有点重复，剪掉没有新增信息的部分，但不要改变结论和适用条件。",
+      "context": "文字为测试用完整语义单元。没有声音，不能判断哪一遍语气更自然。",
+      "units": [
+        {
+          "unit_id": "u1",
+          "text": "你可以免费导出。"
+        },
+        {
+          "unit_id": "u2",
+          "text": "但只有测试版会免费，而且导出会加水印。"
+        },
+        {
+          "unit_id": "u3",
+          "text": "正式版并不是免费，也不是无限次使用。"
+        },
+        {
+          "unit_id": "u4",
+          "text": "例如团队协作的额度要单独购买。"
+        },
+        {
+          "unit_id": "u5",
+          "text": "测试版免费导出，而且会加水印。"
+        }
+      ],
+      "expected": [
+        {
+          "unit_id": "u1",
+          "acceptable": [
+            "keep",
+            "cut"
+          ],
+          "critical_actions": []
+        },
+        {
+          "unit_id": "u2",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u3",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u4",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u5",
+          "acceptable": [
+            "cut",
+            "keep",
+            "review"
+          ],
+          "critical_actions": []
+        }
+      ]
+    },
+    {
+      "case_id": "C05",
+      "request": "剪干净，去掉确定的制作闲聊，讲解内容保持不变。",
+      "context": "u1 和 u3 是讲解中的引用。u2 是说话者转头对剪辑者发出的真实制作备注，后面没有依赖它的讲解。",
+      "units": [
+        {
+          "unit_id": "u1",
+          "text": "有人会说“这句后期删掉”，但这句话出现在教学案例里就不能机械删除。"
+        },
+        {
+          "unit_id": "u2",
+          "text": "刚才那条录错了，剪辑时别用这句备注。"
+        },
+        {
+          "unit_id": "u3",
+          "text": "小说里的角色喊“重来”，也是剧情而不是失败重录。"
+        }
+      ],
+      "expected": [
+        {
+          "unit_id": "u1",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u2",
+          "acceptable": [
+            "cut"
+          ],
+          "critical_actions": []
+        },
+        {
+          "unit_id": "u3",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "C06",
+      "request": "这版口播已经确认了，只改字幕里的错字，声音、节奏、动画都别动。",
+      "context": "u1-u4 是已经接受的原声内容。字幕把“批次”错识别成“批刺”。",
+      "units": [
+        {
+          "unit_id": "u1",
+          "text": "嗯，我先说明这个批次。"
+        },
+        {
+          "unit_id": "u2",
+          "text": "这个，这个批次只发二十件。"
+        },
+        {
+          "unit_id": "u3",
+          "text": "[原声停顿 0.8 秒]"
+        },
+        {
+          "unit_id": "u4",
+          "text": "不是所有订单都能参加。"
+        }
+      ],
+      "expected": [
+        {
+          "unit_id": "u1",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u2",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u3",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u4",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "C07",
+      "request": "其他地方紧一点，但是“不是每个人都适合”和后面那次停顿必须完整留着。",
+      "context": "u1 是独立犹豫音；u3 为用户指定停顿；u5 只标记为候选空等，不提供音频。",
+      "units": [
+        {
+          "unit_id": "u1",
+          "text": "呃……"
+        },
+        {
+          "unit_id": "u2",
+          "text": "不是每个人都适合。"
+        },
+        {
+          "unit_id": "u3",
+          "text": "[原声停顿 0.7 秒]"
+        },
+        {
+          "unit_id": "u4",
+          "text": "尤其是需要线下指导的人。"
+        },
+        {
+          "unit_id": "u5",
+          "text": "[候选空等 1.2 秒]"
+        }
+      ],
+      "expected": [
+        {
+          "unit_id": "u1",
+          "acceptable": [
+            "cut",
+            "review"
+          ],
+          "critical_actions": []
+        },
+        {
+          "unit_id": "u2",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u3",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u4",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u5",
+          "acceptable": [
+            "shorten",
+            "review"
+          ],
+          "critical_actions": []
+        }
+      ]
+    },
+    {
+      "case_id": "C08",
+      "request": "先告诉我会怎么剪，不要应用。这个金额可能识别错了，“所以所以”也可能是识别重复。",
+      "context": "无音频、无原片、无可信词点。u1 的金额可能是十五或五十，不能从产品常识确定。u2 是否实际重复未知。",
+      "units": [
+        {
+          "unit_id": "u1",
+          "text": "每份十五元。[ASR 可能把五十写成十五]"
+        },
+        {
+          "unit_id": "u2",
+          "text": "所以所以我们建议先试一份。[ASR 可能重复]"
+        },
+        {
+          "unit_id": "u3",
+          "text": "试试才知道是否合适。"
+        }
+      ],
+      "expected": [
+        {
+          "unit_id": "u1",
+          "acceptable": [
+            "review"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u2",
+          "acceptable": [
+            "review"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        },
+        {
+          "unit_id": "u3",
+          "acceptable": [
+            "keep"
+          ],
+          "critical_actions": [
+            "cut",
+            "shorten"
+          ]
+        }
+      ]
+    }
+  ]
+}

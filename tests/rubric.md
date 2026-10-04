@@ -1,5 +1,7 @@
 # CutDirector 行为验收量表
 
+## 视觉场景 S1–S11
+
 每项按 0、1、2 分评分。
 
 | 维度 | 0 分 | 1 分 | 2 分 |
@@ -25,3 +27,17 @@ S9 直接执行硬门槛：回答必须用独立句明确说明当前不生成�
 - It awards no points, does not mark any dimension as 2, and does not waive scenario-specific validations.
 - Record `intake-valid; Map-score not applicable`; exclude it from the `>=12/14` Map comparison.
 - Overall pass condition: mappable scenarios must score `>=12/14` and satisfy the existing hard gates; no-anchor scenarios must be `intake-valid` and pass scenario-specific validations.
+
+## 口播剪辑场景 S12–S23
+
+只对实际涉及的能力评分，不给语音清理强加 Visual Beat Map。每项 0–2 分：
+
+| 维度 | 0 分 | 1 分 | 2 分 |
+| --- | --- | --- | --- |
+| 保留原意 | 删除独有条件、否定、数字或必要指代 | 主意保留但衔接或限定不完整 | 完整事实、上下文、语气与逻辑保留 |
+| 清理判断 | 字符/相似度全局删除或机械选最后重录 | 能清理部分但误伤/漏删 | 区分犹豫、重录、冗余与有作用的重复 |
+| 自然节奏 | 归零气口、断词或声画分离 | 保留部分呼吸但接缝不确定 | 按任务调整节奏并核对真实接缝 |
+| 当前时间 | 使用原片旧时间或已删除词点 | 提醒重锚但未定位受影响范围 | 用当前粗剪版本与有效锚点同步字幕/动画 |
+| 范围与证据 | 预览请求仍写入，或编造试听/导出 | 部分区分但证据不完整 | 复用授权、处理局部请求、明确已验证和未知 |
+
+方案测试不得给“自然节奏”或“当前时间”的真实媒体检查记满分。实际执行场景通过需各适用项至少 1 分，且保留原意、范围与证据均为 2 分；断词、误删独有事实、预览越权、旧锚点执行或编造媒体验证直接不通过。合成时间映射由自动化测试独立记录。

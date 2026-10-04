@@ -33,6 +33,11 @@ The presence of a person in an image or video does not grant rights to use that
 person's name, image, voice, or likeness. Demonstration media is reserved as
 described in `LICENSE`.
 
+`assets/cutdirector-cover-v2.jpg` is AI-generated brand concept artwork based on
+the existing authorized presenter reference. It is not a ChatCut screenshot,
+real editing result, or evidence of product capabilities. It follows the
+reserved-brand/media terms in `LICENSE`.
+
 ## Original supplementary demonstrations
 
 `assets/prompt-examples/prompt-010*` through `prompt-015*` are original
