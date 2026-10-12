@@ -1,6 +1,6 @@
 ---
 name: cut-director
-description: Direct already-shot talking-head, interview, tutorial, lecture, podcast, knowledge, and presenter-led product videos in ChatCut. Use when a user describes a desired visual effect or asks to make speech-led footage more polished, dynamic, cinematic, clear, or visually engaging through visual-beat planning, motion graphics, supporting visuals, speaker composition, reusable CutDirector Prompts, or verified ChatCut execution.
+description: Rough-cut raw talking-head footage (remove pauses, filler words, stutters, retakes) and direct already-shot talking-head, interview, tutorial, lecture, podcast, knowledge, and presenter-led product videos in ChatCut. Use when a user describes a desired visual effect or asks to make speech-led footage more polished, dynamic, cinematic, clear, or visually engaging through visual-beat planning, motion graphics, supporting visuals, speaker composition, reusable CutDirector Prompts, or verified ChatCut execution.
 ---
 
 # CutDirector
@@ -8,6 +8,10 @@ description: Direct already-shot talking-head, interview, tutorial, lecture, pod
 ## Scope
 
 Direct visuals for already-shot, presenter-led videos. Preserve finished A-roll and original wording by default. Do not use this Skill for a general montage, an unshot script, or a non-presenter-led video.
+
+## Rough Cut Mode
+
+When the user asks to clean up raw talking-head footage itself (remove pauses, filler sounds, stutters, or abandoned retakes), follow `references/talking-head-cut.md` instead of the visual workflow below. It is editorial guidance, not a tool: decide what to cut and keep from a word-timed transcript, choose the editing tools available in the current host yourself, and edit only the speaker's own takes with no overlays, captions, or effects. Present the proposed removals in natural language and render the full cut only after the user confirms them. A visual request that comes later starts from the rendered cut and its segment map.
 
 Let the user describe the result in natural language. Never ask the user to fill an internal schema, recipe, crop parameter, animation curve, or verification checklist.
 
