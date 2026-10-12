@@ -1,30 +1,41 @@
 ---
 name: cut-director
-description: Edit raw talking-head (口播) footage into a clean cut with subtitles. Use when the user asks to clean up, rough-cut, or tighten a talking-head, tutorial, lecture, or presenter video (remove long pauses, filler sounds, stutters, abandoned retakes, and slips) or to add subtitles to such a video.
+description: 把原始口播剪干净并配上字幕。Use when the user asks to clean up, rough-cut, or subtitle a talking-head (口播) video: remove long pauses, filler sounds, stutters, retakes and slips, then add subtitles.
 ---
 
 # CutDirector
 
-## Scope
+只做一件事：把原始口播剪干净，再配上字幕。不加特效、音乐、B-roll，不调色，不改说话人的原话。
 
-Do one job well: turn the speaker's raw talking-head footage into a clean cut, then add plain subtitles. Keep the speaker's own words, voice, and style. Do not add effects, music, B-roll, or color grading, and do not rewrite what was said.
+这是一本手册，不是工具。用当前环境里已有的能力剪辑和识别，不要让用户安装软件或注册服务。
 
-This Skill is guidance, not a tool. Use whatever editing and transcription capabilities the current host already has; never ask the user to install software or sign up for a service.
+## 流程
 
-## Workflow
+1. **转写**：拿到逐字时间的转写。拿不到时只去停顿，不做字幕，交付时说明"语气词、口误和重录没有处理"。
+2. **剪辑**：按 [references/cut.md](references/cut.md)。
+3. **字幕**：按 [references/subtitles.md](references/subtitles.md)，复用同一份转写。用户说不要字幕就跳过。
+4. **自检**：两份文档末尾各有清单，不通过不交付。
+5. **交付**：一步到位，事后说明（见下）。
 
-1. **Cut.** Follow `references/talking-head-cut.md`. Read `references/talking-head-retakes.md` before judging retakes and slips.
-2. **Subtitles.** When the user wants subtitles, follow `references/talking-head-subtitles.md`, reusing the same word-timed transcript mapped through the cut list.
-3. **Deliver in one step.** Make every judgment yourself and deliver the finished files. Then tell the user, in a few sentences of their language, what was removed and at most three spots worth a listen. Walk through removals before rendering only when the user asks to review them first.
+## 硬规则
 
-If no word-timed transcript is available in the environment, only remove pauses, skip subtitles, and say plainly that filler sounds, slips, and retakes were not handled.
+- 不改原片，输出新文件。
+- 只在字与字之间下刀，尽量落在静音上，每个剪辑点做 20–30 毫秒音频淡入淡出。
+- 拿不准就保留。
+- 不往视频和字幕里加说话人没说过的话。
+- 自检结果如实说：哪些只做了文件检查，哪些真的看过、听过。
 
-## Hard Rules
+## 交付
 
-- Never modify the original file; write new outputs next to it.
-- Cut only between words, on real silence where possible, with short audio fades at every cut.
-- When unsure whether something should be cut, keep it.
-- Never put words the speaker did not say into the video or subtitles.
-- Self-check before delivery, and say honestly what was checked by file inspection only and what was actually watched or listened to.
+默认不给删除清单，直接出成片，用几句话说明：
 
-Let the user describe the result in natural language. Never ask the user to fill an internal schema, parameter, or checklist.
+> 剪好了：`成片_字幕版.mp4`，4:19 剪到 3:09，另附 `成片.srt`。
+>
+> 有两处你可以听一下：成片 1:05 那句你说了好几遍，我留了最后一遍；0:43 的"他"按识别结果写的，如果指的是产品应该是"它"。
+>
+> 哪里不对直接说，比如"1:05 换成前一遍"，我改完重新出。
+
+- 最多提三处，优先：接缝落在人声上的地方、内容在变的多遍重录、远距离更正、拿不准的名字。时间用成片里的时间。
+- 完整删除清单和字幕改动清单存成文件放在成片旁边，用户想看再给。
+- 用户说"先给我看清单"时，才在出片前列出要删的内容等确认。
+- 节奏默认"自然"，用户没说就不问。
