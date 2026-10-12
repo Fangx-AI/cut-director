@@ -86,6 +86,7 @@ $skill-installer install https://github.com/Fangx-AI/cut-director
 | 想做什么 | 从这里开始 |
 |---|---|
 | 先把原始口播剪干净 | [口播纯剪辑](references/talking-head-cut.md) |
+| 给剪好的口播配字幕 | [口播字幕](references/talking-head-subtitles.md) |
 | 按问题选效果 | [Prompt 索引](PROMPT-LIBRARY.md) |
 | 连续浏览已有完整 Prompt | [001–011 展示](PROMPTS.md) |
 | 做竖版、4:3 或局部变体 | [画幅与焦点变体](references/prompt-variants.md) |
