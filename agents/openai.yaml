@@ -1,4 +1,4 @@
 interface:
-  display_name: "CutDirector · 口播导演"
-  short_description: "用自然语言把口播变成可确认、可降级、可验证的视觉方案"
-  default_prompt: "使用 $cut-director 分析这条口播，找出最值得加画面的 3 个时刻，先做最值得的一个给我看。"
+  display_name: "CutDirector · 口播剪辑"
+  short_description: "把原始口播剪干净，再配上字幕"
+  default_prompt: "使用 $cut-director 把这条口播剪干净并配上字幕：<视频路径>"
