@@ -1,52 +1,63 @@
-<div align="center">
-
-![CutDirector](assets/brand-banner.svg)
-
 # CutDirector
 
-**把原始口播剪干净，再配上字幕。**
+![CutDirector：你管讲，它来剪。](assets/readme-hero.webp)
+
+<div align="center">
+
+**剪停顿 · 删重说 · 配字幕**
+
+给 Codex、Claude Code 的口播剪辑 Skill。交一条原片，拿到新视频 + SRT。
+
+**[让它剪第一条 →](#start)**
 
 </div>
 
-给 Codex、Claude Code 等智能体用的口播剪辑 Skill。把视频交给智能体，直接拿到剪好、带字幕的成片。
+<a id="怎么剪"></a>
 
-- 去掉过长停顿、"嗯呃"、口吃、重说和口误，同一句说了好几遍只留最好的一遍
-- 配一行一行的字幕，同时给 SRT；想要美化可以说“字幕重点强调一下”，有 6 种样式可选
-- 不加特效，不改你的原话
-- 不用安装任何东西
+## 你管讲，它来剪。
 
-## 安装
+**你管讲**
 
-在 Codex 中发送：
+> 嗯……我我我今天想聊一个问题。
+
+**它来剪**
+
+> 我今天想聊一个问题。
+
+*剪辑规则示意。保留原话和自然表达，原片不覆盖。*
+
+<a id="字幕样式"></a>
+
+## 字幕，也配好了。
+
+![同一句字幕的两种实际渲染：普通白字与重点高亮](assets/subtitle-preview.webp)
+
+默认普通字幕。想突出重点，就说：**“字幕重点高亮。”** [六种样式 →](references/subtitle-gallery.md)
+
+<a id="start"></a>
+<a id="安装"></a>
+<a id="使用"></a>
+
+## 让它剪第一条
+
+在 **Codex 对话**中安装：
 
 ```text
 $skill-installer install https://github.com/Fangx-AI/cut-director
 ```
 
-或者把整个仓库放到 `~/.codex/skills/cut-director`（Claude Code 是 `~/.claude/skills/cut-director`），然后重启。
-
-## 使用
+重启 Codex，把 `<视频路径>` 换成你的文件路径：
 
 ```text
-使用 $cut-director 把这条口播剪干净并配上字幕：<视频路径>
+使用 $cut-director 剪干净这条口播并配字幕：<视频路径>
 ```
 
-剪完它会告诉你剪了多少、哪几处值得听一下。哪里不对直接说，比如"1:05 换成前一遍"。
+[Claude Code / 手动安装 →](references/getting-started.md#安装)
 
-## 字幕样式
+需要环境已有的媒体处理与识别能力；没有逐字转写时，只处理停顿，不生成字幕。
 
-默认是普通字幕。说“字幕美化一下”“重点强调”时，它会从下面几种里挑（详见 [references/subtitle-styles.md](references/subtitle-styles.md)），只改样式，不改字：
+---
 
-| `standard` 普通 | `highlight` 重点高亮 | `box` 半透明底条 |
-|---|---|---|
-| ![standard](assets/subtitle-styles/standard.jpg) | ![highlight](assets/subtitle-styles/highlight.jpg) | ![box](assets/subtitle-styles/box.jpg) |
-| **`variety` 综艺大字** | **`minimal` 极简** | **`karaoke` 逐字变色** |
-| ![variety](assets/subtitle-styles/variety.jpg) | ![minimal](assets/subtitle-styles/minimal.jpg) | ![karaoke](assets/subtitle-styles/karaoke.jpg) |
+**下次录口播，记住：你管讲，它来剪。**
 
-## 致谢
-
-剪辑和字幕规则参考了 [video-use](https://github.com/browser-use/video-use)、[橙风剪口播](https://github.com/Agentchengfeng/chengfeng-videocut-skills)、[cut-video](https://github.com/louisedesadeleer/cut-video)、[FunClip](https://github.com/modelscope/FunClip)、[JJKoubo](https://github.com/darrenli6/JJKoubo) 的做法，并用真实口播实测修订。
-
-## 许可
-
-`SKILL.md` 和 `references/` 采用 [CC BY-SA 4.0](LICENSES/CC-BY-SA-4.0.txt)，脚本采用 [AGPL-3.0-or-later](LICENSES/AGPL-3.0-or-later.txt)，详见 [LICENSE](LICENSE)。转载或改编请署名 CutDirector by Fangx-AI。用它剪出的成片归你所有。
+[使用指南](references/getting-started.md) · [致谢](references/about.md) · [许可](LICENSE)
