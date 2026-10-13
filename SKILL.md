@@ -5,7 +5,7 @@ description: 把原始口播剪干净并配上字幕。Use when the user asks to
 
 # CutDirector
 
-只做一件事：把原始口播剪干净，再配上字幕。不加特效、音乐、B-roll，不调色，不改说话人的原话。
+只做一件事：把原始口播剪干净，再配上字幕。不加特效、音乐、B-roll，不调色，不改说话人的原话。字幕默认朴素，用户要美化时可以换样式。
 
 这是一本手册，不是工具。用当前环境里已有的能力剪辑和识别，不要让用户安装软件或注册服务。
 
@@ -13,7 +13,7 @@ description: 把原始口播剪干净并配上字幕。Use when the user asks to
 
 1. **转写**：拿到逐字时间的转写，识别前给出热词（见 cut.md「转写」）。拿不到时只去停顿，不做字幕，交付时说明"语气词、口误和重录没有处理"。
 2. **剪辑**：按 [references/cut.md](references/cut.md)。
-3. **字幕**：按 [references/subtitles.md](references/subtitles.md)，复用同一份转写。用户说不要字幕就跳过。剪辑和字幕连着做时只编码一次，出片时直接烧字幕。
+3. **字幕**：按 [references/subtitles.md](references/subtitles.md)，复用同一份转写。用户要美化、重点强调时，样式按 [references/subtitle-styles.md](references/subtitle-styles.md)。用户说不要字幕就跳过。剪辑和字幕连着做时只编码一次，出片时直接烧字幕。
 4. **自检**：两份文档末尾各有清单，不通过不交付。
 5. **交付**：一步到位，事后说明（见下）。
 
