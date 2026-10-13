@@ -32,6 +32,15 @@ class SubtitleStylesTest(unittest.TestCase):
         with self.assertRaises(SystemExit):
             build(parse_srt(SRT), 'karaoke')
 
+    def test_karaoke_keeps_pauses_between_words(self):
+        srt = '1\n00:00:00,000 --> 00:00:03,000\n你好世界\n'
+        ass, _, _ = build(parse_srt(srt), 'karaoke', words=[[['你好', .5, 1.0], ['世界', 2.0, 2.5]]])
+        self.assertIn(r'{\k50}{\kf50}你好{\k100}{\kf50}世界', ass)
+
+    def test_karaoke_rejects_words_that_differ_from_srt(self):
+        with self.assertRaises(SystemExit):
+            build(parse_srt(SRT), 'karaoke', words=[[['你一个月', .04, .9]], [['有一个', 2.4, 3.0]]])
+
     def test_overlong_line_is_reported_not_shrunk(self):
         long = '1\n00:00:00,000 --> 00:00:02,000\n' + '字' * 30 + '\n'
         ass, warnings, _ = build(parse_srt(long), 'standard')

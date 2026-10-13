@@ -91,9 +91,17 @@ def build(screens, style='standard', width=1080, height=1920, font='Noto Sans SC
         else:
             tag, soft_tag = r'\pos(%d,%d)' % (x, y), r'\pos(%d,%d)' % (x, y + round(fs * .07))
         if st.get('karaoke'):
-            body = ''.join(r'{\kf%d}%s' % (max(1, round((we - ws) * 100)), esc(w)) for w, ws, we in words[i - 1])
-            lead = max(0, round((words[i - 1][0][1] - s) * 100))
-            body = (r'{\k%d}' % lead if lead else '') + body
+            screen = words[i - 1] if i <= len(words) else []
+            if ''.join(w for w, _, _ in screen) != text:
+                raise SystemExit('第 %d 屏的逐字时间和 SRT 文字对不上，先改 --words 再做卡拉OK' % i)
+            # Emit each gap as a silent \k so highlights follow the absolute word times.
+            body, cursor = '', s
+            for w, ws, we in screen:
+                gap = round((ws - cursor) * 100)
+                if gap > 0:
+                    body += r'{\k%d}' % gap
+                body += r'{\kf%d}%s' % (max(1, round((we - ws) * 100)), esc(w))
+                cursor = max(cursor, we)
             plain = esc(text)
         else:
             w = highlights.get(i) if st['hl'] else None
