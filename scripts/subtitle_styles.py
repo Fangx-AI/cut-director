@@ -19,7 +19,7 @@ def bgr(hex_rgb, alpha=0):
 STYLES = {
     'standard':  dict(desc='普通字幕：白字黑边淡阴影（默认）', size=.055, bold=1, outline=.05, shadow=.03,
                       text='#FFFFFF', edge='#141414', soft=False, box=False, anim=False, hl=None),
-    'highlight': dict(desc='重点高亮：粗白字 + 柔和阴影，每屏最多一个黄色关键词，0.12 秒淡入上浮', size=.062, bold=1,
+    'highlight': dict(desc='重点高亮：粗白字 + 柔和阴影，每屏最多一个黄色关键词，0.12 秒淡入上浮', size=.067, bold=1,
                       outline=.06, shadow=0, text='#FFFFFF', edge='#101010', soft=True, box=False, anim=True,
                       hl='#FFD400', hl_scale=115),
     'box':       dict(desc='半透明底条：背景花、描边压不住时用', size=.055, bold=1, outline=.18, shadow=0,
@@ -122,7 +122,7 @@ def build(screens, style='standard', width=1080, height=1920, font='Noto Sans SC
 
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument('srt'); p.add_argument('-o', '--out', required=True)
+    p.add_argument('srt', nargs='?'); p.add_argument('-o', '--out')
     p.add_argument('--style', default='standard', choices=sorted(STYLES))
     p.add_argument('--size', default='1080x1920', help='视频宽x高')
     p.add_argument('--font', default='Noto Sans SC', help='字体族名（ffmpeg ass 滤镜用 fontsdir 指向字体文件夹）')
@@ -134,6 +134,8 @@ def main(argv=None):
         for k, v in STYLES.items():
             print('%-10s %s' % (k, v['desc']))
         return
+    if not a.srt or not a.out:
+        p.error('需要 SRT 文件和 -o 输出路径')
     if a.bottom > .82:
         p.error('--bottom 超过 0.82 会进平台按钮区')
     w, h = (int(v) for v in a.size.lower().split('x'))
